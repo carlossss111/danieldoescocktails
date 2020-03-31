@@ -1,0 +1,262 @@
+﻿/*CSS Reset*/
+* {
+    margin: 0;
+    padding: 0;
+    /*border: 0;*/
+    outline: 0;
+    vertical-align: baseline;
+}
+
+/*Main*/
+html {
+    font-family: 'Crimson pro', Georgia, serif;
+    font-size: 1.25rem; /*Put into 20px from 16px by default*/
+}
+
+/*Main*/
+body
+{
+    background-color:snow;
+    position:relative;
+    margin-top:1rem; /*under navbar*/
+}
+
+/*Headings and Paragraphs*/
+h1{
+    font-family:'Lato','Trebuchet MS',sans-serif;
+}
+
+h2 {
+    font-family: 'Merriweather', Georgia, serif;
+}
+
+/*Navigation Bar*/
+
+#navlogo {
+    border: none;
+    color: white;
+    flex-grow:14;
+    text-align:left;
+}
+
+nav {
+    font-family: 'Lato','Trebuchet MS',sans-serif;
+    position: fixed;
+    display:flex;
+    justify-content:flex-end;
+    top: 0;
+    width: 100%;
+    background-color: #c32222;
+    letter-spacing: 0.1rem;
+}
+
+    nav ul {
+        min-width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    nav li {
+        text-align: center;
+        border-right: 1px solid snow;
+        border-left: 1px solid snow;
+        flex-grow: 1;
+    }
+
+#navfirst{
+    border-left: 2px solid snow;
+}
+
+#navlast {
+    border-right: 2px solid snow;
+}
+
+    nav a {
+        color: snow;
+        text-decoration: none;
+        display: block;
+        padding: 0.25em 0.4em;
+    }
+
+        nav a:hover {
+            color: #c32222;
+            background-color:snow;
+        }
+
+
+/*Hero Image (PLACE HOLDER)*/
+#heroImage {
+    height: 45rem;
+    width: 100%;
+    background-image: url("https://barundbrot.de/wp-content/uploads/2019/02/bar_und_brot_sliderimage_201902-e1550171844302.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow:hidden;
+}
+
+    #heroImage h1 {
+        display:flex;
+        background-color: rgba(195, 34, 34,0.5);
+        justify-content: center;
+        align-items:center;
+        /*padding:0 30%;*/
+        height:100%;
+        /*line-height:45rem;
+        text-align:center;*/
+        color:white;
+    }
+/*Tag line*/
+.tagline {
+    /*width:60%;
+    padding: 0.2em 20%;*/
+    color: white;
+    text-align: justify;
+    background-color: #c32222;
+    font-size: 1.2em;
+}
+
+    .tagline p {
+        margin:0 auto;
+        padding:0 0.5em;
+        max-width: 840px;
+        min-width: 60%;
+    }
+
+/*Table*/
+table{
+    max-width:840px;
+    min-width:60%;
+    margin:1em auto;
+}
+
+img{
+   width:350px;
+   height:350px;
+}
+
+td {
+    border-top: 5px #c32222 solid;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.ingredients{
+    padding-left:2rem;
+    list-style:square;
+    font-family:merriweather,Georgia,serif;
+    font-style:italic;
+}
+
+.description{
+    text-align:justify;
+    border-top:none;
+    vertical-align:bottom;
+}
+
+.date{
+    float:right;
+    font-weight:bold;
+}
+
+.lastcell {
+    border-bottom: 5px #c32222 solid;
+}
+
+/*Footer*/
+footer {
+    width: 100%;
+    background-color:#c32222;
+    text-align:center;
+}
+
+    footer a {
+        margin:0 auto;
+        text-decoration: none;
+        font-family: 'Lato','Trebuchet MS',sans-serif;
+        font-weight: bold;
+        color: white;
+    }
+
+/*Table breakpoint*/
+@media only screen and (min-width:601px) and (max-width:840px){
+    /*Navbar*/
+    #navlogo{
+        width:100%;
+        text-align:center;
+    }
+    
+    .ingredients {
+        font-size: 0.85rem;
+    }
+
+    tr {
+        width:100%;
+        float: left;
+        clear: left;
+    }
+
+    .borderrow {
+        border-top: 5px #c32222 solid;
+    }
+
+    td, .lastcell {
+        border: none;
+    }
+
+    #lastrow {
+        border-bottom: 5px solid #c32222;
+    }
+}
+
+/*Mobile adjustments*/
+@media only screen and (max-width:600px){
+    /*Navbar*/
+    #navlogo{
+        flex-grow:1;
+        text-align:center;
+    }
+
+    nav li, #navlogo {
+        flex-basis: 40%;
+        border:1px solid snow;
+    }
+
+    #navfirst{
+        border-left:1px solid snow;
+    }
+
+    #navlast {
+        border-right: 1px solid snow;
+    }
+
+    /*Table*/
+    td {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        float: left;
+        clear: left;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    td, .lastcell {
+        border: none;
+    }
+
+    .ingredients{
+        list-style:none;
+        padding:0 0;
+    }
+
+    .description p {
+        padding: 0 6px;
+    }
+}
