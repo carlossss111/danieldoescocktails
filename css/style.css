@@ -212,20 +212,20 @@ footer {
 }
 
 /*Mobile adjustments*/
-@media only screen and (max-width:600px){
+@media only screen and (max-width:600px), (max-aspect-ratio:9/16) {
     /*Navbar*/
-    #navlogo{
-        flex-grow:1;
-        text-align:center;
+    #navlogo {
+        flex-grow: 1;
+        text-align: center;
     }
 
     nav li, #navlogo {
         flex-basis: 40%;
-        border:1px solid snow;
+        border: 1px solid snow;
     }
 
-    #navfirst{
-        border-left:1px solid snow;
+    #navfirst {
+        border-left: 1px solid snow;
     }
 
     #navlast {
@@ -251,9 +251,9 @@ footer {
         border: none;
     }
 
-    .ingredients{
-        list-style:none;
-        padding:0 0;
+    .ingredients {
+        list-style: none;
+        padding: 0 0;
     }
 
     .description p {
