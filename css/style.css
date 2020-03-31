@@ -86,15 +86,17 @@ nav {
         }
 
 
-/*Hero Image (PLACE HOLDER)*/
+/*Hero Image*/
+
 #heroImage {
-    height: 45rem;
+    height: 40rem;
     width: 100%;
     background-image: url("https://barundbrot.de/wp-content/uploads/2019/02/bar_und_brot_sliderimage_201902-e1550171844302.jpg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size:cover;
     overflow:hidden;
+    text-align:center;
 }
 
     #heroImage h1 {
@@ -102,14 +104,12 @@ nav {
         background-color: rgba(195, 34, 34,0.5);
         justify-content: center;
         align-items:center;
-        /*padding:0 30%;*/
         height:100%;
-        /*line-height:45rem;
-        text-align:center;*/
         color:white;
     }
-/*Tag line*/
-.tagline {
+
+        /*Tag line*/
+        .tagline {
     /*width:60%;
     padding: 0.2em 20%;*/
     color: white;
@@ -182,6 +182,11 @@ footer {
 
 /*Table breakpoint*/
 @media only screen and (min-width:601px) and (max-width:840px){
+
+    #heroImage{
+        height:30rem;
+    }
+
     /*Navbar*/
     #navlogo{
         width:100%;
@@ -211,25 +216,22 @@ footer {
     }
 }
 
-/*Table and navbar breakpoint*/
+/*Table and navbar breakpoint (mobile)*/
 @media only screen and (max-width:600px) {
+
+    #heroImage{
+        height:20rem;
+    }
+
     /*Navbar*/
     #navlogo {
-        flex-grow: 1;
+        width: 100%;
         text-align: center;
     }
 
-    nav li, #navlogo {
-        flex-basis: 40%;
-        border: 1px solid snow;
-    }
-
-    #navfirst {
-        border-left: 1px solid snow;
-    }
-
-    #navlast {
-        border-right: 1px solid snow;
+    nav a {
+        padding:initial 0px;
+        font-size: 0.6em;
     }
 
     /*Table*/
