@@ -211,8 +211,8 @@ footer {
     }
 }
 
-/*Mobile adjustments*/
-@media only screen and (max-width:600px), (max-aspect-ratio:9/16) {
+/*Table and navbar breakpoint*/
+@media only screen and (max-width:600px) {
     /*Navbar*/
     #navlogo {
         flex-grow: 1;
