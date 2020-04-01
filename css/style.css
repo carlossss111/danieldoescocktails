@@ -13,12 +13,27 @@ html {
     font-size: 1.25rem; /*Put into 20px from 16px by default*/
 }
 
-/*Main*/
 body
 {
     background-color:snow;
     position:relative;
-    margin-top:1rem; /*under navbar*/
+    margin-top:1.25rem; /*under navbar*/
+}
+
+.maincontainer {
+    max-width: 840px;
+    min-width: 60%;
+    margin: 1em auto;
+}
+
+section {
+    border-top: 5px #c32222 solid;
+    padding: 10px;
+    text-align: justify;
+}
+
+#lastsection {
+    border-bottom: 5px #c32222 solid;
 }
 
 /*Headings and Paragraphs*/
@@ -85,86 +100,6 @@ nav {
             background-color:snow;
         }
 
-
-/*Hero Image*/
-
-#heroImage {
-    height: 40rem;
-    width: 100%;
-    background-image: url("https://barundbrot.de/wp-content/uploads/2019/02/bar_und_brot_sliderimage_201902-e1550171844302.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover;
-    overflow:hidden;
-    text-align:center;
-}
-
-    #heroImage h1 {
-        display:flex;
-        background-color: rgba(195, 34, 34,0.5);
-        justify-content: center;
-        align-items:center;
-        height:100%;
-        color:white;
-    }
-
-        /*Tag line*/
-        .tagline {
-    /*width:60%;
-    padding: 0.2em 20%;*/
-    color: white;
-    text-align: justify;
-    background-color: #c32222;
-    font-size: 1.2em;
-}
-
-    .tagline p {
-        margin:0 auto;
-        padding:0 0.5em;
-        max-width: 840px;
-        min-width: 60%;
-    }
-
-/*Table*/
-table{
-    max-width:840px;
-    min-width:60%;
-    margin:1em auto;
-}
-
-img{
-   width:350px;
-   height:350px;
-}
-
-td {
-    border-top: 5px #c32222 solid;
-    padding: 10px;
-    vertical-align: top;
-}
-
-.ingredients{
-    padding-left:2rem;
-    list-style:square;
-    font-family:merriweather,Georgia,serif;
-    font-style:italic;
-}
-
-.description{
-    text-align:justify;
-    border-top:none;
-    vertical-align:bottom;
-}
-
-.date{
-    float:right;
-    font-weight:bold;
-}
-
-.lastcell {
-    border-bottom: 5px #c32222 solid;
-}
-
 /*Footer*/
 footer {
     width: 100%;
@@ -180,48 +115,17 @@ footer {
         color: white;
     }
 
-/*Table breakpoint*/
+/*Navbar breakpoint (tablet)*/
 @media only screen and (min-width:601px) and (max-width:840px){
 
-    #heroImage{
-        height:30rem;
-    }
-
-    /*Navbar*/
     #navlogo{
         width:100%;
         text-align:center;
     }
-    
-    .ingredients {
-        font-size: 0.85rem;
-    }
-
-    tr {
-        width:100%;
-        float: left;
-        clear: left;
-    }
-
-    .borderrow {
-        border-top: 5px #c32222 solid;
-    }
-
-    td, .lastcell {
-        border: none;
-    }
-
-    #lastrow {
-        border-bottom: 5px solid #c32222;
-    }
 }
 
-/*Table and navbar breakpoint (mobile)*/
+/*Navbar breakpoint (mobile)*/
 @media only screen and (max-width:600px) {
-
-    #heroImage{
-        height:20rem;
-    }
 
     /*Navbar*/
     #navlogo {
@@ -232,33 +136,5 @@ footer {
     nav a {
         padding:initial 0px;
         font-size: 0.6em;
-    }
-
-    /*Table*/
-    td {
-        width: 100%;
-        padding-right: 0;
-        padding-left: 0;
-        float: left;
-        clear: left;
-        text-align: center;
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-
-    td, .lastcell {
-        border: none;
-    }
-
-    .ingredients {
-        list-style: none;
-        padding: 0 0;
-    }
-
-    .description p {
-        padding: 0 6px;
     }
 }
