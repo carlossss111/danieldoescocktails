@@ -88,12 +88,13 @@ nav {
     border-right: 2px solid snow;
 }
 
-    nav a {
-        color: snow;
-        text-decoration: none;
-        display: block;
-        padding: 0.25em 0.4em;
-    }
+nav a {
+    color: snow;
+    text-decoration: none;
+    display: block;
+    padding: 0.25em 0.4em;
+    transition: all 200ms ease-in 50ms;
+}
 
         nav a:hover {
             color: #c32222;

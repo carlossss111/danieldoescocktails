@@ -73,10 +73,6 @@ td {
     font-weight: bold;
 }
 
-.lastcell {
-    border-bottom: 5px #c32222 solid;
-}
-
 /*Table breakpoint*/
 @media only screen and (min-width:601px) and (max-width:840px) {
 
@@ -98,13 +94,10 @@ td {
         border-top: 5px #c32222 solid;
     }
 
-    td, .lastcell {
+    td{
         border: none;
     }
 
-    #lastrow {
-        border-bottom: 5px solid #c32222;
-    }
 }
 
 /*Table and navbar breakpoint (mobile)*/
@@ -140,7 +133,7 @@ td {
         height: 100%;
     }
 
-    td, .lastcell {
+    td{
         border: none;
     }
 
