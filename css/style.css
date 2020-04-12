@@ -23,7 +23,8 @@ body
 .maincontainer {
     max-width: 840px;
     min-width: 60%;
-    margin: 1em auto;
+    margin: 3rem auto 1rem auto;
+
 }
 
 section {
@@ -31,11 +32,6 @@ section {
     padding: 10px;
     text-align: justify;
 }
-
-#lastsection {
-    border-bottom: 5px #c32222 solid;
-}
-
 /*Headings and Paragraphs*/
 h1{
     font-family:'Lato','Trebuchet MS',sans-serif;
