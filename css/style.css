@@ -108,7 +108,7 @@ tr {
     border-top: 5px #c32222 solid;
 }
 
-td {
+td, th{
     padding: 10px;
 }
 

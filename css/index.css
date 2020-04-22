@@ -72,6 +72,31 @@ td img{
     font-weight: bold;
 }
 
+/*Secondary table*/
+.secondTable th{
+    background-color: #d88;
+    color:white;
+    font-size:1.2rem;
+    text-align:justify;
+}
+
+.secondTable tr{
+    border-top-color: #d88;
+}
+
+.secondTable .itembox{
+    justify-content:space-around;
+}
+
+.secondTable h2{
+    font-size:1.75em;
+}
+
+.secondTable a{
+    color:black;
+    text-decoration:none;
+}
+
 /*Table breakpoint*/
 @media only screen and (min-width:601px) and (max-width:840px) {
     #heroImage{
