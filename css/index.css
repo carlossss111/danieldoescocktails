@@ -37,23 +37,24 @@
         min-width: 60%;
     }
 
-/*Table*/
-table {
-    max-width: 840px;
-    min-width: 60%;
-    margin: 1em auto;
+/*Table (index specific)*/
+/*TO DO: MEDIA QUERIES*/
+td img{
+    width:350px;
+    height:350px;
 }
 
-img {
-    width: 350px;
+.itembox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 350px;
+    overflow: auto;
 }
 
-td {
-    border-top: 5px #c32222 solid;
-    padding: 10px;
-    vertical-align: top;
-}
+    .itembox ul {
+        margin-bottom: auto;
+    }
 
 .ingredients {
     padding-left: 2rem;
@@ -64,8 +65,6 @@ td {
 
 .description {
     text-align: justify;
-    border-top: none;
-    vertical-align: bottom;
 }
 
 .date {
@@ -75,29 +74,18 @@ td {
 
 /*Table breakpoint*/
 @media only screen and (min-width:601px) and (max-width:840px) {
-
-    #heroImage {
-        height: 30rem;
+    #heroImage{
+        height:30rem;
     }
 
-    .ingredients {
-        font-size: 0.85rem;
+    td img{
+        width:300px;
+        height:300px;
     }
-
-    tr {
-        width: 100%;
-        float: left;
-        clear: left;
+    
+    .ingredients, .description{
+        font-size:0.9rem;
     }
-
-    .borderrow {
-        border-top: 5px #c32222 solid;
-    }
-
-    td{
-        border: none;
-    }
-
 }
 
 /*Table and navbar breakpoint (mobile)*/
@@ -119,30 +107,33 @@ td {
     }
 
     /*Table*/
-    td {
-        width: 100%;
-        padding-right: 0;
-        padding-left: 0;
-        float: left;
-        clear: left;
-        text-align: center;
-    }
+    /*td is in the main style css*/
 
-    img {
+    td img {
         width: 100%;
         height: 100%;
     }
 
-    td{
-        border: none;
+    td h2{
+        text-align:center;
     }
 
     .ingredients {
+        text-align:center;
         list-style: none;
         padding: 0 0;
     }
 
-    .description p {
-        padding: 0 6px;
+    .description{
+        padding:0 0.25rem;
+    }
+
+    .itembox{
+        padding-top:0;
+        height:initial;
+    }
+
+    .itembox ul {
+        margin-bottom: 0.25rem;
     }
 }

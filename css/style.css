@@ -4,7 +4,7 @@
     padding: 0;
     /*border: 0;*/
     outline: 0;
-    vertical-align: baseline;
+    /*vertical-align: baseline;*/
 }
 
 /*Main*/
@@ -17,13 +17,13 @@ body
 {
     background-color:snow;
     position:relative;
-    margin-top:1.25rem; /*under navbar*/
+    margin-top: 1.5rem; /*under navbar*/
 }
 
 .maincontainer {
     max-width: 840px;
     min-width: 60%;
-    margin: 3rem auto 1rem auto;
+    margin: 1rem auto 1rem auto;
 
 }
 
@@ -89,13 +89,28 @@ nav a {
     text-decoration: none;
     display: block;
     padding: 0.25em 0.4em;
-    transition: all 200ms ease-in 50ms;
+    transition: background-color 200ms ease-in 50ms, color 200ms ease-in 50ms;
 }
 
         nav a:hover {
             color: #c32222;
             background-color:snow;
         }
+
+/*Table for both Index and Cabinet*/
+/*This part has the structure of the table, content styling.*/
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+tr {
+    border-top: 5px #c32222 solid;
+}
+
+td {
+    padding: 10px;
+}
 
 /*Footer*/
 footer {
@@ -121,7 +136,7 @@ footer {
     }
 }
 
-/*Navbar breakpoint (mobile)*/
+/*Navbar and table breakpoint (mobile)*/
 @media only screen and (max-width:600px) {
 
     /*Navbar*/
@@ -133,5 +148,15 @@ footer {
     nav a {
         padding:initial 0px;
         font-size: 0.6em;
+    }
+    
+    /*Table*/
+    td {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        float: left;
+        clear: left;
+        text-align: justify;
     }
 }
