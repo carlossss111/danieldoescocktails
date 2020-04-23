@@ -1,0 +1,43 @@
+﻿/*Cabinet specific CSS*/
+table{
+    margin-top:4rem;
+}
+
+td h2{
+    text-align:center;
+}
+
+.imagebox {
+    /*note that images have a 4:3 size ratio*/
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 10rem;
+    height: 7.5rem;
+    padding: 0;
+}
+
+    .imagebox h2 {
+        background-color: rgba(195, 34, 34, 0.5);
+        color: white;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+@media only screen and (max-width:600px){
+
+    td{
+        overflow:auto;
+        height: calc(4.75rem - 20px);
+        font-size:0.8rem;
+    }
+
+    .imagebox {
+        width:6rem;
+        height:4.75rem;
+        float:none;
+    }
+}

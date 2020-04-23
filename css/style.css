@@ -108,8 +108,14 @@ tr {
     border-top: 5px #c32222 solid;
 }
 
+th {
+    background-color: #c32222;
+    color:white;
+}
+
 td, th{
     padding: 10px;
+    text-align:justify;
 }
 
 /*Footer*/
@@ -157,6 +163,10 @@ footer {
         padding-left: 0;
         float: left;
         clear: left;
-        text-align: justify;
+    }
+
+    footer{
+        position:fixed;
+        bottom:0;
     }
 }
