@@ -125,6 +125,10 @@ td img{
         height: 20rem;
     }
 
+    #heroLogo img{
+        height:2.5rem;
+    }
+
     /*Navbar*/
     #navlogo {
         width: 100%;
