@@ -50,6 +50,13 @@ h2 {
     text-align:left;
 }
 
+#navlogo img{
+    position:relative;
+    height: 30px;
+    top:2.5px;
+    width:214.2px;
+}
+
 nav {
     font-family: 'Lato','Trebuchet MS',sans-serif;
     position: fixed;
