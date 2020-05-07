@@ -132,12 +132,21 @@ footer {
     text-align:center;
 }
 
-    footer a {
+    footer a, footer p {
+        display:inline-block;
         margin:0 auto;
         text-decoration: none;
         font-family: 'Lato','Trebuchet MS',sans-serif;
         font-weight: bold;
         color: white;
+        margin: 0 30px;
+    }
+
+    footer img{
+        height:1rem;
+        width:1rem;
+        position:relative;
+        top:2.5px;
     }
 
 /*Navbar breakpoint (tablet)*/
@@ -172,8 +181,8 @@ footer {
         clear: left;
     }
 
-    footer{
-        position:fixed;
-        bottom:0;
+    /*Footer*/
+    footer p{
+        font-size:0.6rem;
     }
 }
