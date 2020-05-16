@@ -32,6 +32,11 @@ section {
     padding: 10px;
     text-align: justify;
 }
+
+section p{
+    padding-bottom: 1em;
+}
+
 /*Headings and Paragraphs*/
 h1{
     font-family:'Lato','Trebuchet MS',sans-serif;
