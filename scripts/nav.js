@@ -15,9 +15,7 @@ else{
 pageList = nav.querySelectorAll("a")
 pageList.forEach(function(page){
     if (page.innerHTML.toLowerCase() === myLocation.toLowerCase()){
-        console.log("MATCH")
         page.innerHTML = `<strong>${page.innerHTML}</strong>`;
-        console.log("NEW: ", page.innerHTML)
     }
 })
 
