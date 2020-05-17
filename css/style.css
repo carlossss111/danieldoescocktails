@@ -48,18 +48,22 @@ h2 {
 
 /*Navigation Bar*/
 
-#navlogo {
+#navlogoContainer {
     border: none;
     color: white;
     flex-grow:14;
     text-align:left;
 }
 
-#navlogo img{
+#navlogo{
     position:relative;
     height: 30px;
     top:2.5px;
     width:214.2px;
+}
+
+#hamburgerBtn{
+    display:none;
 }
 
 nav {
@@ -157,7 +161,7 @@ footer {
 /*Navbar breakpoint (tablet)*/
 @media only screen and (min-width:601px) and (max-width:840px){
 
-    #navlogo{
+    #navlogoContainer{
         width:100%;
         text-align:center;
     }
@@ -166,15 +170,50 @@ footer {
 /*Navbar and table breakpoint (mobile)*/
 @media only screen and (max-width:600px) {
 
-    /*Navbar*/
-    #navlogo {
-        width: 100%;
-        text-align: center;
+    /*New Navbar*/
+    nav ul{
+        flex-direction:column;
     }
 
-    nav a {
-        padding:initial 0px;
-        font-size: 0.6em;
+    nav li{
+        border-left:0;
+        border-right:0;
+        border-top:2px solid snow;
+
+        display:none;/*except logo container*/
+    }
+
+    #navfirst{
+        border-left:0;
+    }
+    
+    #navlast {
+        border-right:0;
+    }  
+    
+    #navlogoContainer {
+        width: 100%;
+        height:55px;
+        text-align: left;
+
+        display:block;
+    }
+
+    #navlogo{
+        position:relative;
+        top:11.5px;
+        margin-left:5px;
+    }
+
+    #hamburgerBtn{
+        display:block;
+        position:relative;
+        width:42px;
+        height:42px;
+        top:5.5px;
+        margin-right:10px;
+        float:right;
+        cursor: pointer;
     }
     
     /*Table*/
