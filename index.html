@@ -22,7 +22,14 @@
     </div>
 
     <div class="maincontainer">
-        <table>
+        <table id="firstTable">
+            <tr>
+                <th colspan="2">
+                    <label><p>Search for a cocktail here or scroll down for the full list.</p></label>
+                    <script src="./scripts/tablesearch.js"></script>
+                    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
+                </th>
+            </tr>
 
             <!--Gin Rickey-->
             <tr>
@@ -396,9 +403,15 @@
                     <p class="description">The first proper cocktail I've ever made. The negroni is very famous in Italy and elsewhere and they say that you need to drink it thrice before you start to like it. It is very bitter but has a distinct taste. This cocktail is very respectable and there are many different variants on it to check out. I wouldn't recommend it as your first cocktail because of the bitterness and potency and the fact you have to buy 3 expensive spirits, but I would definitely recommend it once you get things moving.<span class="date">25/09/19</span></p>
                 </td>
             </tr>
+            
+            <tr>
+                <td id="tableFoot" colspan="2">
+                    <p>End of table.</p>
+                </td>
+            </tr>
         </table>
 
-        <table class="secondTable">
+        <table id="secondTable">
             <!--Table Heading-->
             <tr>
                 <th colspan="2">

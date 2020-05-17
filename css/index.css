@@ -43,7 +43,10 @@
     }
 
 /*Table (index specific)*/
-/*TO DO: MEDIA QUERIES*/
+#firstTable{
+    margin-bottom:200px;
+}
+
 td img{
     width:350px;
     height:350px;
@@ -77,27 +80,42 @@ td img{
     font-weight: bold;
 }
 
+/*Table Search Related*/
+input{
+    width:350px;
+    margin-top:7px;
+    border-radius:0;
+    height:1.5em;
+    border: 2px solid white;
+}
+
+#tableFoot{
+    text-align:center;
+    color:grey;
+    font-size:1.5rem;
+}
+
 /*Secondary table*/
-.secondTable th{
+#secondTable th{
     background-color: #d88;
     color:white;
     font-size:1.2rem;
     text-align:justify;
 }
 
-.secondTable tr{
+#secondTable tr{
     border-top-color: #d88;
 }
 
-.secondTable .itembox{
+#secondTable .itembox{
     justify-content:space-around;
 }
 
-.secondTable h2{
+#secondTable h2{
     font-size:1.75em;
 }
 
-.secondTable a{
+#secondTable a{
     color:black;
     text-decoration:none;
 }
@@ -158,5 +176,14 @@ td img{
 
     .itembox ul {
         margin-bottom: 0.25rem;
+    }
+
+    /*Table Input*/
+    #firstTable th{
+        text-align:center;
+    }
+
+    input{
+        width:90%;
     }
 }
