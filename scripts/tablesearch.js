@@ -1,6 +1,6 @@
 function searchTable() {
     //Input and Table rows are defined.
-    var input = document.getElementById("myInput");
+    var input = document.getElementById("mainInput");
     var tr = document.querySelectorAll("#firstTable tr");
     var found = false;
 
@@ -8,9 +8,12 @@ function searchTable() {
     //Starts at 1 because the heading needs to be skipped!
     //Ends 1 early as the footer needs to be skipped!
     for (i = 1; i < (tr.length-1); i++) { 
-        let cocktail = tr[i].querySelector("h2").innerText;;
+        //Checks which radio button is active.
+        let cocktailName = tr[i].querySelector("h2").innerText;
+        let cocktailIngredients = tr[i].querySelector(".ingredients").innerText;
 
-        if(cocktail.toUpperCase().indexOf(input.value.toUpperCase()) > -1){
+        //Searches for cocktails which match by name or ingredients.
+        if((cocktailName.toUpperCase().indexOf(input.value.toUpperCase()) > -1) || (cocktailIngredients.toUpperCase().indexOf(input.value.toUpperCase()) > -1)){
             tr[i].style.display = "";
             found = true;
         }

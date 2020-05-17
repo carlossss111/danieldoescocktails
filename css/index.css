@@ -81,7 +81,7 @@ td img{
 }
 
 /*Table Search Related*/
-input{
+#mainInput{
     width:350px;
     margin-top:7px;
     border-radius:0;
@@ -183,7 +183,7 @@ input{
         text-align:center;
     }
 
-    input{
+    #mainInput{
         width:90%;
     }
 }

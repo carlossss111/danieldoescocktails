@@ -25,9 +25,11 @@
         <table id="firstTable">
             <tr>
                 <th colspan="2">
-                    <label><p>Search for a cocktail here or scroll down for the full list.</p></label>
                     <script src="./scripts/tablesearch.js"></script>
-                    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
+                    <label>
+                        <p>Search by name, ingredients or method here or scroll down for the full list.</p>
+                        <input type="text" id="mainInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
+                    </label>
                 </th>
             </tr>
 
