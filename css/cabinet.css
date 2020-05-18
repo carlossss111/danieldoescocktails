@@ -29,15 +29,12 @@ td h2{
 
 @media only screen and (max-width:600px){
 
-    td{
-        overflow:auto;
-        height: calc(4.75rem - 20px);
-        font-size:0.8rem;
+    .imagebox{
+        width:100%;
     }
 
-    .imagebox {
-        width:6rem;
-        height:4.75rem;
-        float:none;
+    p{
+        margin:0 0.5em;
     }
+
 }
