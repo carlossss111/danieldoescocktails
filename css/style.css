@@ -67,6 +67,7 @@ h2 {
 }
 
 nav {
+    z-index:100;
     font-family: 'Lato','Trebuchet MS',sans-serif;
     position: fixed;
     display:flex;
