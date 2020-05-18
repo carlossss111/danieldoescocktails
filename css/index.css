@@ -5,7 +5,7 @@
 #heroImage {
     height: 40rem;
     width: 100%;
-    background-image: url("https://barundbrot.de/wp-content/uploads/2019/02/bar_und_brot_sliderimage_201902-e1550171844302.jpg");
+    background-image: url("../images/banner/heroImage.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size:cover;
