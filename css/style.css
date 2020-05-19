@@ -166,6 +166,10 @@ footer {
         width:100%;
         text-align:center;
     }
+
+    .footSmall{
+        font-size:0.8rem;
+    }
 }
 
 /*Navbar and table breakpoint (mobile)*/
@@ -240,7 +244,7 @@ footer {
     }
 
     /*Footer*/
-    footer p{
+    .footSmall{
         font-size:0.6rem;
     }
 }
