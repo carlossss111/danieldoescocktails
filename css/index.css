@@ -89,6 +89,16 @@ td img{
     border: 2px solid white;
 }
 
+.checkboxContainer{
+    margin-top:5px;
+    display:block;
+}
+
+.checkboxContainer p{
+    display:inline;
+    text-align:left;
+}
+
 #tableFoot{
     text-align:center;
     color:grey;
