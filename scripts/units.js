@@ -52,6 +52,7 @@ tickbox.addEventListener('change',function(){
             li.forEach(function(line){
                 if(line.innerText.search("oz") !== -1){
                     line.innerText = `${initialValue[i-1][n]}ml ${line.innerText.split("oz").pop()}`
+                    n++;
                 }
             })
         }
