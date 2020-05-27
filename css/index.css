@@ -89,20 +89,45 @@ td img{
     border: 2px solid white;
 }
 
-.checkboxContainer{
-    margin-top:5px;
-    display:block;
-}
-
-.checkboxContainer p{
-    display:inline;
-    text-align:left;
-}
-
 #tableFoot{
     text-align:center;
     color:grey;
     font-size:1.5rem;
+}
+
+/*Checkbox*/
+#measurementTickbox{
+    opacity:0;
+    height:1rem;
+    width:1rem;
+    float:left;
+    position: relative;
+    top:-22px;
+}
+
+.tickboxStyle{
+    height:1rem;
+    width:0.9rem;
+    padding-left:0.1rem;
+    margin-left:0.25rem;
+    display:inline-block;
+    border-radius:15%;
+    background-color: snow;
+    color:#c32222;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-user-select: none;/* for highlighting text*/
+}
+
+.checkboxContainer{
+    margin-top:0.25rem;
+    display:block;
+}
+
+.checkboxContainer p{
+    float:left;
+    text-align:left;
 }
 
 /*Secondary table*/
@@ -164,6 +189,11 @@ td img{
 
     /*Table*/
     /*td is in the main style css*/
+
+    .checkboxContainer p{
+        float:none;
+        display:inline-block;
+    }
 
     td img {
         width: 100%;

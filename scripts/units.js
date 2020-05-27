@@ -61,5 +61,13 @@ tickbox.addEventListener('change',function(){
     //Once a cycle of metric-->imperial-->metric is complete clear the array (otherwise it will become too long.)
     if(tickbox.checked){
         initialValue = [];
+
+        //For styling only.
+        document.querySelector(".tickboxStyle").style.color = "#c32222";
+    }
+
+    //For styling only.
+    if(tickbox.checked === false){
+        document.querySelector(".tickboxStyle").style.color = "transparent";
     }
 })
