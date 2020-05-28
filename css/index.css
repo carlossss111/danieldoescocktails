@@ -91,6 +91,10 @@ td img{
     background-color: #d88;
 }
 
+.tableTabs button::-moz-focus-inner {
+    border:none;/*Removes outline for firefox*/
+  }
+
 .tableTabs button{
     background-color: #c32222;
     color:white;
