@@ -18,12 +18,15 @@ All of the pages also use __/css/style.css__ for general stylings and other file
 You might want to use code from tablesearch.js or units.js but I'm just an amateur so you can probably find cleaner code online.
 
 ## Author
-Daniel Robinson, 2020.
+Most images and all code by Daniel Robinson, 2020.
+
+Logo by Matthew Boyd, 2020.<br/>
+Images in resources.html with permission by their respective owners.
 
 ## License
 Lets slap a license on this big boy:
 __GNU GENERAL PUBLIC LICENSE__
 __Version 2, June 1991__
-In short, use my code if you want (just not the images obviously).
+In short, use my code if you want (just not the images and cocktail commentary obviously).
 
     
