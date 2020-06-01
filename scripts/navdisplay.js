@@ -6,12 +6,15 @@ function openNav(){
         buttons.forEach(function(element){
             element.style.top = "0px";
         })
+        document.querySelector("nav ul").style.height = "";
         hidden = false;
     }
     else{
         buttons.forEach(function(element){
             element.style.top = "-250px";
         })
+        setTimeout(function(){document.querySelector("nav ul").style.height = "55px";},500);
         hidden = true;
     }
+
 }
