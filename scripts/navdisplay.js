@@ -1,4 +1,5 @@
 var hidden = true;
+document.querySelector("nav ul").style.height = "55px";
 function openNav(){
     var buttons = document.querySelectorAll(".slide");
 
