@@ -49,5 +49,4 @@ function tabHandler(event){
 tabList.forEach( function(tab){
     //Onclick
     tab.addEventListener('click',tabHandler);
-    tab.addEventListener('touchstart',tabHandler);
 })

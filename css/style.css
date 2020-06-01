@@ -136,6 +136,7 @@ td, th{
 }
 
 /*Tabs*/
+
 .tab{
     margin-left:0rem;
 }
@@ -149,12 +150,13 @@ td, th{
     color:white;
     font-size:1rem;
     font-family:'Crimson pro', Georgia, serif;
-    height:1.4rem;
+    height:2rem;
     padding:0 0.2rem;
     border:none;
     border-bottom:2px solid white;
     border-radius:5px 5px 0 0;
     cursor: pointer;
+
 }
 
 /*Footer*/
