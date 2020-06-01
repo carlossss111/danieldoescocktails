@@ -1,5 +1,10 @@
 var hidden = true;
-document.querySelector("nav ul").style.height = "55px";
+
+if(window.innerWidth < 601){
+    document.querySelector("nav ul").style.height = "55px";
+    console.log(window.innerWidth);
+}
+
 function openNav(){
     var buttons = document.querySelectorAll(".slide");
 
