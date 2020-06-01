@@ -8,6 +8,10 @@ h2{
     padding-top:2rem;
 }
 
+.tab{
+    min-width:90px;
+}
+
 .banner{
     width:100%;
     padding:0.25rem 0;
