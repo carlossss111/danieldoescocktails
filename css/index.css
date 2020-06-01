@@ -77,37 +77,6 @@ td img{
     font-weight: bold;
 }
 
-/*Table Tabs*/
-.tableTabs{
-    margin-left:0rem;
-}
-
-#firstTab{
-    background-color: #c32222;
-    border-bottom: 2px solid #c32222;
-}
-
-#secondTab{
-    background-color: #d88;
-}
-
-.tableTabs button::-moz-focus-inner {
-    border:none;/*Removes outline for firefox*/
-  }
-
-.tableTabs button{
-    background-color: #c32222;
-    color:white;
-    font-size:1rem;
-    font-family:'Crimson pro', Georgia, serif;
-    height:1.4rem;
-    padding:0 0.2rem;
-    border:none;
-    border-bottom:2px solid white;
-    border-radius:5px 5px 0 0;
-    cursor: pointer;
-}
-
 /*Table Search Related*/
 #mainInput{
     width:350px;

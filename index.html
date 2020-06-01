@@ -24,12 +24,12 @@
     </div>
 
     <div class="maincontainer">
-        <div class="tableTabs">
-            <script src="./scripts/tableTabs.js"></script>
-            <button onclick="switchTab(event.target);" id="firstTab">Main Recipes</button>
-            <button onclick="switchTab(event.target);" id="secondTab">Gifts and travel</button>
+        <div class="tabcontainer">
+            <script src="../scripts/tabs.js" defer></script>
+            <button class="tab">Main Recipes</button>
+            <button class="tab" style="background-color: #d88;">Gifts and travel</button>
         </div>
-        <table id="firstTable">
+        <table id="firstTable" class="tabcontent">
             <tr>
                 <th colspan="2">
                     <script src="./scripts/tablesearch.js"></script>
@@ -464,7 +464,7 @@
             </tr>
         </table>
 
-        <table id="secondTable">
+        <table id="secondTable" class="tabcontent">
             <!--Table Heading-->
             <tr>
                 <th colspan="2">
