@@ -24,9 +24,11 @@ Logo by Matthew Boyd, 2020.<br/>
 Images in resources.html with permission by their respective owners.
 
 ## License
-Lets slap a license on this big boy:
-__GNU GENERAL PUBLIC LICENSE__
-__Version 2, June 1991__
+Lets slap a license on this big boy: __MIT License__,
 In short, use my code if you want (just not the images and cocktail commentary obviously).
 
-    
+## To Do
+* Mark recipes as personal favourites.
+* Sort cabinet by type of ingredient.
+* Update blog, perhaps with showcases on different ingredients.
+* Push more on social media. 
