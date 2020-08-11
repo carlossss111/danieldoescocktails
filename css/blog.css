@@ -1,0 +1,21 @@
+h2{
+    text-align:left; 
+    padding-bottom:0.5rem;
+}
+
+.date{
+    float:right;
+}
+
+.image-left{
+    width:300px; 
+    float:left; 
+    margin-right:0.5em;
+}
+
+@media only screen and (max-width:600px) {
+    .image-left{
+        width:100%;
+        margin-right:0;
+    }
+}
