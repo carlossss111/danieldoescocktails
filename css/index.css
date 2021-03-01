@@ -115,6 +115,7 @@ td img{
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-user-select: none;/* for highlighting text*/
+    user-select: none;
 }
 
 .checkboxContainer{
