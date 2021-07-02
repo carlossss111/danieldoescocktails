@@ -1,3 +1,5 @@
+# OUTDATED (as of 02/07/21, to do)
+
 ![Logo](/images/logo/Dan_Does_Cocktails_Heavy_Shadow.jpg)
 # danieldoescocktails.com
 My first front-end development project. It is a website where I store a table of all of the cocktails I have created, share resources and write to a blog.

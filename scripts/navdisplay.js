@@ -2,7 +2,6 @@ var hidden = true;
 
 if(window.innerWidth < 601){
     document.querySelector("nav ul").style.height = "55px";
-    console.log(window.innerWidth);
 }
 
 function openNav(){
