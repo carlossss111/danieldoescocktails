@@ -7,12 +7,13 @@ if [ ! -r "./properties.php" ];then
 	echo -e "Properties.php does not exist...\nSee /README.md"
 	exit 1
 fi
-CSV_PATH=$(head -n 3 ./properties.php | tail -n 1)
 DB_USER=$(head -n 4 ./properties.php | tail -n 1)
 DB=$(head -n 5 ./properties.php | tail -n 1)
 
 #inputs
-echo -e "Here a new cocktail can be inserted into the table, press CTRL+C to exit at any time.\n"
+echo "Here a new cocktail can be inserted into the table, press CTRL+C to exit at any time."
+echo "Enter password to start:";
+read -s password
 read -p "Enter a custom Id (or leave blank for auto-increment):"$'\n' id
 read -p "Enter name:"$'\n' name
 read -p "Enter image path:"$'\n' image
@@ -46,21 +47,19 @@ echo -e "[DATE:] \"$date\"\n"
 
 echo "This will be added to the live database, check it carefully."
 read -p "Send to database? [Y/n]" answer
-
 if [ "$answer" != "Y" ] && [ "$answer" != "y" ];then
 	echo "Quitting without sending."
 	exit 0
 fi
 
-#get id if not entered
-echo -e "\nPlease enter passwords to both \"$(whoami)\" and to the mySQL database:"
+#get new id if not entered manually
 if [ -z "$id" ];then
-	id=$(sudo tail -n 1 "$CSV_PATH" | head -c 1)
+	id=$(echo "SELECT MAX(id) FROM cocktail;" | mysql -u $DB_USER -p$password $DB | tail -c 2)
 	id=$((id+1))
 fi
 
 #update database with a heredoc
-mysql -u $DB_USER -p $DB << EOF
+mysql -u $DB_USER -p$password $DB << EOF
 	INSERT INTO cocktail VALUES ($id,"$name","$image","$ingredients","$description","$date");
 EOF
 echo "INSERT executed!"
