@@ -30,39 +30,47 @@
             <button class="tab" style="background-color: #d88;">Gifts and travel</button>
         </div>
         <table id="firstTable" class="tabcontent">
-            <tr>
-                <th colspan="2">
-                    <label>
-                        <p>Search by name, ingredients and method here or scroll down for the full list.</p>
-                        <input type="text" id="mainInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
-                    </label>
-                    <label class="checkboxContainer">
-                        <p>Metric?</p>
-                        <span class="tickboxStyle">&#10003;<input type="checkbox" id="measurementTickbox" /></span>
-                    </label>    
-                    <script src="./scripts/units.js"></script>
-                </th>
-            </tr>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <label>
+                            <p>Search by name, ingredients and method here or scroll down for the full list.</p>
+                            <input type="text" id="mainInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
+                        </label>
+                        <label class="checkboxContainer">
+                            <p>Metric?</p>
+                            <span class="tickboxStyle">&#10003;<input type="checkbox" id="measurementTickbox" /></span>
+                        </label>    
+                        <script src="./scripts/units.js"></script>
+                    </th>
+                </tr>
+            </thead>
 
-            <tr id="here!">
+            <tbody>
+                <tr><td colspan="2">
+                    <p style="text-align:center;">Loading cocktails...</p>
+                </td></tr>
+                <!--php generated table data-->
+            </tbody>
 
-            </tr>
             <script>
                 var ajax = new XMLHttpRequest();
                 ajax.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("here!").innerHTML = this.response;
-                    }
+                    if (this.readyState == 4 && this.status == 200)
+                        document.querySelector("tbody").innerHTML = this.response;
                 }
                 ajax.open("GET","./scripts/search.php",true);
                 ajax.send();
             </script>
-            
-            <tr>
-                <td id="tableFoot" colspan="2">
-                    <p>End of table.</p>
-                </td>
-            </tr>
+
+            <tfoot>
+                <tr>
+                    <td id="tableFoot" colspan="2">
+                        <p>End of table.</p>
+                    </td>
+                </tr>
+            </tfoot>
+
         </table>
 
         <table id="secondTable" class="tabcontent">
@@ -74,21 +82,6 @@
             </tr>
         </table>
     </div>
-
-    <!--COPY AND PASTE TO ADD NEW ROW
-    <tr>
-        <td>
-            <img src="IMAGE SOURCE" />
-        </td>
-        <td class="itembox">
-            <h2>NAME</h2>
-            <ul class="ingredients">
-                <li>INGEDIENT LIST</li>
-            </ul>
-            <p class="description">DESCRIPTION<span class="date">DATE</span></p>
-        </td>
-    </tr>
-    -->
 
     <footer>
         <a href="https://www.instagram.com/danieldoescocktails/" target="_blank"><img src="./images/buttons/instagram.png" />Instagram @danieldoescocktails</a>
