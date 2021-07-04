@@ -3,13 +3,13 @@
 #Inserts a row to the cocktail database
 
 #paths and properties
-if [ ! -r "./properties.txt" ];then
-	echo -e "Properties.txt does no exist...\nSee /README.md"
+if [ ! -r "./properties.php" ];then
+	echo -e "Properties.php does not exist...\nSee /README.md"
 	exit 1
 fi
-CSV_PATH=$(head -n 1 ./properties.txt)
-DB_USER=$(head -n 2 ./properties.txt | tail -n 1)
-DB=$(tail -n 1 ./properties.txt)
+CSV_PATH=$(head -n 3 ./properties.php | tail -n 1)
+DB_USER=$(head -n 4 ./properties.php | tail -n 1)
+DB=$(head -n 5 ./properties.php | tail -n 1)
 
 #inputs
 echo -e "Here a new cocktail can be inserted into the table, press CTRL+C to exit at any time.\n"
