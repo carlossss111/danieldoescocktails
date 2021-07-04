@@ -39,36 +39,44 @@ function outputResult(mysqli_result $res){
 	}
 }
 
-//connect to mySQLi
-include "./keys.php";
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
+//prepare query (pass by reference)
+function prepQuery(&$connRef, &$stmtRef){
+	$stmtRef = mysqli_stmt_init($connRef);
+	$query = "SELECT * FROM cocktail WHERE"
+		. " id >= ?"
+		. " OR name = ?"
+		. " OR ingredients LIKE ?"
+		. " ORDER BY id DESC";
+	$stmtRef = mysqli_prepare($connRef, $query);
+	return $query;
 }
 
-//prepare and bind query
-$stmt = mysqli_stmt_init($conn);
-$query = "SELECT * FROM cocktail WHERE"
-	. " id >= ?"
-	. " OR name = ?"
-	. " OR ingredients LIKE ?"
-	. " ORDER BY id DESC";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, 'dss', $minId, $searchName, $searchIngredients);
+//i like having stuff in functions
+function main(){
+	//connect to mySQLi
+	include "./keys.php";
+	if (!($conn = mysqli_connect($servername, $username, $password, $dbname)))
+		die("Connection failed: " . mysqli_connect_error());
 
-//define query conditions
-$minId = 1;
-$searchName = "N/A";
-$searchIngredients = "%N/A%";
+	//prepare and bind query
+	prepQuery($conn, $stmt);
 
-//execute query
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+	//define query conditions
+	mysqli_stmt_bind_param($stmt, 'dss', $minId, $searchName, $searchIngredients);
+	$minId = 1;
+	$searchName = "N/A";
+	$searchIngredients = "%N/A%";
 
-//echo results
-outputResult($result);
+	//execute query
+	mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
 
-//close mySQLi
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+	//echo results
+	outputResult($result);
+
+	//close mySQLi
+	mysqli_stmt_close($stmt);
+	mysqli_close($conn);
+}
+main();
 ?> 
