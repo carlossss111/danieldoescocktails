@@ -1,4 +1,21 @@
 <?php
+//return maximum id in database
+function getMaxId(){
+	//connect
+	include "./keys.php";
+	if (!($conn = mysqli_connect($servername, $username, $password, $dbname)))
+		die("Connection failed: " . mysqli_connect_error());
+
+	//query
+	$query = "SELECT MAX(id) FROM cocktail;";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_array($result);
+
+	//close and return
+	mysqli_close($conn);
+	return $row[0];
+}
+
 //given mysqli result, output rows file.
 function outputResult(mysqli_result $res){
 	if ($res->num_rows > 0) {
@@ -80,5 +97,10 @@ function main(){
 	mysqli_stmt_close($stmt);
 	mysqli_close($conn);
 }
-main();
+
+//MAIN
+if(isset($_GET["findId"]))
+	echo getMaxId();
+else
+	main();
 ?> 
