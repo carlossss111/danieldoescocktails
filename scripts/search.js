@@ -1,6 +1,6 @@
 //absolute lowest and highest search values
 const MIN_ID = 1;
-const MAX_ID = 7;//NEEDS A SEARCH OR SOMETHING
+var MAX_ID = 7;
 const NUM_TO_LOAD = 3;
 
 //number of cocktails to load at once
@@ -23,7 +23,6 @@ function ajaxSearch(minId, maxId, search, isClear){
                 let newHTML = oldHTML + this.response;
                 document.querySelector("tbody").innerHTML = newHTML;
             }
-            storedHTML = document.querySelector("tbody").innerHTML;
         }
     }
     ajax.open("GET",`./scripts/search.php?min=${minId}&max=${maxId}&search=${search}`,true);
@@ -39,7 +38,8 @@ document.getElementById("moreButton").addEventListener("click",function (){
 document.getElementById("mainSearch").addEventListener("keyup",function (){
     //if blank, go back to how much of the page was loaded before
     if(this.value.length < 3){
-        document.querySelector("tbody").innerHTML = storedHTML;
+        if(stored)
+            document.querySelector("tbody").innerHTML = storedHTML;
         stored = false;
         document.getElementById("moreButton").hidden = false;
     }
