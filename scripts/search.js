@@ -1,6 +1,6 @@
 //absolute lowest and highest search values
 const MIN_ID = 1;
-const NUM_TO_LOAD = 3;
+const NUM_TO_LOAD = 2;
 
 //number of cocktails to load at once
 var MAX_ID;   //absolute maximum
@@ -29,13 +29,11 @@ function ajaxSearch(minId, maxId, search, isClear) {
 
 //load "NUM_TO_LOAD" values
 function moreButtonEvent(){
-//document.getElementById("moreButton").addEventListener("click",function (){
     ajaxSearch(lowestId -= NUM_TO_LOAD, highestId -= NUM_TO_LOAD,"",false);
 }
 
 //search values (and clear old results)
 function mainSearchEvent(){
-//document.getElementById("mainSearch").addEventListener("keyup",function (){
     //if blank, go back to how much of the page was loaded before
     if(this.value.length < 3){
         if(stored)
