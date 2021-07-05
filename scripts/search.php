@@ -44,8 +44,9 @@ function prepQuery(&$connRef, &$stmtRef){
 	$stmtRef = mysqli_stmt_init($connRef);
 	$query = "SELECT * FROM cocktail WHERE"
 		. " id >= ?"
-		. " OR name = ?"
-		. " OR ingredients LIKE ?"
+		. " AND id <= ?"
+		. " AND ( name LIKE ?"
+		. " OR ingredients LIKE ? )"
 		. " ORDER BY id DESC";
 	$stmtRef = mysqli_prepare($connRef, $query);
 	return $query;
@@ -62,10 +63,11 @@ function main(){
 	prepQuery($conn, $stmt);
 
 	//define query conditions
-	mysqli_stmt_bind_param($stmt, 'dss', $minId, $searchName, $searchIngredients);
-	$minId = 1;
-	$searchName = "N/A";
-	$searchIngredients = "%N/A%";
+	mysqli_stmt_bind_param($stmt, 'ddss', $minId, $maxId, $searchName, $searchIngredients);
+	$minId = $_GET["min"];
+	$maxId = $_GET["max"];
+	$searchName = "%" . $_GET["search"] . "%";
+	$searchIngredients = "%" . $_GET["search"] . "%";
 
 	//execute query
 	mysqli_stmt_execute($stmt);

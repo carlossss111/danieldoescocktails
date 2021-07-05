@@ -53,15 +53,7 @@
                 <!--php generated table data-->
             </tbody>
 
-            <script>
-                var ajax = new XMLHttpRequest();
-                ajax.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200)
-                        document.querySelector("tbody").innerHTML = this.response;
-                }
-                ajax.open("GET","./scripts/search.php",true);
-                ajax.send();
-            </script>
+            <script src="./scripts/search.js"></script>
 
             <tfoot>
                 <tr>
