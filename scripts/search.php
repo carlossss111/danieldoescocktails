@@ -28,31 +28,31 @@ function outputResult(mysqli_result $res){
 			}
 	
 			//echo results row by row
-			$image = $row["image"];			$name = $row["name"];
-			$desc = $row["description"];	$date = $row["date"];
-			echo	"<tr>										";
-			echo	"	<td>									";
-			echo	"		<img src='$image'>					";
-			echo	"	</td>									";
-			echo	"	<td class='itembox'>					";
-			echo	"		<h2>$name</h2>						";
-			echo	"		<ul class='ingredients'>			";
-			echo	"			$li								";
-			echo	"		</ul>								";
-			echo	"		<p class='description'>				";
-			echo	" 			$desc							";
-			echo	"			<span class='date'>$date</span>	";
-			echo	"		</p>								";
-			echo	"	</td>									";
-			echo	"</tr>										";
+			$image = $row["image"];	$name = $row["name"];
+			$desc = $row["description"]; $date = $row["date"];
+			echo	"<tr>";
+			echo		"<td>";
+			echo			"<img src='$image'>";
+			echo		"</td>";
+			echo		"<td class='itembox'>";
+			echo			"<h2>$name</h2>";
+			echo			"<ul class='ingredients'>";
+			echo				"$li";
+			echo			"</ul>";
+			echo			"<p class='description'>";
+			echo			"$desc";
+			echo				"<span class='date'>$date</span>";
+			echo			"</p>";
+			echo		"</td>";
+			echo	"</tr>";
 		}
 	}
 	else {
-		echo	"<tr>								";
-		echo	"	<td colspan='2'>				";
-		echo	"		<h2>No results found</h2>	";
-		echo	"	</td>							";
-		echo	"</tr>								";
+		echo	"<tr>";
+		echo		"<td colspan='2'>";
+		echo			"<h2>No results found</h2>";
+		echo		"</td>";
+		echo	"</tr>";
 	}
 }
 
