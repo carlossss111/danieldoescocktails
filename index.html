@@ -10,6 +10,8 @@
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Crimson+Pro|Lato:400,700|Merriweather:400,400i&display=swap" rel="stylesheet">
     <title>Home | danieldoescocktails</title>
+
+    <script src="./scripts/search.js" defer></script>
 </head>
 <body>
     
@@ -35,7 +37,7 @@
                     <th colspan="2">
                         <label>
                             <p>Search by name, ingredients and method here or scroll down for the full list.</p>
-                            <input type="text" id="mainInput" onkeyup="searchTable()" placeholder="Search for cocktails"/>
+                            <input type="text" id="mainSearch" placeholder="Search for cocktails"/>
                         </label>
                         <label class="checkboxContainer">
                             <p>Metric?</p>
@@ -53,12 +55,10 @@
                 <!--php generated table data-->
             </tbody>
 
-            <script src="./scripts/search.js"></script>
-
             <tfoot>
                 <tr>
                     <td id="tableFoot" colspan="2">
-                        <p>End of table.</p>
+                        <button id="moreButton">More</button>
                     </td>
                 </tr>
             </tfoot>
