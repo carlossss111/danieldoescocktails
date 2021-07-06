@@ -1,6 +1,6 @@
 //absolute lowest and highest search values
 const MIN_ID = 1;
-const NUM_TO_LOAD = 2;
+const NUM_TO_LOAD = 15;
 
 //number of cocktails to load at once
 var MAX_ID;   //absolute maximum

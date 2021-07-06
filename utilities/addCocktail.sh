@@ -22,6 +22,10 @@ echo "Enter each ingredient, marking the final ingredient with a dollar sign '$'
 while [ "$(echo "$ingredientInput" | tail -c 2 | head -c 1)" != "$" ];do
 	read ingredientInput
 	if [ "$(echo "$ingredientInput" | wc -c)" -gt 2  ];then
+		#fractions changed to unicode
+		ingredientInput=$(echo "$ingredientInput" | sed "s/1\/2/\&half;/g")
+		ingredientInput=$(echo "$ingredientInput" | sed "s/1\/4/\&frac14;/g")
+		ingredientInput=$(echo "$ingredientInput" | sed "s/3\/4/\&frac34;/g")
 		if [ -z "$ingredients" ];then
 			ingredients=$ingredientInput
 		else
@@ -32,6 +36,8 @@ done
 ingredients=$(echo $ingredients | sed "s/$//g")
 
 read -p "Enter description:"$'\n' description
+description=$(echo $description | sed 's/\"/\\\"/g')
+
 read -p "Enter date:"$'\n' date
 
 #confirm
@@ -54,7 +60,7 @@ fi
 
 #get new id if not entered manually
 if [ -z "$id" ];then
-	id=$(echo "SELECT MAX(id) FROM cocktail;" | mysql -u $DB_USER -p$password $DB | tail -c 2)
+	id=$(echo "SELECT MAX(id) FROM cocktail;" | mysql -N -u $DB_USER -p$password $DB)
 	id=$((id+1))
 fi
 
