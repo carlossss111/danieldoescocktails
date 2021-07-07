@@ -11,6 +11,9 @@ let lowestId;
 let storedHTML = "";
 let stored = false;
 
+//if all cocktails have been displayed
+let reachedEnd = false;
+
 //searches with a min id, max id and optional search (leave as "" for any).
 function ajaxSearch(minId, maxId, search, isClear) {
     fetch(`./scripts/search.php?min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
@@ -30,6 +33,10 @@ function ajaxSearch(minId, maxId, search, isClear) {
 //load "NUM_TO_LOAD" values
 function moreButtonEvent(){
     ajaxSearch(lowestId -= NUM_TO_LOAD, highestId -= NUM_TO_LOAD,"",false);
+    if(MIN_ID >= lowestId){
+        reachedEnd = true;
+        this.hidden = true;
+    }
 }
 
 //search values (and clear old results)
@@ -39,7 +46,8 @@ function mainSearchEvent(){
         if(stored)
             document.querySelector("tbody").innerHTML = storedHTML;
         stored = false;
-        document.getElementById("moreButton").hidden = false;
+        if(!reachedEnd)
+            document.getElementById("moreButton").hidden = false;
     }
     //if not blank, store the page (unless already stored) and do search
     else{

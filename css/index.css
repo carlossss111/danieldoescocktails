@@ -128,6 +128,17 @@ td img{
     text-align:left;
 }
 
+/*'Load More' button*/
+#moreButton{
+    font-family: 'Merriweather', Georgia, serif;
+    font-size:1.5rem;
+    background-color:inherit;
+    border:none;
+    padding:10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 /*Secondary table*/
 #secondTable{
     display:none;/*default*/
