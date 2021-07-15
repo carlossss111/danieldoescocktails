@@ -1,8 +1,75 @@
 //array for storing the original metric units
+var storedHeadings = [];
 var storedUnits = [];
+
+//get 1d list of headings from incoming PHP
+function getHeadingListString(raw){
+    var result = [];
+    var trList = raw.match(/(?<=<tr>)(.*?)(?=<\/tr>)/mg);
+    for(let i = 0; i < trList.length; i++){
+        result.push(trList[i].match(/(?<=<h2>)(.*?)(?=<\/h2>)/mg)[0]);
+    }
+    return result;
+}
+
+//get 1d list of headings from already existing HTML
+function getHeadingListHTML(trList){
+    var result = [];
+    for(let i = 0; i < trList.length; i++){
+        result.push(trList[i].querySelector("h2").innerText);
+    }
+    return result;
+}
+
+//get 1d list of ingredients from already existing HTML
+function getIngredientListHTML(ul){
+
+}
+
+//Updates the stored units and headings to be current and up-to-date
+//called when an ajax request is made or when a search is cleared
+function updateStoredUnitsAndHeadings(){
+    console.log("loaded...");
+    var trList = document.querySelectorAll("#firstTable tbody tr");
+
+    //get already existing items
+    listHTML = getHeadingListHTML(trList);
+
+    var i = 0;
+    //loop through table rows
+    while(i < listHTML.length){
+        //only update cocktails not already in storage
+        if(storedHeadings[i] != listHTML[i]){
+            storedHeadings[i] = listHTML[i];
+        }
+        i++;
+    }
+    //cut off the end of storage to fit
+    storedHeadings.splice(i, storedHeadings.length);
+    console.log(storedHeadings);
+
+}
+
+function changeUnits(){
+    var tickbox = document.getElementById("measurementTickbox");
+    var trList = document.querySelectorAll("#firstTable tbody tr")
+
+    //if changing to metric
+    if(tickbox.checked == true){
+
+    }
+
+
+    //if changing to imperial
+}
+
+
+/*
 
 //given a nodelist of lis, convert them all to fluid ounces
 function toImperial(metricArr, trNum, ul){
+    document.querySelector(".tickboxStyle").style.color = "transparent";
+
     //loop through every list item in the ul
     for(let liNum = 0; liNum < ul.length; liNum++){
         let li = ul[liNum];
@@ -48,6 +115,8 @@ function toImperial(metricArr, trNum, ul){
 
 //given a nodelist of lis, convert them all back to their original values (metric)
 function toMetric(metricArr, trNum, ul){
+    document.querySelector(".tickboxStyle").style.color = "#c32222";
+
     let n = 0;
     //if there is a measurement, rewrite it back to the original stored metric value
     for(let liNum = 0; liNum < ul.length; liNum++){
@@ -57,18 +126,6 @@ function toMetric(metricArr, trNum, ul){
             n++;
         }
 
-    }
-}
-
-//handle styling and clear the storage after every metric->imperial->metric pattern
-function clearAndClean(metricArr, tickbox){
-    if(tickbox.checked == true){
-        document.querySelector(".tickboxStyle").style.color = "#c32222";
-        return [];
-    }
-    else{
-        document.querySelector(".tickboxStyle").style.color = "transparent";
-        return metricArr;
     }
 }
 
@@ -88,8 +145,8 @@ function changeUnits(){
         else
             toMetric(storedUnits, trNum, ul);
     }
-    storedUnits = clearAndClean(storedUnits, tickbox);
 }
 
 document.getElementById("measurementTickbox").checked = true;
 document.getElementById("measurementTickbox").addEventListener("change",changeUnits);
+*/

@@ -26,6 +26,11 @@ function ajaxSearch(minId, maxId, search, isClear) {
             let newHTML = oldHTML + response;
             document.querySelector("tbody").innerHTML = newHTML;
         }
+        return response;
+    })
+    .then(response => {
+        updateStoredUnitsAndHeadings();//units.js
+        changeUnits();//units.js
     })
     .catch(err => console.log("REQUEST FAILED:",err))
 }
@@ -43,8 +48,10 @@ function moreButtonEvent(){
 function mainSearchEvent(){
     //if blank, go back to how much of the page was loaded before
     if(this.value.length < 3){
-        if(stored)
+        if(stored){
             document.querySelector("tbody").innerHTML = storedHTML;
+            updateStoredUnitsAndHeadings();//units.js
+        }
         stored = false;
         if(!reachedEnd)
             document.getElementById("moreButton").hidden = false;
