@@ -44,18 +44,18 @@ function updateStoredUnitsAndHeadings(){
     //cut off the end of storage to fit
     storedHeadings.splice(i, storedHeadings.length);
     storedUnits.splice(i, storedUnits.length);
+
+    console.log(storedUnits);
 }
 
 function toMetric(trNum, ul){
     document.querySelector(".tickboxStyle").style.color = "#c32222";
 
-    let n = 0;
     //if there is a measurement, rewrite it back to the original stored metric value
     for(let liNum = 0; liNum < ul.length; liNum++){
         let li = ul[liNum];
         if(li.innerText.search("oz") !== -1){
-            li.innerText = `${storedUnits[trNum][n]}ml ${li.innerText.split("oz").pop()}`
-            n++;
+            li.innerText = `${storedUnits[trNum][liNum]}ml ${li.innerText.split("oz").pop()}`
         }
     }
 }
@@ -81,11 +81,11 @@ function toImperial(trNum, ul){
             case 0.25:
                 flozStr = "\u00BC";// 1/4
                 break;
-            case 0.33:
-                flozStr = "\u2153";//1/3
-                break;
             case 0.5:
-                flozStr = "\u00BD";// 1/2
+                flozStr = "\u00BD";//1/2
+                break;
+            case 0.75:
+                flozStr = "\u00BE";//1/4
                 break;
             case 1.25:
                 flozStr = "1\u00BC";//1 1/4
