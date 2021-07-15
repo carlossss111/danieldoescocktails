@@ -1,4 +1,10 @@
 <?php
+/**
+ * search.php - Daniel Robinson 2021
+ * Echoes cocktail database results based on arguements.
+ */
+
+
 //return maximum id in database
 function getMaxId(){
 	//connect
@@ -50,7 +56,7 @@ function outputResult(mysqli_result $res){
 	else {
 		echo	"<tr>";
 		echo		"<td colspan='2'>";
-		echo			"<h2>No results found</h2>";
+		echo			"<p style='text-align:center; font-size:1.35rem'>No results found</p>";
 		echo		"</td>";
 		echo	"</tr>";
 	}

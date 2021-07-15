@@ -1,3 +1,9 @@
+/**
+ * search.js - Daniel Robinson 2021
+ * Searches a PHP database for cocktails, either extending the table
+ * or performing a specific search based on name or ingredients.
+ */
+
 //absolute lowest and highest search values
 const MIN_ID = 1;
 const NUM_TO_LOAD = 15;
@@ -15,12 +21,12 @@ function ajaxSearch(minId, maxId, search, isClear) {
     .then(response =>{
         //clear and show values returned
         if(isClear)
-            document.querySelector("tbody").innerHTML = response;
+            document.querySelector("#firstTable tbody").innerHTML = response;
         //keep already shown values and append new values returned
         else{
-            let oldHTML = document.querySelector("tbody").innerHTML;
+            let oldHTML = document.querySelector("#firstTable tbody").innerHTML;
             let newHTML = oldHTML + response;
-            document.querySelector("tbody").innerHTML = newHTML;
+            document.querySelector("#firstTable tbody").innerHTML = newHTML;
         }
         return response;
     })
@@ -34,9 +40,8 @@ function ajaxSearch(minId, maxId, search, isClear) {
 //load "NUM_TO_LOAD" values
 function moreButtonEvent(){
     ajaxSearch(lowestId -= NUM_TO_LOAD, highestId -= NUM_TO_LOAD,"",false);
-    if(MIN_ID >= lowestId){
+    if(MIN_ID >= lowestId)
         this.hidden = true;
-    }
 }
 
 //search values (and clear old results)
