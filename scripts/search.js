@@ -7,21 +7,16 @@ var MAX_ID;   //absolute maximum
 let highestId;//maximum shown (dynamic)
 let lowestId;
 
-//for holding HTML between searches and non-searches
-let storedHTML = "";
-let bigdum = [];
-let stored = false;
-
-//if all cocktails have been displayed
-let reachedEnd = false;
-
 //searches with a min id, max id and optional search (leave as "" for any).
+//also either clears or does not clear already existing results
 function ajaxSearch(minId, maxId, search, isClear) {
     fetch(`./scripts/search.php?min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
     .then(response => response.text())
     .then(response =>{
+        //clear and show values returned
         if(isClear)
             document.querySelector("tbody").innerHTML = response;
+        //keep already shown values and append new values returned
         else{
             let oldHTML = document.querySelector("tbody").innerHTML;
             let newHTML = oldHTML + response;
@@ -29,7 +24,7 @@ function ajaxSearch(minId, maxId, search, isClear) {
         }
         return response;
     })
-    .then(response => {
+    .then(() => {
         updateStoredUnitsAndHeadings();//units.js
         changeUnits();//units.js
     })
@@ -40,29 +35,21 @@ function ajaxSearch(minId, maxId, search, isClear) {
 function moreButtonEvent(){
     ajaxSearch(lowestId -= NUM_TO_LOAD, highestId -= NUM_TO_LOAD,"",false);
     if(MIN_ID >= lowestId){
-        reachedEnd = true;
         this.hidden = true;
     }
 }
 
 //search values (and clear old results)
 function mainSearchEvent(){
-    //if blank, go back to how much of the page was loaded before
+    //if blank, reload to initial values
     if(this.value.length < 3){
-        if(stored){
-            document.querySelector("tbody").innerHTML = storedHTML;
-            updateStoredUnitsAndHeadings();//units.js
-            changeUnits();//units.js
-        }
-        stored = false;
-        if(!reachedEnd)
-            document.getElementById("moreButton").hidden = false;
+        highestId = MAX_ID;
+        lowestId = highestId - NUM_TO_LOAD + 1;
+        ajaxSearch(lowestId,highestId,"",true);
+        document.getElementById("moreButton").hidden = false;
     }
-    //if not blank, store the page (unless already stored) and do search
+    //if not blank, conduct a custom search
     else{
-        if(!stored)
-            storedHTML = document.querySelector("tbody").innerHTML;
-        stored = true;
         ajaxSearch(MIN_ID, MAX_ID,this.value,true);
         document.getElementById("moreButton").hidden = true;
     }
