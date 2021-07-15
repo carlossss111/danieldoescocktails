@@ -44,8 +44,6 @@ function updateStoredUnitsAndHeadings(){
     //cut off the end of storage to fit
     storedHeadings.splice(i, storedHeadings.length);
     storedUnits.splice(i, storedUnits.length);
-
-    console.log(storedUnits);
 }
 
 function toMetric(trNum, ul){
@@ -74,27 +72,55 @@ function toImperial(trNum, ul){
         //split str between 'ml' and return first half
         let ml = li.innerText.split("ml").shift();
 
-        //convert to fluid ounces and fractional unicode if appropriate
-        let floz = Math.round((ml/29.574) /0.25) * 0.25;
+        //determine in the converted floz is closer to 1/4 or 1/3
+        let third = Math.round((ml/29.574) /(1/3)) * (1/3);
+        third = Math.floor(third * 100);//rounding in programming is trash
+        third = third/100;
+        if(Number.isInteger(third) == false)
+            third.toFixed(2);
+
+        let quarter = Math.round((ml/29.574) /0.25) * 0.25;
+
+        if(Math.abs(ml/29.574 - quarter) < Math.abs(ml/29.574 - third))
+            floz = quarter;
+        else
+            floz = third;
+
+        //convert to unicode
         let flozStr = floz;
         switch(floz){
             case 0.25:
                 flozStr = "\u00BC";// 1/4
                 break;
+            case 0.33:
+                flozStr = "\u2153";// 1/3
+                break;
             case 0.5:
-                flozStr = "\u00BD";//1/2
+                flozStr = "\u00BD";// 1/2
+                break;
+            case 0.66:
+                flozStr = "\u2154";// 2/3
                 break;
             case 0.75:
-                flozStr = "\u00BE";//1/4
+                flozStr = "\u00BE";// 3/4
                 break;
             case 1.25:
-                flozStr = "1\u00BC";//1 1/4
+                flozStr = "1\u00BC";// 1 1/4
+                break;
+            case 1.33:
+                flozStr = "1\u2153";// 1 1/3
                 break;
             case 1.5:
                 flozStr = "1\u00BD";// 1 1/2
                 break;
+            case 1.66:
+                flozStr = "1\u2154";// 1 2/3
+                break;
             case 1.75:
-                flozStr = "1\u00BE"//1 3/4
+                flozStr = "1\u00BE"// 1 3/4
+                break;
+            case 2.5:
+                flozStr = "2\u00BD";// 2 1/2
                 break;
         }
         //replace the measurement and append the original second half of the str
