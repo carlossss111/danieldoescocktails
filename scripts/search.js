@@ -9,6 +9,7 @@ let lowestId;
 
 //for holding HTML between searches and non-searches
 let storedHTML = "";
+let bigdum = [];
 let stored = false;
 
 //if all cocktails have been displayed
@@ -51,6 +52,7 @@ function mainSearchEvent(){
         if(stored){
             document.querySelector("tbody").innerHTML = storedHTML;
             updateStoredUnitsAndHeadings();//units.js
+            changeUnits();//units.js
         }
         stored = false;
         if(!reachedEnd)
