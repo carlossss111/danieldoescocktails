@@ -1,8 +1,13 @@
+/**
+ * units.js - Daniel Robinson 2021
+ * Converts between ml (originally stored) and floz (calculated).
+ */
+
 //array for storing the original metric units
 var storedHeadings = [];
 var storedUnits = [];
 
-//get 1d list of headings from already existing HTML
+//get list of headings from already existing HTML
 function getHeadingListHTML(trList){
     var result = [];
     for(let i = 0; i < trList.length; i++){
@@ -11,7 +16,7 @@ function getHeadingListHTML(trList){
     return result;
 }
 
-//get 1d list of ingredients from already existing HTML
+//get list of ingredients from already existing HTML
 function getIngredientListHTML(tr){
     var result = [];
     var ul = tr.querySelectorAll("li");
@@ -46,6 +51,7 @@ function updateStoredUnitsAndHeadings(){
     storedUnits.splice(i, storedUnits.length);
 }
 
+//convert list of lis to original metric values
 function toMetric(trNum, ul){
     document.querySelector(".tickboxStyle").style.color = "#c32222";
 
@@ -58,6 +64,7 @@ function toMetric(trNum, ul){
     }
 }
 
+//convert list of lis to imperial
 function toImperial(trNum, ul){
     document.querySelector(".tickboxStyle").style.color = "transparent";
 
@@ -72,62 +79,41 @@ function toImperial(trNum, ul){
         //split str between 'ml' and return first half
         let ml = li.innerText.split("ml").shift();
 
-        //determine in the converted floz is closer to 1/4 or 1/3
-        let third = Math.round((ml/29.574) /(1/3)) * (1/3);
-        third = Math.floor(third * 100);//rounding in programming is trash
-        third = third/100;
-        if(Number.isInteger(third) == false)
-            third.toFixed(2);
+        //round to 1/3s and 1/4s 
+        floz = ml/29.574;
+        let thirds = Math.round(floz / (1/3)) * (1/3);
+        let quarters = Math.round(floz / 0.25) * 0.25;
+        thirds = Math.floor(thirds * 100)/100;
+        if(Number.isInteger(thirds) == false)//rounding in programming is trash
+            thirds.toFixed(2);
 
-        let quarter = Math.round((ml/29.574) /0.25) * 0.25;
-
-        if(Math.abs(ml/29.574 - quarter) < Math.abs(ml/29.574 - third))
-            floz = quarter;
+        //pick 1/3s or 1/4s
+        if(Math.abs(floz - quarters) < Math.abs(floz - thirds))
+            floz = quarters;
         else
-            floz = third;
+            floz = thirds;
 
-        //convert to unicode
+        //map to unicode fractions
         let flozStr = floz;
-        switch(floz){
-            case 0.25:
-                flozStr = "\u00BC";// 1/4
-                break;
-            case 0.33:
-                flozStr = "\u2153";// 1/3
-                break;
-            case 0.5:
-                flozStr = "\u00BD";// 1/2
-                break;
-            case 0.66:
-                flozStr = "\u2154";// 2/3
-                break;
-            case 0.75:
-                flozStr = "\u00BE";// 3/4
-                break;
-            case 1.25:
-                flozStr = "1\u00BC";// 1 1/4
-                break;
-            case 1.33:
-                flozStr = "1\u2153";// 1 1/3
-                break;
-            case 1.5:
-                flozStr = "1\u00BD";// 1 1/2
-                break;
-            case 1.66:
-                flozStr = "1\u2154";// 1 2/3
-                break;
-            case 1.75:
-                flozStr = "1\u00BE"// 1 3/4
-                break;
-            case 2.5:
-                flozStr = "2\u00BD";// 2 1/2
-                break;
-        }
+        const unicodeMap = new Map([
+            [0.25, "\u00BC"], [0.33, "\u2153"],
+            [0.5, "\u00BD"], [0.66, "\u2154"],
+            [0.75, "\u00BE"], [1.25, "1\u00BC"],
+            [1.33, "1\u2153"], [1.5, "1\u00BD"],
+            [1.66, "1\u2154"], [1.75, "1\u00BE"],
+            [2.5, "2\u00BD"]
+        ]);
+        
+        if(unicodeMap.get(floz))
+            flozStr = unicodeMap.get(floz);
+
         //replace the measurement and append the original second half of the str
         li.innerText = `${flozStr}oz ${li.innerText.split("ml").pop()}`;
     }
 }
 
+//change the units over
+//called by ajax and by the tickbox event
 function changeUnits(){
     var tickbox = document.getElementById("measurementTickbox");
     var trList = document.querySelectorAll("#firstTable tbody tr")
@@ -144,5 +130,6 @@ function changeUnits(){
     }
 }
 
+//MAIN
 document.getElementById("measurementTickbox").checked = true;
 document.getElementById("measurementTickbox").addEventListener("change",changeUnits);
