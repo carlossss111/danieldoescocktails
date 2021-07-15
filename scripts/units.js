@@ -61,6 +61,10 @@ function toMetric(trNum, ul){
         if(li.innerText.search("oz") !== -1){
             li.innerText = `${storedUnits[trNum][liNum]}ml ${li.innerText.split("oz").pop()}`
         }
+        //special case: 1 barspoon = 5ml
+        else if(li.innerText.search("barspoon") !== -1){
+            li.innerText = `${storedUnits[trNum][liNum]}ml ${li.innerText.split("barspoon of").pop()}`
+        }
     }
 }
 
@@ -78,6 +82,12 @@ function toImperial(trNum, ul){
         
         //split str between 'ml' and return first half
         let ml = li.innerText.split("ml").shift();
+
+        //special case: 5ml = 1 barspoon
+        if(ml == 5){
+            li.innerText = `1 barspoon of ${li.innerText.split("ml").pop()}`;
+            return;
+        }
 
         //round to 1/3s and 1/4s 
         floz = ml/29.574;
