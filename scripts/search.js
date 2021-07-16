@@ -7,19 +7,25 @@
 class SearchQueryHandler{
     //class constants
     MIN_ID = 1;
+    NUM_TO_LOAD = 15;
 
     //constructor constants
     MAX_ID;
-    NUM_TO_LOAD = 15;
+    PHP_FILE;
+    HTML_TABLE_ID;
 
     //variable properties
     highestId;
     lowestId;
 
-    //first fetch the highest ID and assign it to global variables
-    //then fetch the first search and add listeners for future searches
-    constructor(){
-        fetch(`./scripts/search.php?findId=true`,{method:"get"})
+    constructor(PHPFilePath, htmlTableId, includesSearchbar){
+        //set properties
+        this.PHP_FILE = PHPFilePath;
+        this.HTML_TABLE_ID = htmlTableId;
+
+        //first fetch the highest ID and assign it to global variables
+        //then fetch the first search and add listeners for future searches
+        fetch(`${this.PHP_FILE}?findId=true`,{method:"get"})
         .then(foundId => foundId.text())
         .then(foundId =>{    
             this.MAX_ID = foundId;
@@ -29,8 +35,9 @@ class SearchQueryHandler{
         })
         .then(() => {
             //lmao look at all the different 'this's meaning different things. thanks JS
-            document.getElementById("moreButton").addEventListener("click",this.moreButtonEvent.bind(this),this);
-            document.getElementById("mainSearch").addEventListener("keyup",this.mainSearchEvent.bind(this),this);
+            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).addEventListener("click",this.moreButtonEvent.bind(this),this);
+            if(includesSearchbar == true)
+                document.getElementById("mainSearch").addEventListener("keyup",this.mainSearchEvent.bind(this),this);
         })
         .catch(err => console.log("REQUEST FAILED:",err))
     }
@@ -38,17 +45,17 @@ class SearchQueryHandler{
     //searches with a min id, max id and optional search (leave as "" for any).
     //also either clears or does not clear already existing results
     ajaxSearch(minId, maxId, search, isClear) {
-        fetch(`./scripts/search.php?min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
+        fetch(`${this.PHP_FILE}?min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
         .then(response => response.text())
         .then(response =>{
             //clear and show values returned
             if(isClear)
-                document.querySelector("#firstTable tbody").innerHTML = response;
+                document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML = response;
             //keep already shown values and append new values returned
             else{
-                let oldHTML = document.querySelector("#firstTable tbody").innerHTML;
+                let oldHTML = document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML;
                 let newHTML = oldHTML + response;
-                document.querySelector("#firstTable tbody").innerHTML = newHTML;
+                document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML = newHTML;
             }
             return response;
         })
@@ -73,14 +80,12 @@ class SearchQueryHandler{
             this.highestId = this.MAX_ID;
             this.lowestId = this.highestId - this.NUM_TO_LOAD + 1;
             this.ajaxSearch(this.lowestId,this.highestId,"",true);
-            document.getElementById("moreButton").hidden = false;
+            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).hidden = false;
         }
         //if not blank, conduct a custom search
         else{
             this.ajaxSearch(this.MIN_ID, this.MAX_ID,searchbar.target.value,true);
-            document.getElementById("moreButton").hidden = true;
+            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).hidden = true;
         }
     }
 }
-
-const searchtest1 = new SearchQueryHandler();

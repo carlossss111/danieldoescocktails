@@ -86,7 +86,7 @@ td img{
     border: 2px solid white;
 }
 
-#tableFoot{
+.tableFoot{
     text-align:center;
     color:grey;
     font-size:1.5rem;
@@ -129,7 +129,7 @@ td img{
 }
 
 /*'Load More' button*/
-#moreButton{
+.moreButton{
     font-family: 'Merriweather', Georgia, serif;
     font-size:1.5rem;
     background-color:inherit;

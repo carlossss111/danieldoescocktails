@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Crimson+Pro|Lato:400,700|Merriweather:400,400i&display=swap" rel="stylesheet">
     <title>Home | danieldoescocktails</title>
 
-    <script src="./scripts/search.js" defer></script>
+    <script src="./scripts/search.js"></script>
 </head>
 <body>
     
@@ -22,21 +22,24 @@
         <div id="heroLogo"><img src="./images/logo/Dan_Does_Cocktails_Heavy_Shadow.png" alt="danieldoescocktails"></div>
     </div>
     <div class="tagline">
-        <p>Hi, I'm Daniel and this is my cocktail website. I am novice in mixology but I think it's a great deal of fun and I would like to share it with people. Below are all the recipes I have tried and check often for more.</p>
+        <p>Hi, I'm Daniel and this is my cocktail website. I'm an amateur mixologist and the mixology secretary of the University of Nottingham Cocktail and Flair Bartending Society. This hobby is a lot of fun and I'm very happy to share it here. Below are all the cocktails I have either made myself or encountered on my travels.</p>
     </div>
 
     <div class="maincontainer">
+
         <div class="tabcontainer">
             <script src="../scripts/tabs.js" defer></script>
             <button class="tab">Main Recipes</button>
             <button class="tab" style="background-color: #d88;">Gifts and travel</button>
         </div>
+
         <table id="firstTable" class="tabcontent">
+
             <thead>
                 <tr>
                     <th colspan="2">
                         <label>
-                            <p>Search by name, ingredients and method here or scroll down for the full list.</p>
+                            <p>Search by name, ingredients and method here or scroll down for the full list of drinks.</p>
                             <input type="text" id="mainSearch" placeholder="Search for cocktails"/>
                         </label>
                         <label class="checkboxContainer">
@@ -49,13 +52,16 @@
             </thead>
 
             <tbody>
+                <script>
+                    const mainQuery = new SearchQueryHandler("./scripts/searchCocktail.php", "firstTable", true);
+                </script>
                 <!--php generated table data-->
             </tbody>
 
             <tfoot>
                 <tr>
-                    <td id="tableFoot" colspan="2">
-                        <button id="moreButton">Load more</button>
+                    <td class="tableFoot" colspan="2">
+                        <button class="moreButton">Load more</button>
                     </td>
                 </tr>
             </tfoot>
@@ -63,12 +69,30 @@
         </table>
 
         <table id="secondTable" class="tabcontent">
-            <!--Table Heading-->
+
+            <thead>
             <tr>
                 <th colspan="2">
-                    <p>The below cocktails I don't have the recipe for, since I got them when I was out and about or had them sent as a gift. Listed alongside the name of the cocktail is the name of the place, so check them out if you happen to be passing by!</p>
+                    <p>The below cocktails I don't have the recipe for since I got them when I was out and about. Listed alongside the name of each cocktail is the name of where I got it from, check them out if you happen to be passing by.</p>
                 </th>
             </tr>
+            </thead>
+
+            <tbody>
+                <script>
+                    const travelQuery = new SearchQueryHandler("./scripts/searchCocktail.php", "secondTable", false);
+                </script>
+                <!--php generated table data-->
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td class="tableFoot" colspan="2">
+                        <button class="moreButton">Load more</button>
+                    </td>
+                </tr>
+            </tfoot>
+
         </table>
     </div>
 

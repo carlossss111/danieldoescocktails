@@ -4,7 +4,6 @@
  * Echoes cocktail database results based on arguements.
  */
 
-
 //return maximum id in database
 function getMaxId(){
 	//connect
