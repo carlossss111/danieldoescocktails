@@ -4,6 +4,10 @@
  * or performing a specific search based on name or ingredients.
  */
 
+/**
+ * Create a SearchQueryHandler instance with the relevant arguements
+ * to execute and maintain queries. Properties do not need to be edited outside of the object.
+ */
 class SearchQueryHandler{
     //class constants
     MIN_ID = 1;
@@ -14,86 +18,115 @@ class SearchQueryHandler{
     MYSQL_TABLE_NAME;
     HTML_TABLE_ID;
 
+    #test = 1;
+
+    //DOM elements
+    moreButton;
+    mainSearch;
+    tbody;
+
     //variable properties
     highestId;
     lowestId;
 
+    //get ids and assign properties etc etc
     constructor(mysqlTableName, htmlTableId, includesSearchbar){
         //set properties
         this.MYSQL_TABLE_NAME = mysqlTableName;
         this.HTML_TABLE_ID = htmlTableId;
 
-        //first fetch the highest ID and assign it to object properties
-        //then fetch the first search and add listeners for future searches
-        fetch(`/scripts/search.php?table=${this.MYSQL_TABLE_NAME}&findId=true`,{method:"get"})
+        //fetch highest id from the table
+        fetch(`/scripts/search.php?`
+            + `table=${this.MYSQL_TABLE_NAME}`
+            + `&findId=true`,
+            {method:"get"})
         .then(foundId => foundId.text())
+
+        //assign values to object properties
         .then(foundId =>{    
+            //ids
             this.MAX_ID = foundId;
             this.highestId = foundId;
             this.lowestId = this.highestId - this.NUM_TO_LOAD + 1;
+            //DOM elements
+            this.moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
+            this.mainSearch = document.getElementById("mainSearch");
+            this.tbody = document.querySelector(`#${this.HTML_TABLE_ID} tbody`);
+        })
+        
+        //do initial search
+        .then(() => {
             this.ajaxSearch(this.lowestId,this.highestId,"",false);
             
-            //if the number of table items is too low, remove more button
-            let moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
             if(this.lowestId < this.MIN_ID)
-                moreButton.hidden = true;
+                this.moreButton.hidden = true;
         })
+
+        //apply event listeners
         .then(() => {
-            //this is the ugliest thing i've ever seen but idk how to make it look nicer without jquery
-            let moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
-            moreButton.addEventListener("click",this.moreButtonEvent.bind(this),this);
-            if(includesSearchbar == true){
-                let mainSearch = document.getElementById("mainSearch");
-                mainSearch.addEventListener("keyup",this.mainSearchEvent.bind(this),this);
-            }
+            this.moreButton.addEventListener("click",this.moreButtonEvent.bind(this),this);
+            if(includesSearchbar == true)
+                this.mainSearch.addEventListener("keyup",this.mainSearchEvent.bind(this),this);
         })
+
         .catch(err => console.log("REQUEST FAILED:",err))
     }
 
     //searches with a min id, max id and optional search (leave as "" for any).
     //also either clears or does not clear already existing results
     ajaxSearch(minId, maxId, search, isClear) {
-        fetch(`/scripts/search.php?table=${this.MYSQL_TABLE_NAME}&min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
+
+        //query sql
+        fetch(`/scripts/search.php?`
+            + `table=${this.MYSQL_TABLE_NAME}`
+            + `&min=${minId}`
+            + `&max=${maxId}`
+            + `&search=${search}`,
+            {method:"get"})
         .then(response => response.text())
+
+        //print results
         .then(response =>{
-            //clear and show values returned
+            //print and clear
             if(isClear)
-                document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML = response;
-            //keep already shown values and append new values returned
+                this.tbody.innerHTML = response;
+            //print and do not clear
             else{
-                let oldHTML = document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML;
+                let oldHTML = this.tbody.innerHTML;
                 let newHTML = oldHTML + response;
-                document.querySelector(`#${this.HTML_TABLE_ID} tbody`).innerHTML = newHTML;
+                this.tbody.innerHTML = newHTML;
             }
-            return response;
         })
+
+        //apply units.js script (relevant to the main part only)
         .then(() => {
             updateStoredUnitsAndHeadings();//units.js
             changeUnits();//units.js
         })
+        
         .catch(err => console.log("REQUEST FAILED:",err))
     }
 
-    //load "NUM_TO_LOAD" values
+    //load n numbers of new items and hide moreButton if the end is reached
     moreButtonEvent(button){
         this.ajaxSearch(this.lowestId -= this.NUM_TO_LOAD, this.highestId -= this.NUM_TO_LOAD,"",false);
-        if(this.MIN_ID >= this.lowestId)
+        if(this.lowestId < this.MIN_ID)
             button.target.hidden = true;
     }
 
-    //search values (and clear old results)
+    //load all values matching the search
     mainSearchEvent(searchbar){
-        //if blank, reload to initial values
-        if(searchbar.target.value.length < 3){
+        //search and hide moreButton
+        if(searchbar.target.value.length > 2){
+            this.ajaxSearch(this.MIN_ID, this.MAX_ID,searchbar.target.value,true);
+            this.moreButton.hidden = true;
+        }
+        //when the searchbar is again blank, reload to how things were intially
+        else{
             this.highestId = this.MAX_ID;
             this.lowestId = this.highestId - this.NUM_TO_LOAD + 1;
             this.ajaxSearch(this.lowestId,this.highestId,"",true);
-            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).hidden = false;
-        }
-        //if not blank, conduct a custom search
-        else{
-            this.ajaxSearch(this.MIN_ID, this.MAX_ID,searchbar.target.value,true);
-            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).hidden = true;
+            this.moreButton.hidden = false;
         }
     }
 }
