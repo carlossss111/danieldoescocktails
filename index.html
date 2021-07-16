@@ -30,7 +30,7 @@
         <div class="tabcontainer">
             <script src="../scripts/tabs.js" defer></script>
             <button class="tab">Main Recipes</button>
-            <button class="tab" style="background-color: #d88;">Gifts and travel</button>
+            <button class="tab" style="background-color: #d88;">Travel</button>
         </div>
 
         <table id="firstTable" class="tabcontent">
@@ -53,7 +53,7 @@
 
             <tbody>
                 <script>
-                    const mainQuery = new SearchQueryHandler("./scripts/searchCocktail.php", "firstTable", true);
+                    new SearchQueryHandler("cocktail", "firstTable", true);
                 </script>
                 <!--php generated table data-->
             </tbody>
@@ -80,7 +80,11 @@
 
             <tbody>
                 <script>
-                    const travelQuery = new SearchQueryHandler("./scripts/searchCocktail.php", "secondTable", false);
+                    function loadTravel(){
+                            new SearchQueryHandler("travel", "secondTable", false);
+                            document.querySelectorAll(".tab")[1].removeEventListener("click",loadTravel);
+                    }
+                    document.querySelectorAll(".tab")[1].addEventListener("click",loadTravel);
                 </script>
                 <!--php generated table data-->
             </tbody>

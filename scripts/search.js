@@ -11,33 +11,41 @@ class SearchQueryHandler{
 
     //constructor constants
     MAX_ID;
-    PHP_FILE;
+    MYSQL_TABLE_NAME;
     HTML_TABLE_ID;
 
     //variable properties
     highestId;
     lowestId;
 
-    constructor(PHPFilePath, htmlTableId, includesSearchbar){
+    constructor(mysqlTableName, htmlTableId, includesSearchbar){
         //set properties
-        this.PHP_FILE = PHPFilePath;
+        this.MYSQL_TABLE_NAME = mysqlTableName;
         this.HTML_TABLE_ID = htmlTableId;
 
-        //first fetch the highest ID and assign it to global variables
+        //first fetch the highest ID and assign it to object properties
         //then fetch the first search and add listeners for future searches
-        fetch(`${this.PHP_FILE}?findId=true`,{method:"get"})
+        fetch(`/scripts/search.php?table=${this.MYSQL_TABLE_NAME}&findId=true`,{method:"get"})
         .then(foundId => foundId.text())
         .then(foundId =>{    
             this.MAX_ID = foundId;
             this.highestId = foundId;
             this.lowestId = this.highestId - this.NUM_TO_LOAD + 1;
             this.ajaxSearch(this.lowestId,this.highestId,"",false);
+            
+            //if the number of table items is too low, remove more button
+            let moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
+            if(this.lowestId < this.MIN_ID)
+                moreButton.hidden = true;
         })
         .then(() => {
-            //lmao look at all the different 'this's meaning different things. thanks JS
-            document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`).addEventListener("click",this.moreButtonEvent.bind(this),this);
-            if(includesSearchbar == true)
-                document.getElementById("mainSearch").addEventListener("keyup",this.mainSearchEvent.bind(this),this);
+            //this is the ugliest thing i've ever seen but idk how to make it look nicer without jquery
+            let moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
+            moreButton.addEventListener("click",this.moreButtonEvent.bind(this),this);
+            if(includesSearchbar == true){
+                let mainSearch = document.getElementById("mainSearch");
+                mainSearch.addEventListener("keyup",this.mainSearchEvent.bind(this),this);
+            }
         })
         .catch(err => console.log("REQUEST FAILED:",err))
     }
@@ -45,7 +53,7 @@ class SearchQueryHandler{
     //searches with a min id, max id and optional search (leave as "" for any).
     //also either clears or does not clear already existing results
     ajaxSearch(minId, maxId, search, isClear) {
-        fetch(`${this.PHP_FILE}?min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
+        fetch(`/scripts/search.php?table=${this.MYSQL_TABLE_NAME}&min=${minId}&max=${maxId}&search=${search}`,{method:"get"})
         .then(response => response.text())
         .then(response =>{
             //clear and show values returned
