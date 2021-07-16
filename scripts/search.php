@@ -68,16 +68,14 @@ function outputTravelResult(mysqli_result $res){
 		while($row = mysqli_fetch_assoc($res)){
 			//echo results row by row
 			$image = $row["image"];	$name = $row["name"];
-			$location = $row["location"]; $link = $row["hyperlink"];
+			$location = $row["location"];
 			$desc = $row["description"]; $date = $row["date"];
 			echo	"<tr>";
 			echo		"<td>";
 			echo			"<img src='$image'>";
 			echo		"</td>";
 			echo		"<td class='itembox'>";
-			echo			"<h2><a href='$link' target='_blank'>";
-			echo				"$name - $location";
-			echo			"</a></h2>";
+			echo			"<h2>$name - $location</h2>";
 			echo			"<p class='description'>";
 			echo				"$desc";
 			echo				"<span class='date'>$date</span>";

@@ -18,8 +18,6 @@ class SearchQueryHandler{
     MYSQL_TABLE_NAME;
     HTML_TABLE_ID;
 
-    #test = 1;
-
     //DOM elements
     moreButton;
     mainSearch;
@@ -48,6 +46,7 @@ class SearchQueryHandler{
             this.MAX_ID = foundId;
             this.highestId = foundId;
             this.lowestId = this.highestId - this.NUM_TO_LOAD + 1;
+            
             //DOM elements
             this.moreButton = document.querySelector(`#${this.HTML_TABLE_ID} .moreButton`);
             this.mainSearch = document.getElementById("mainSearch");
@@ -64,9 +63,9 @@ class SearchQueryHandler{
 
         //apply event listeners
         .then(() => {
-            this.moreButton.addEventListener("click",this.moreButtonEvent.bind(this),this);
+            this.moreButton.addEventListener("click",this.moreButtonEvent.bind(this));
             if(includesSearchbar == true)
-                this.mainSearch.addEventListener("keyup",this.mainSearchEvent.bind(this),this);
+                this.mainSearch.addEventListener("keyup",this.mainSearchEvent.bind(this));
         })
 
         .catch(err => console.log("REQUEST FAILED:",err))
@@ -108,17 +107,17 @@ class SearchQueryHandler{
     }
 
     //load n numbers of new items and hide moreButton if the end is reached
-    moreButtonEvent(button){
+    moreButtonEvent(){
         this.ajaxSearch(this.lowestId -= this.NUM_TO_LOAD, this.highestId -= this.NUM_TO_LOAD,"",false);
         if(this.lowestId < this.MIN_ID)
-            button.target.hidden = true;
+            this.moreButton.hidden = true;
     }
 
     //load all values matching the search
-    mainSearchEvent(searchbar){
+    mainSearchEvent(){
         //search and hide moreButton
-        if(searchbar.target.value.length > 2){
-            this.ajaxSearch(this.MIN_ID, this.MAX_ID,searchbar.target.value,true);
+        if(this.mainSearch.value.length > 2){
+            this.ajaxSearch(this.MIN_ID, this.MAX_ID,this.mainSearch.value,true);
             this.moreButton.hidden = true;
         }
         //when the searchbar is again blank, reload to how things were intially
