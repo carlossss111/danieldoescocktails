@@ -78,12 +78,14 @@ td img{
 }
 
 /*Table Search Related*/
-#mainInput{
+input[type='text']{
     width:350px;
     margin-top:7px;
     border-radius:0;
-    height:1.5em;
+    height:1.5em !important;
     border: 2px solid white;
+    font-size:0.75rem;
+    padding-left:2px;
 }
 
 .tableFoot{
@@ -243,5 +245,10 @@ td img{
 
     #mainInput{
         width:90%;
+    }
+
+    /*searchbar*/
+    input[type='text']{
+        width:80%;
     }
 }
