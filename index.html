@@ -100,6 +100,13 @@
         </table>
     </div>
 
+    <img id="scrollUp" src="/images/buttons/scrollUp.png"/>
+    <script>
+        document.getElementById("scrollUp").addEventListener("click",() =>{
+            document.querySelector(".tagline").scrollIntoView({behavior: "smooth"});
+        })
+    </script>
+
     <footer>
         <a href="https://www.instagram.com/danieldoescocktails/" target="_blank"><img src="./images/buttons/instagram.png" />Instagram @danieldoescocktails</a>
         <span class="footSmall">
