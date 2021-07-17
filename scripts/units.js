@@ -86,7 +86,7 @@ function toImperial(trNum, ul){
         //special case: 5ml = 1 barspoon
         if(ml == 5){
             li.innerText = `1 barspoon of ${li.innerText.split("ml").pop()}`;
-            return;
+            continue;
         }
 
         //round to 1/3s and 1/4s 
