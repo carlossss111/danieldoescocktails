@@ -1,0 +1,31 @@
+/*society only css*/
+.maincontainer .videocontainer, h2{
+    text-align:center;
+}
+
+p{
+    text-align:justify;
+    margin:0 0.3rem;
+}
+
+.videocontainer{
+    color:grey;
+    margin:0.75rem 0;
+}
+
+video{
+    border-top: 5px #c32222 solid;
+    max-width: 600px;
+}
+
+.flairlink{
+    text-align: center;
+    margin:0.1em 0;
+    font-size: 2rem;
+}
+
+@media only screen and (max-width:600px) {
+    video{
+        width:300px;
+    }
+}
