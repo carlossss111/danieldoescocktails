@@ -10,7 +10,7 @@ function createNav(){
     nav.innerHTML = ""
         +   "<ul>"
         +       "<li id='navlogoContainer'>"
-        +           "<img src='/images/logo/Dan_Does_Cocktails_Light_Shadow.jpg' alt='danieldoescocktails' id='navlogo'>"
+        +           "<img src='/images/logo/Dan_Does_Cocktails_Light_Shadow_Small.jpg' alt='danieldoescocktails' id='navlogo'>"
         +           "<img src='/images/buttons/hamburgerButton.png' alt='button' id='hamburgerBtn' onclick='openNav()'/>"
         +       "</li>"
         +       "<li id='navfirst' class='slide'>"
@@ -51,7 +51,6 @@ function highlightCurrentPage(nav){
 
 //resize the nav on window change
 function resizeNav(){
-    console.log("fuck")
     if(window.innerWidth < 601)
         nav.style.height = "55px";
     else
