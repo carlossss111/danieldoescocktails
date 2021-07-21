@@ -1,6 +1,6 @@
 /**
  * nav.js - Daniel Robinson
- * Navigation bar template.
+ * Navigation bar template and mobile sliding
  *
  */
 
@@ -49,6 +49,39 @@ function highlightCurrentPage(nav){
     })
 }
 
+//resize the nav on window change
+function resizeNav(){
+    console.log("fuck")
+    if(window.innerWidth < 601)
+        nav.style.height = "55px";
+    else
+        nav.style.height = "";
+}
+window.onresize = resizeNav;
+
+//for mobile, open/close the nav when the burger button is pressed
+var hiddenNav = true;
+function openNav(){
+    var buttons = document.querySelectorAll(".slide");
+
+    if(hiddenNav == true){
+        buttons.forEach(function(element){
+            element.style.top = "0px";
+        })
+        nav.style.height = "";
+        hiddenNav = false;
+    }
+    else{
+        buttons.forEach(function(element){
+            element.style.top = "-250px";
+        })
+        setTimeout(function(){nav.style.height = "55px";},500);
+        hiddenNav = true;
+    }
+}
+
 //MAIN
 var nav = createNav();
 highlightCurrentPage(nav);
+resizeNav();
+
