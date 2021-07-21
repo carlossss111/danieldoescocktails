@@ -78,16 +78,6 @@ td img{
 }
 
 /*Table Search Related*/
-input[type='text']{
-    width:350px;
-    margin-top:7px;
-    border-radius:0;
-    height:1.5em !important;
-    border: 2px solid white;
-    font-size:0.75rem;
-    padding-left:2px;
-}
-
 .tableFoot{
     text-align:center;
     color:grey;
@@ -128,17 +118,6 @@ input[type='text']{
 .checkboxContainer p{
     float:left;
     text-align:left;
-}
-
-/*'Load More' button*/
-.moreButton{
-    font-family: 'Merriweather', Georgia, serif;
-    font-size:1.5rem;
-    background-color:inherit;
-    border:none;
-    padding:10px;
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 /*Secondary table*/

@@ -22,7 +22,7 @@ function getMaxId(){
 	echo $row[0];
 }
 
-//given mysqli result, output rows file.
+//given mysqli result, output 'cocktail' table
 function outputCocktailResult(mysqli_result $res){
 	if ($res->num_rows > 0) {
 		while($row = mysqli_fetch_assoc($res)){
@@ -62,7 +62,7 @@ function outputCocktailResult(mysqli_result $res){
 	}
 }
 
-//given mysqli result, output rows file.
+//given mysqli result, output 'travel' table
 function outputTravelResult(mysqli_result $res){
 	if ($res->num_rows > 0) {
 		while($row = mysqli_fetch_assoc($res)){
@@ -88,22 +88,50 @@ function outputTravelResult(mysqli_result $res){
 		echo "<tr><td colspan='2'>Error loading table</td></tr>";
 }
 
+//given mysqli result, output 'cabinet' table
+function outputCabinetResult(mysqli_result $res){
+	if ($res->num_rows > 0) {
+		while($row = mysqli_fetch_assoc($res)){
+			//echo results row by row
+			$name = $row["name"];
+			$desc = $row["description"]; 
+			$sub = $row["substitute"];
+			echo	"<tr>";
+			echo		"<td>";
+			echo			"<h3>$name</h3>";
+			if (isset($sub))
+				echo				"<em>Substitute: $sub</em>";
+			echo			"<p>$desc</p>";
+			echo		"</td>";
+			echo	"</tr>";
+		}
+	}
+	else
+		echo "<tr><td>No results found</td></tr>";
+}
+
 //prepare query (pass by reference) and bind
-function prepQuery(&$connRef, &$stmtRef, $hasSearch){
+function prepQuery(&$connRef, &$stmtRef){
 	//prep query
 	$stmtRef = mysqli_stmt_init($connRef);
 	$table = $_GET["table"];
 	$query = "SELECT * FROM $table WHERE id >= ? AND id <= ?";
-	if($hasSearch)
+	if($_GET["table"] == "cocktail")
 		$query .= " AND ( name LIKE ? OR ingredients LIKE ? )";
+	if($_GET["table"] == "cabinet")
+		$query .= " AND ( name LIKE ?)";
 	$query .= " ORDER BY id DESC;";
 	$stmtRef = mysqli_prepare($connRef, $query);
 
 	//bind it
-	if($hasSearch){
+	if($_GET["table"] == "cocktail"){
 		mysqli_stmt_bind_param($stmtRef, 'ddss', $minId, $maxId, $searchName, $searchIngredients);
 		$searchName = "%" . $_GET["search"] . "%";
 		$searchIngredients = "%" . $_GET["search"] . "%";
+	}
+	else if ($_GET["table"] == "cabinet"){
+		mysqli_stmt_bind_param($stmtRef, 'dds', $minId, $maxId, $searchName);
+		$searchName = "%" . $_GET["search"] . "%";
 	}
 	else
 		mysqli_stmt_bind_param($stmtRef, 'dd', $minId, $maxId);
@@ -119,10 +147,7 @@ function main(){
 		die("Connection failed: " . mysqli_connect_error());
 
 	//prepare and bind query
-	if($_GET["table"] == "cocktail")
-		prepQuery($conn, $stmt, true);//search with custom searchbar result
-	else
-		prepQuery($conn, $stmt, false);//search by ids only
+	prepQuery($conn, $stmt);
 
 	//execute query
 	mysqli_stmt_execute($stmt);
@@ -137,6 +162,7 @@ function main(){
 			outputTravelResult($result);
 			break;
 		case("cabinet"):
+			outputCabinetResult($result);
 			break;
 		default:
 			die();

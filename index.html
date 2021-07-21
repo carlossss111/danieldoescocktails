@@ -53,7 +53,7 @@
 
             <tbody>
                 <script>
-                    new SearchQueryHandler("cocktail", "firstTable", true);
+                    new SearchQueryHandler("cocktail", "firstTable", 15, true);
                 </script>
                 <!--php generated table data-->
             </tbody>
@@ -81,7 +81,7 @@
             <tbody>
                 <script>
                     function loadTravel(){
-                            new SearchQueryHandler("travel", "secondTable", false);
+                            new SearchQueryHandler("travel", "secondTable", 10, false);
                             document.querySelectorAll(".tab")[1].removeEventListener("click",loadTravel);
                     }
                     document.querySelectorAll(".tab")[1].addEventListener("click",loadTravel);

@@ -11,7 +11,7 @@
 class SearchQueryHandler{
     //class constants
     MIN_ID = 1;
-    NUM_TO_LOAD = 15;
+    NUM_TO_LOAD;
 
     //constructor constants
     MAX_ID;
@@ -28,10 +28,11 @@ class SearchQueryHandler{
     lowestId;
 
     //get ids and assign properties etc etc
-    constructor(mysqlTableName, htmlTableId, includesSearchbar){
+    constructor(mysqlTableName, htmlTableId, numToLoad, includesSearchbar){
         //set properties
         this.MYSQL_TABLE_NAME = mysqlTableName;
         this.HTML_TABLE_ID = htmlTableId;
+        this.NUM_TO_LOAD = numToLoad;
 
         //fetch highest id from the table
         fetch(`/scripts/search.php?`
@@ -103,7 +104,12 @@ class SearchQueryHandler{
             changeUnits();//units.js
         })
         
-        .catch(err => console.log("REQUEST FAILED:",err))
+        .catch(err => {
+            if(err.message = "REQUEST FAILED: updateStoredUnitsAndHeadings is not defined")
+                console.log("Warning: units.js is called but not used.")
+            else
+                console.log("REQUEST FAILED:",err.message)
+        })
     }
 
     //load n numbers of new items and hide moreButton if the end is reached

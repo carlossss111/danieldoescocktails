@@ -1,10 +1,32 @@
 ﻿/*Cabinet specific CSS*/
-table{
-    margin-top:4rem;
+.intro{
+    text-align:center;
+    margin:4rem 0 1rem 0;
 }
 
-td h2{
-    text-align:center;
+.spiritheading{
+    padding:10px;
+    background-color: #c32222;
+    color:white;
+}
+
+section{
+    min-height:300px;
+}
+
+section img{
+    float:left;
+    width:250px;
+    height:250px;
+    margin-right:30px;
+}
+
+tr{
+    border:none;
+}
+
+.moreButton{
+    border-top: 5px #c32222 solid;
 }
 
 .imagebox {
@@ -35,6 +57,22 @@ td h2{
 
     p{
         margin:0 0.5em;
+    }
+
+    section{
+        height:initial;
+    }
+
+    section h2, h3{
+        text-align:center;
+    }
+    
+    section img{
+        float:left;
+        text-align:center;
+        width:90%;
+        height:90%;
+        margin:0 5% 10px 5%;
     }
 
 }
