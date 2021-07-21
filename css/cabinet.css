@@ -1,53 +1,30 @@
 ﻿/*Cabinet specific CSS*/
-.intro{
-    text-align:center;
-    margin:4rem 0 1rem 0;
-}
 
-.spiritheading{
-    padding:10px;
-    background-color: #c32222;
-    color:white;
-}
-
-section{
-    min-height:300px;
-}
-
-section img{
-    float:left;
+/*tables*/
+td img{
     width:250px;
     height:250px;
     margin-right:30px;
 }
 
-tr{
-    border:none;
+.itembox{
+    display:flex;
+    flex-direction:column;
+}
+
+#liqueursEtc tr{
+    border: none;
 }
 
 .moreButton{
     border-top: 5px #c32222 solid;
 }
 
-.imagebox {
-    /*note that images have a 4:3 size ratio*/
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    width: 10rem;
-    height: 7.5rem;
-    padding: 0;
+/*misc*/
+.intro{
+    text-align:center;
+    margin:4rem 0 1rem 0;
 }
-
-    .imagebox h2 {
-        background-color: rgba(195, 34, 34, 0.5);
-        color: white;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
 @media only screen and (max-width:600px){
 
@@ -55,15 +32,11 @@ tr{
         width:100%;
     }
 
-    p{
+    p, em{
         margin:0 0.5em;
     }
 
-    section{
-        height:initial;
-    }
-
-    section h2, h3{
+    td h2, h3, th{
         text-align:center;
     }
     

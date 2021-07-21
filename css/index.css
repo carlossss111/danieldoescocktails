@@ -221,13 +221,4 @@ td img{
     #firstTable th{
         text-align:center;
     }
-
-    #mainInput{
-        width:90%;
-    }
-
-    /*searchbar*/
-    input[type='text']{
-        width:80%;
-    }
 }

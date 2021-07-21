@@ -300,6 +300,11 @@ footer {
         clear: left;
     }
 
+    /*searchbar*/
+    input[type='text']{
+        width:80%;
+    }
+
     /*Footer*/
     .footSmall{
         font-size:0.6rem;
