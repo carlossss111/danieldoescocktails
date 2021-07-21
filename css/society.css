@@ -15,13 +15,17 @@ p{
 
 video{
     border-top: 5px #c32222 solid;
-    max-width: 600px;
+    max-width: 450px;
 }
 
 .flairlink{
     text-align: center;
     margin:0.1em 0;
     font-size: 2rem;
+}
+
+.middle p{
+    text-align:center;
 }
 
 @media only screen and (max-width:600px) {
