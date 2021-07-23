@@ -173,6 +173,18 @@ function main(){
 	mysqli_close($conn);
 }
 
+//SECURITY
+//first entry in the query string must be "table"
+if (array_key_first($_GET) != "table")
+	die();
+//request method must be GET
+if ($_SERVER['REQUEST_METHOD'] != "GET") {
+	die();
+}
+//double check table value is correct because it does not use prepared values
+if ($_GET["table"] != "cocktail" && $_GET["table"] != "cabinet" && $_GET["table"] != "travel")
+	die();
+
 //MAIN
 if(isset($_GET["findId"]))
 	getMaxId();
