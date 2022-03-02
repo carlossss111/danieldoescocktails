@@ -58,7 +58,7 @@ class SearchQueryHandler{
         .then(() => {
             this.ajaxSearch(this.lowestId,this.highestId,"",false);
             
-            if(this.lowestId < this.MIN_ID)
+            if(this.lowestId <= this.MIN_ID)
                 this.moreButton.hidden = true;
         })
 
@@ -115,7 +115,7 @@ class SearchQueryHandler{
     //load n numbers of new items and hide moreButton if the end is reached
     moreButtonEvent(){
         this.ajaxSearch(this.lowestId -= this.NUM_TO_LOAD, this.highestId -= this.NUM_TO_LOAD,"",false);
-        if(this.lowestId < this.MIN_ID)
+        if(this.lowestId <= this.MIN_ID)
             this.moreButton.hidden = true;
     }
 
