@@ -22,11 +22,8 @@ function createNav(){
         +       "<li class='slide'>"
         +           "<a href='/pages/about.html'>About</a>"
         +       "</li>"
-        +       "<li class='slide'>"
-        +           "<a href='/pages/resources.html'>Resources</a>"
-        +       "</li>"
         +       "<li id='navlast' class='slide'>"
-        +           "<a href='/pages/society.html'>UoN FlairSoc</a>"
+        +           "<a href='/pages/resources.html'>Resources</a>"
         +       "</li>"
         +   "</ul>";
 
