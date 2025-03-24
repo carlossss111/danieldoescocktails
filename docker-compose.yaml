@@ -1,0 +1,31 @@
+
+services:
+  db:
+    container_name: database
+    image: "postgres:17.4-alpine3.21"
+    environment:
+      - POSTGRES_DB=danieldoescocktails
+      - POSTGRES_USER=daniel
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    volumes:
+      - db_data:/var/lib/postresql/data
+      - ./database/schema/postgres.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    secrets:
+      - db-password
+
+
+volumes:
+  db_data: 
+
+
+secrets:
+  db-password:
+    file: .secrets/postgres.txt
+
