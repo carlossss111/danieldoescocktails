@@ -1,6 +1,11 @@
 # Development
 .venv
 venv
+__pycache__
+
+# Building
+*/dist
+*.egg*
 
 # Credentials
 .secrets/**
