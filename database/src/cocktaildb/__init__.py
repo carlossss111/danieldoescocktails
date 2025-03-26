@@ -15,7 +15,7 @@ DB_HOST = os.environ.get("DB_HOST")
 DB_NAME = os.environ.get("DB_NAME")
 DB_PORT = 5432
 
-logger.info(f"Creating DB engine with '{DB_ENGINE}+{DB_CONNECTOR}://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'")
+logger.info(f"Creating DB engine with '{DB_ENGINE}+{DB_CONNECTOR}://{DB_USER}:*******@{DB_HOST}:{DB_PORT}/{DB_NAME}'")
 engine = create_engine(f"{DB_ENGINE}+{DB_CONNECTOR}://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
