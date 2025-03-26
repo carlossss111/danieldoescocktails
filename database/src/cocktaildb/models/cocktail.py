@@ -1,7 +1,7 @@
 import sqlalchemy as db
 from cocktaildb import Base
 
-class Cocktails(Base):
+class Cocktail(Base):
     __tablename__ = "cocktails"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)

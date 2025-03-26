@@ -27,5 +27,5 @@ volumes:
 
 secrets:
   db-password:
-    file: .secrets/postgres.txt
+    file: .secrets/postgres-compose.txt
 
