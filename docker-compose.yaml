@@ -21,10 +21,13 @@ services:
       - db-password
 
   backend:
+    depends_on:
+      - db
     container_name: backend
     image: "danieldoescocktails-backend:latest"
     ports:
       - "5000:5000"
+    env_file: ".secrets/postgres-variables.env"
 
 
 volumes:

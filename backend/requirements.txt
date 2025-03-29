@@ -1,6 +1,5 @@
-# PyPi
 fastapi==0.115.12 
 uvicorn==0.34.0
-
-# Built Locally
+pydantic==2.11.1
 cocktaildb
+
