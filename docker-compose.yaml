@@ -12,22 +12,25 @@ services:
       - ./database/schema/postgres.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - "5432:5432"
+    secrets:
+      - db-password
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-ddanieldoescocktails", "-Udaniel"]
       interval: 60s
       timeout: 10s
       retries: 3
-    secrets:
-      - db-password
 
   backend:
     depends_on:
       - db
     container_name: backend
     image: "danieldoescocktails-backend:latest"
+    env_file: ".secrets/postgres-variables.env"
     ports:
       - "5000:5000"
-    env_file: ".secrets/postgres-variables.env"
+    healthcheck:
+      test: ["CMD", "python", "/opt/danieldoescocktails/backend/healthcheck.py"]
+      interval: 60s
 
 
 volumes:
