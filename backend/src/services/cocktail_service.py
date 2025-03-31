@@ -1,7 +1,7 @@
 from typing import Optional, List
 from datetime import datetime
 
-from cocktaildb import ReadOnly, Transaction, get_db
+from cocktaildb import ReadOnly, get_db
 from cocktaildb.methods.cocktail import CocktailRepo
 
 from models.cocktail_dto import CocktailDTO

@@ -30,20 +30,8 @@ class CocktailRouter:
     def route_get_cocktails(self, headers: Annotated[CocktailRequestHeaders, Header()]) -> CocktailResponse:
         self.__logger.info("Received headers: %s", str(headers))
         
-        start_date = None
         try:
-            if headers.latest_date:
-                century_in = datetime.today().year // 100
-                day_in = int(headers.latest_date.split('/')[0]) + 1
-                month_in = int(headers.latest_date.split('/')[1])
-                year_in = int(headers.latest_date.split('/')[2]) + (century_in * 100)
-                start_date = datetime(day=day_in, month=month_in, year=year_in)
-        except Exception as e:
-            self.__logger.error("Error getting Date from request: (%s)", e)
-            raise HTTPException(400, "Failed to parse the date from the request header.")
-
-        try:
-            cocktails = self._cocktail_service.get(start_date)
+            cocktails = self._cocktail_service.get(headers.latest_date)
             response = CocktailResponse(cocktails=cocktails)
         except Exception as e:
             self.__logger.error("Error getting Cocktails from DB: (%s)", e)

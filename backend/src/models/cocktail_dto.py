@@ -8,7 +8,7 @@ DATE_REGEX = r"[0-9]{2}/[0-9]{2}/[0-9]{2}" #e.g. 01/02/03
 
 
 class CocktailRequestHeaders(BaseModel):
-    latest_date: Optional[str] = Field(None, pattern=DATE_REGEX)
+    latest_date: Optional[datetime] = Field(None)
     search_term: Optional[str] = Field(None, min_length=3)
     
 
