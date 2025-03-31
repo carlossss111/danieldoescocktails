@@ -25,19 +25,12 @@ ExecStart=/usr/bin/env /usr/bin/docker-compose up
 ExecStop=/usr/bin/env /usr/bin/docker-compose stop
 StandardOutput=syslog
 Restart=always
-RestartSec=30
+RestartSec=60
 
 [Install]
 WantedBy=multi-user.target
 
 EOF
-
-echo 'Enabling and starting docker service...'
-systemctl enable docker.service
-systemctl enable docker.socket
-systemctl daemon-reload
-systemctl start docker.service
-systemctl start docker.socket
 
 echo 'Enabling and starting docker compose service...'
 systemctl enable "$WORK_DIR/systemd/cocktail-compose.service"

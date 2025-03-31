@@ -18,14 +18,21 @@ fi
 echo "Created install location '$install_dir'..." 
 
 # Install sources
-cp -r "$base_dir/database" "$install_dir/database" || exit 1
-cp -r "$base_dir/backend" "$install_dir/backend" || exit 1
-cp -r "$base_dir/frontend" "$install_dir/frontend" || exit 1
+mkdir -p "$install_dir/database/schema"
+cp -r "$base_dir/database/schema/postgres.sql" "$install_dir/database/schema/postgres.sql" || exit 1
 cp -r "$base_dir/docker-compose.yaml" "$install_dir/docker-compose.yaml" || exit 1
 cp -r "$base_dir/README.md" "$install_dir/README.md" || exit 1
 cp -r "$base_dir/.secrets" "$install_dir/.secrets" || exit 1
 echo "Copied sources from '$base_dir' to '$install_dir'..."
-    
+
+# Create docker images
+chmod 755 ./utils/docker-install.sh
+./utils/docker-install.sh
+if [ "$?" -ne 0 ]; then
+    echo 'Failed to install docker images.'; exit 1
+fi
+echo 'Installed docker images services...'
+
 # Install systemd modules
 chmod 755 ./utils/systemd-install.sh
 ./utils/systemd-install.sh "$install_dir"

@@ -13,14 +13,6 @@ echo 'Disabling docker compose service...'
 systemctl stop cocktail-compose
 systemctl disable cocktail-compose
 
-echo 'Disabling docker service...'
-systemctl stop docker.service
-systemctl stop docker.socket
-systemctl disable docker.socket
-systemctl disable docker.socket
-systemctl daemon-reload
-systemctl reset-failed
-
 echo 'Deleting unit files...'
 rm "$WORK_DIR/systemd/cocktail-compose.service"
 rmdir "$WORK_DIR/systemd"

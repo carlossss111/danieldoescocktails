@@ -18,6 +18,14 @@ if [ "$?" -ne 0 ]; then
 fi
 echo 'Uninstalled systemd services...'
 
+# Uninstall Docker
+chmod 755 ./utils/docker-uninstall.sh
+./utils/docker-uninstall.sh
+if [ "$?" -ne 0 ]; then
+    echo 'Failed to uninstall docker images.'; exit 1
+fi
+echo 'Uninstalled docker images...'
+
 # Cleanup
 rm -r "$install_dir" || exit 1
 echo "Removed '$install_dir'"
