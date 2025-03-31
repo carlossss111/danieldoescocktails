@@ -23,7 +23,6 @@ Type=simple
 WorkingDirectory=$WORK_DIR
 ExecStart=/usr/bin/env /usr/bin/docker-compose up
 ExecStop=/usr/bin/env /usr/bin/docker-compose stop
-StandardOutput=syslog
 Restart=always
 RestartSec=60
 

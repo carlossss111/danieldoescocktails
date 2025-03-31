@@ -23,6 +23,8 @@ cp -r "$base_dir/database/schema/postgres.sql" "$install_dir/database/schema/pos
 cp -r "$base_dir/docker-compose.yaml" "$install_dir/docker-compose.yaml" || exit 1
 cp -r "$base_dir/README.md" "$install_dir/README.md" || exit 1
 cp -r "$base_dir/.secrets" "$install_dir/.secrets" || exit 1
+chmod -R 400 "$install_dir/.secrets"
+chmod 500 "$install_dir/.secrets"
 echo "Copied sources from '$base_dir' to '$install_dir'..."
 
 # Create docker images
