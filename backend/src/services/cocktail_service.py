@@ -7,6 +7,9 @@ from cocktaildb.methods.cocktail import CocktailRepo
 from models.cocktail_dto import CocktailDTO
 
 
+MAX_QUERY_RESULTS = 10
+
+
 class CocktailService:
     def __new__(cls):
         # Singleton
@@ -15,14 +18,20 @@ class CocktailService:
         return cls.instance
 
 
-    def get(self, start_date: Optional[datetime] = None) -> List[CocktailDTO]:
+    def get(self, start_date: Optional[datetime] = None, search_term: Optional[str] = None) -> List[CocktailDTO]:
         # Get models
-        if not start_date:
+        if start_date and search_term:
             with ReadOnly(get_db) as db:
-                cocktail_orm_list = CocktailRepo.fetch_many_by_latest(db, max_results=10)
+                cocktail_orm_list = CocktailRepo.fetch_many_by_date_with_words_like(db, start_date, search_term, MAX_QUERY_RESULTS)
+        elif start_date:
+            with ReadOnly(get_db) as db:
+                cocktail_orm_list = CocktailRepo.fetch_many_by_date(db, start_date, MAX_QUERY_RESULTS)
+        elif search_term:
+            with ReadOnly(get_db) as db:
+                cocktail_orm_list = CocktailRepo.fetch_many_by_latest_with_words_like(db, search_term, MAX_QUERY_RESULTS)
         else:
             with ReadOnly(get_db) as db:
-                cocktail_orm_list = CocktailRepo.fetch_many_by_date(db, start_time=start_date, max_results=10)
+                cocktail_orm_list = CocktailRepo.fetch_many_by_latest(db, MAX_QUERY_RESULTS)
 
         # Convert sqlalchemy ORM models into Pydantic DTOs
         cocktail_dto_list: List[CocktailDTO] = []

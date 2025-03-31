@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional, List
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from cocktaildb.models.cocktail import Cocktail
@@ -34,4 +35,18 @@ class CocktailRepo:
     @staticmethod
     def fetch_many_by_latest(db: Session, max_results: int) -> List[Cocktail]:
         return db.query(Cocktail).order_by(Cocktail.date.desc()).limit(max_results).all()
+
+
+    @staticmethod
+    def fetch_many_by_date_with_words_like(db: Session, start_time: datetime, match: str, max_results: int) -> List[Cocktail]:
+        match = f"%{match}%"
+        return db.query(Cocktail).filter(Cocktail.date <= start_time) \
+            .filter(or_(Cocktail.name.like(match), Cocktail.ingredients.like(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
+
+
+    @staticmethod
+    def fetch_many_by_latest_with_words_like(db: Session, match: str, max_results: int) -> List[Cocktail]:
+        match = f"%{match}%"
+        return db.query(Cocktail) \
+            .filter(or_(Cocktail.name.like(match), Cocktail.ingredients.like(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
 

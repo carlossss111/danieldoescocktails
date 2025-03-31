@@ -31,7 +31,7 @@ class CocktailRouter:
         self.__logger.info("Received headers: %s", str(headers))
         
         try:
-            cocktails = self._cocktail_service.get(headers.latest_date)
+            cocktails = self._cocktail_service.get(headers.latest_date, headers.search_term)
             response = CocktailResponse(cocktails=cocktails)
         except Exception as e:
             self.__logger.error("Error getting Cocktails from DB: (%s)", e)
