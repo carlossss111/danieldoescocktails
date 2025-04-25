@@ -32,6 +32,14 @@ services:
       test: ["CMD", "python", "/opt/danieldoescocktails/backend/healthcheck.py"]
       interval: 60s
 
+  frontend:
+    depends_on:
+      - backend
+    container_name: frontend
+    image: "danieldoescocktails-frontend:latest"
+    ports:
+      - "80:80"
+
 
 volumes:
   db_data: 
