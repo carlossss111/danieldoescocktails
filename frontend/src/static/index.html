@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A cocktail blog and list of recipes by Daniel."/>
+    <link rel="shortcut icon" type="image/jpg" href="./images/logo/favicon.png"/>
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <link href="css/index.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Pro|Lato:400,700|Merriweather:400,400i&display=swap" rel="stylesheet">
+    <title>Home | danieldoescocktails</title>
+</head>
+<body>
+
+    <div id="heroImage">
+        <div id="heroLogo"><img src="./images/logo/Dan_Does_Cocktails_Heavy_Shadow.png" alt="danieldoescocktails"></div>
+    </div>
+
+    <div class="tagline">
+        <p>Hi, I'm Daniel and this is my cocktail website. I'm an amateur mixologist and have enjoyed this hobby for three years. During this time I have mixed over 80 different types of cocktails and I've had the pleasure of hosting many University of Nottingham cocktail society events in 2021 and 2022. Below are cocktails I've either made myself or found on my travels.</p>
+    </div>
+
+    <div class="maincontainer">
+
+        <div class="tabcontainer">
+            <button class="tab">Main Recipes</button>
+            <button class="tab" style="background-color: #d88;">Travel</button>
+        </div>
+
+        <table id="firstTable" class="tabcontent">
+
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <label>
+                            <p>Search by name, ingredients and method here or scroll down for the full list of drinks.</p>
+                            <input type="text" id="mainSearch" placeholder="Search for cocktails"/>
+                        </label>
+                        <label class="checkboxContainer">
+                            <p>Metric?</p>
+                            <span class="tickboxStyle">&#10003;<input type="checkbox" id="measurementTickbox" /></span>
+                        </label>    
+                        <script src="scripts/units.js"></script>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <script>
+                </script>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td class="tableFoot" colspan="2">
+                        <button class="moreButton">Load more</button>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+        <table id="secondTable" class="tabcontent">
+
+            <thead>
+            <tr>
+                <th colspan="2">
+                    <p>The below cocktails I don't have the recipe for since I got them when I was out and about. Listed alongside the name of each cocktail is the name of where I got it from, check them out if you happen to be passing by.</p>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td class="tableFoot" colspan="2">
+                        <button class="moreButton">Load more</button>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+
+    <img id="scrollUp" src="/images/buttons/scrollUp.png"/>
+    <script>
+        document.getElementById("scrollUp").addEventListener("click",() =>{
+            document.querySelector(".tagline").scrollIntoView({behavior: "smooth"});
+        })
+    </script>
+
+    <footer>
+        <a href="https://www.instagram.com/danieldoescocktails/" target="_blank"><img src="./images/buttons/instagram.png" />Instagram @danieldoescocktails</a>
+        <span class="footSmall">
+            <p>&copy; Site by Daniel Robinson. All rights reserved.</p>
+            <a href="https://twitter.com/GrimulkinDraws" target="_blank"><img src="./images/logo/Dan_Does_Cocktails_Martini.jpg" />Logo designed by Matthew Boyd</a>
+        </span>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,312 @@
+﻿/*CSS Reset*/
+* {
+    margin: 0;
+    padding: 0;
+    /*border: 0;*/
+    outline: 0;
+    /*vertical-align: baseline;*/
+}
+
+/*Main*/
+html {
+    font-family: 'Crimson pro', Georgia, serif;
+    font-size: 1.25rem; /*Put into 20px from 16px by default*/
+}
+
+body
+{
+    background-color:snow;
+    position:relative;
+    margin-top: 1.5rem; /*under navbar*/
+}
+
+.maincontainer {
+    max-width: 840px;
+    min-width: 60%;
+    margin: 1rem auto 1rem auto;
+
+}
+
+section {
+    border-top: 5px #c32222 solid;
+    padding: 10px;
+    text-align: justify;
+}
+
+section p{
+    padding-bottom: 1em;
+}
+
+/*Headings and Paragraphs*/
+h1{
+    font-family:'Lato','Trebuchet MS',sans-serif;
+}
+
+h2 {
+    font-family: 'Merriweather', Georgia, serif;
+}
+
+/*Navigation Bar*/
+
+#navlogoContainer {
+    border: none;
+    color: white;
+    flex-grow:14;
+    text-align:left;
+}
+
+#navlogo{
+    position:relative;
+    height: 30px;
+    top:2.5px;
+    width:214.2px;
+}
+
+#hamburgerBtn{
+    display:none;
+}
+
+nav {
+    z-index:1;
+    font-family: 'Lato','Trebuchet MS',sans-serif;
+    position: fixed;
+    display:flex;
+    justify-content:flex-end;
+    top: 0;
+    width: 100%;
+    background-color: #c32222;
+    letter-spacing: 0.1rem;
+}
+
+    nav ul {
+        min-width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    nav li {
+        text-align: center;
+        border-right: 1px solid snow;
+        border-left: 1px solid snow;
+        flex-grow: 1;
+    }
+
+#navfirst{
+    border-left: 2px solid snow;
+}
+
+#navlast {
+    border-right: 2px solid snow;
+}
+
+nav a {
+    color: snow;
+    text-decoration: none;
+    display: block;
+    padding: 0.25em 0.4em;
+    transition: background-color 200ms ease-in 50ms, color 200ms ease-in 50ms;
+}
+
+        nav a:hover {
+            color: #c32222;
+            background-color:snow;
+        }
+
+/*Table for both Index and Cabinet*/
+/*This part has the structure of the table, content styling.*/
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+tr {
+    border-top: 5px #c32222 solid;
+}
+
+th {
+    background-color: #c32222;
+    color:white;
+}
+
+td, th{
+    padding: 10px;
+    text-align:justify;
+}
+
+/*Tabs*/
+
+.tab{
+    margin-left:0rem;
+}
+
+.tab::-moz-focus-inner {
+    border:none;/*Removes outline for firefox*/
+}
+
+.tab{
+    background-color: #c32222;
+    color:white;
+    font-size:1rem;
+    font-family:'Crimson pro', Georgia, serif;
+    height:2rem;
+    padding:0 0.2rem;
+    border:none;
+    border-bottom:2px solid white;
+    border-radius:5px 5px 0 0;
+    cursor: pointer;
+
+}
+
+/*searchbars*/
+input[type='text']{
+    width:350px;
+    margin-top:7px;
+    border-radius:0;
+    height:1.5em !important;
+    border: 2px solid white;
+    font-size:0.75rem;
+    padding-left:2px;
+}
+
+/*'Load More' button*/
+.moreButton{
+    font-family: 'Merriweather', Georgia, serif;
+    font-size:1.5rem;
+    background-color:inherit;
+    border:none;
+    padding:10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*'back to top' button*/
+#scrollUp{
+    position:fixed;
+    display:block;
+    z-index:99;
+    bottom:15px;
+    right:15px;
+    width:60px;
+    cursor:pointer;
+}
+
+/*Footer*/
+footer {
+    width: 100%;
+    background-color:#c32222;
+    text-align:center;
+}
+
+    footer a, footer p {
+        display:inline-block;
+        margin:0 auto;
+        text-decoration: none;
+        font-family: 'Lato','Trebuchet MS',sans-serif;
+        font-weight: bold;
+        color: white;
+        margin: 0 30px;
+    }
+
+    footer img{
+        height:1rem;
+        width:1rem;
+        position:relative;
+        top:2.5px;
+    }
+
+/*Navbar breakpoint (tablet)*/
+@media only screen and (min-width:601px) and (max-width:840px){
+
+    #navlogoContainer{
+        width:100%;
+        text-align:center;
+    }
+
+    .footSmall{
+        font-size:0.8rem;
+    }
+}
+
+/*Navbar and table breakpoint (mobile)*/
+@media only screen and (max-width:600px) {
+
+    /*New Navbar*/
+    nav{
+        background-color:initial;
+    }
+
+    nav ul{
+        flex-direction:column;
+    }
+
+    nav li{
+        border-left:0;
+        border-right:0;
+        border-top:2px solid snow;
+
+        z-index:1;
+        background-color:#c32222;
+    }
+
+    .slide{
+        z-index:0;
+        top: -250px;
+        position:relative;
+        transition:top 0.6s ease-out;
+    }
+
+    #navfirst{
+        border-left:0;
+    }
+    
+    #navlast {
+        border-right:0;
+        border-bottom:2px solid snow;
+    }  
+    
+    #navlogoContainer {
+        width: 100%;
+        height:55px;
+        text-align: left;
+
+        display:block;
+    }
+
+    #navlogo{
+        position:relative;
+        top:11.5px;
+        margin-left:5px;
+    }
+
+    #hamburgerBtn{
+        display:block;
+        position:relative;
+        width:42px;
+        height:42px;
+        top:5.5px;
+        margin-right:10px;
+        float:right;
+        cursor: pointer;
+    }
+    
+    /*Table*/
+    td {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        float: left;
+        clear: left;
+    }
+
+    /*searchbar*/
+    input[type='text']{
+        width:80%;
+    }
+
+    /*Footer*/
+    .footSmall{
+        font-size:0.6rem;
+    }
+}
