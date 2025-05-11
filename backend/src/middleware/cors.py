@@ -1,16 +1,14 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost",
-    "http://localhost:5000",
-    "http://danieldoescocktails.com",
-    "http://danieldoescocktails.com:5000",
-    "http://www.danieldoescocktails.com",
-    "http://www.danieldoescocktails.com:5000"
-]
+CORS_ENV = "CORS-ALLOW-ORIGINS"
 
 def add_cors_headers(app: FastAPI):
+    if not (origins := os.environ.get(CORS_ENV)):
+        raise RuntimeError("Could not load CORS environment variables.") # (unrecoverable)
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,

@@ -25,6 +25,8 @@ services:
       - db
     container_name: backend
     image: "danieldoescocktails-backend:latest"
+    environment:
+      - CORS-ALLOW-ORIGINS=["http://localhost","http://danieldoescocktails.com","http://www.danieldoescocktails.com"]
     env_file: ".secrets/postgres-variables.env"
     ports:
       - "5000:5000"
