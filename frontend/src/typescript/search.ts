@@ -1,16 +1,21 @@
 
-interface Dictionary<T> {
+const BACKEND_ENDPOINT = "/cocktails"
+const BACKEND_PORT = ":5000"
+
+interface Dict<T> {
     [Key: string]: T;
 }
 
 class SearchHandler{
     #endpoint: string;
+    #port: string;
 
-    constructor(endpoint: string){
+    constructor(endpoint: string, port: string){
         this.#endpoint = endpoint;
+        this.#port = port;
     }
 
-    #parseJson(cocktail: Dictionary<string & string[]>) : string {
+    #parseJson(cocktail: Dict<string & string[]>) : string {
         const name : string          = cocktail.name;
         const image : string         = cocktail.image_path;
         const ingredients : string   = cocktail.ingredients.map((x: string) => `<li>${x}</li>`).join("\n");
@@ -34,14 +39,16 @@ class SearchHandler{
                 </tr>`;
     }
 
-    async #search(searchTerm?: string, latestDate?: string): Promise<Dictionary<any>[]> {
+    async #search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]> {
         let params: URLSearchParams = new URLSearchParams();
         if (searchTerm) 
             params.append("search_term", searchTerm);
         if (latestDate)
             params.append("latest_date", latestDate);
     
-        const response = await fetch(this.#endpoint + params.toString());
+        const response = await fetch(
+            window.location.origin + this.#port + this.#endpoint + params.toString()
+        );
         if (!response.ok) {
             console.log(`Bad response from backend API: ${response.status}`);
             throw new Error("Response was not ok.");
@@ -51,11 +58,18 @@ class SearchHandler{
     }
 
     async addCocktails(anchor: HTMLElement, searchTerm?: string): Promise<void> {
-        let jsonCocktails: Dictionary<any>[] = await this.#search(searchTerm);
+        let jsonCocktails: Dict<any>[];
+        try {
+            jsonCocktails = await this.#search(searchTerm);
+        }
+        catch (e) {
+            console.log(`Failed to get cocktails!, ${e}`)
+            return
+        }
 
         jsonCocktails.forEach((jsonCocktail) => {
             let htmlCocktail: string = (this.#parseJson(jsonCocktail))
-            anchor.append(htmlCocktail)
+            anchor.innerHTML += (htmlCocktail)
         });
 
         console.log("Cocktails received:")
@@ -66,7 +80,7 @@ class SearchHandler{
 // On page load
 let tableHead = document.getElementById("cocktailAnchor")
 if (tableHead) {
-    new SearchHandler("/cocktails").addCocktails(tableHead)
+    new SearchHandler(BACKEND_ENDPOINT, BACKEND_PORT).addCocktails(tableHead)
 }
 else {
     console.log("Could not find head of the table to insert cocktails into.")

@@ -7,6 +7,9 @@ __pycache__
 */dist
 *.egg*
 
+# Typescript compilation
+frontend/src/javascript/
+
 # Credentials
 .secrets/**
 
