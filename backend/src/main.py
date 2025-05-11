@@ -4,9 +4,12 @@ import uvicorn
 from fastapi import FastAPI
 
 from routes.cocktail_route import CocktailRouter
+from middleware.cors import add_cors_headers
 
 
 app = FastAPI()
+
+add_cors_headers(app)
 
 cocktail_router = CocktailRouter()
 app.include_router(cocktail_router.router)
