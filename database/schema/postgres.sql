@@ -18,7 +18,14 @@ CREATE TABLE cocktails (
     date TIMESTAMP NOT NULL
 );
 
-
+CREATE TABLE travel (
+  id SERIAL PRIMARY KEY,
+  name varchar(256) NOT NULL,
+  image varchar(255) NOT NULL,
+  location varchar(256) NOT NULL,
+  description varchar(1024) NOT NULL,
+  date TIMESTAMP NOT NULL
+);
 
 -- DEFAULT VALUES
 
