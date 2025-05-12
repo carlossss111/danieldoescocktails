@@ -24,12 +24,12 @@ class CocktailRepo:
 
     @staticmethod
     def fetch_many_by_id(db: Session, start_id: int, max_results: int) -> List[Cocktail]:
-        return db.query(Cocktail).filter(Cocktail.id <= start_id).order_by(Cocktail.id.desc()).limit(max_results).all()
+        return db.query(Cocktail).filter(Cocktail.id < start_id).order_by(Cocktail.id.desc()).limit(max_results).all()
 
     
     @staticmethod
     def fetch_many_by_date(db: Session, start_time: datetime, max_results: int) -> List[Cocktail]:
-        return db.query(Cocktail).filter(Cocktail.date <= start_time).order_by(Cocktail.date.desc()).limit(max_results).all()
+        return db.query(Cocktail).filter(Cocktail.date < start_time).order_by(Cocktail.date.desc()).limit(max_results).all()
 
     
     @staticmethod
@@ -40,13 +40,13 @@ class CocktailRepo:
     @staticmethod
     def fetch_many_by_date_with_words_like(db: Session, start_time: datetime, match: str, max_results: int) -> List[Cocktail]:
         match = f"%{match}%"
-        return db.query(Cocktail).filter(Cocktail.date <= start_time) \
-            .filter(or_(Cocktail.name.like(match), Cocktail.ingredients.like(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
+        return db.query(Cocktail).filter(Cocktail.date < start_time) \
+            .filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
 
 
     @staticmethod
     def fetch_many_by_latest_with_words_like(db: Session, match: str, max_results: int) -> List[Cocktail]:
         match = f"%{match}%"
         return db.query(Cocktail) \
-            .filter(or_(Cocktail.name.like(match), Cocktail.ingredients.like(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
+            .filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
 
