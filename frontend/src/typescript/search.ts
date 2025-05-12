@@ -6,6 +6,9 @@ const COCKTAIL_TABLE_ANCHOR_ID = "cocktailAnchor"
 const COCKTAIL_TABLE_MORE_ID = "cocktailMoreButton"
 const COCKTAIL_TABLE_SEARCH_ID = "mainSearch"
 
+const ERROR_ROW = "<tr><td colspan='2'>Look's like part of my website is down, " + 
+    "if the issue persists please get in touch.</td></tr>"
+
 interface Dict<T> {
     [Key: string]: T;
 }
@@ -31,12 +34,23 @@ class CocktailGetter implements TableRowGetter {
         this.port = port;
     }
 
+    _convertToDisplayDate(isoDateStr: string) : string {
+        let isoDate: Date = new Date(isoDateStr);
+
+        let day = isoDate.getDate();
+        let month = isoDate.getMonth() + 1; // zero-indexed
+        let year = isoDate.getFullYear() - 2000; // will break in 2100 haha
+
+        return `${day}/${month}/${year}`
+    }
+
     _parseJson(item: Dict<string & string[]>) : string {
-        const name : string          = item.name;
-        const image : string         = item.image_path;
-        const ingredients : string   = item.ingredients.map((x: string) => `<li>${x}</li>`).join("\n");
-        const description : string   = item.description;
-        const date : string          = item.date;
+        const name: string          = item.name;
+        const image: string         = item.image_path;
+        const ingredients: string   = item.ingredients.map((x: string) => `<li>${x}</li>`).join("\n");
+        const description: string   = item.description;
+        const date: string          = item.date;
+        const displayDate: string   = this._convertToDisplayDate(date)
 
         this.latestDate = date;
 
@@ -51,7 +65,7 @@ class CocktailGetter implements TableRowGetter {
                         </ul>
                         <p class="description">
                             ${description}
-                            <span class="date">${date}</span>
+                            <span class="date">${displayDate}</span>
                         </p>
                     </td>
                 </tr>`;
@@ -77,7 +91,13 @@ class CocktailGetter implements TableRowGetter {
 
     async queryRows(searchTerm?: string): Promise<string> {
         let jsonCocktails: Dict<any>[];
-        jsonCocktails = await this._search(searchTerm, this.latestDate);
+        try { 
+            jsonCocktails = await this._search(searchTerm, this.latestDate);
+        }
+        catch (e) {
+            console.log("Failed to query backend for rows: " + e);
+            return ERROR_ROW;
+        }
 
         console.log("Cocktails received:");
         console.log(jsonCocktails);
