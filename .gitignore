@@ -10,6 +10,9 @@ __pycache__
 # Typescript compilation
 frontend/src/javascript/
 
+# Cocktail images
+frontend/src/images/*.jpg
+
 # Credentials
 .secrets/**
 

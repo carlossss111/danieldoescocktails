@@ -10,18 +10,18 @@ interface Dict<T> {
     [Key: string]: T;
 }
 
-interface TablePopulator {
+interface TableRowGetter {
     endpoint: string;
     port: string;
     latestIdentifier?: string | undefined;
 
-    parseJson(item: Dict<string & string[]>) : string;
-    search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]>;
-    add(anchor: HTMLElement, searchTerm?: string): Promise<void>;
-    replace(anchor: HTMLElement, searchTerm?: string): Promise<void>;
+    _parseJson(item: Dict<string & string[]>) : string;
+    _search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]>;
+    queryRows(searchTerm?: string): Promise<string>;
+    resetLatestDate() : void;
 }
 
-class CocktailTablePopulator implements TablePopulator {
+class CocktailGetter implements TableRowGetter {
     endpoint: string;
     port: string;
     latestDate?: string | undefined;
@@ -31,14 +31,14 @@ class CocktailTablePopulator implements TablePopulator {
         this.port = port;
     }
 
-    parseJson(item: Dict<string & string[]>) : string {
+    _parseJson(item: Dict<string & string[]>) : string {
         const name : string          = item.name;
         const image : string         = item.image_path;
         const ingredients : string   = item.ingredients.map((x: string) => `<li>${x}</li>`).join("\n");
         const description : string   = item.description;
         const date : string          = item.date;
 
-        this.latestDate = date
+        this.latestDate = date;
 
         return `<tr> 
                     <td>
@@ -57,7 +57,7 @@ class CocktailTablePopulator implements TablePopulator {
                 </tr>`;
     }
 
-    async search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]> {
+    async _search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]> {
         let params: URLSearchParams = new URLSearchParams();
         if (searchTerm) 
             params.append("search_term", searchTerm);
@@ -75,47 +75,40 @@ class CocktailTablePopulator implements TablePopulator {
         return await response.json();
     }
 
-    async add(anchor: HTMLElement, searchTerm?: string): Promise<void> {
+    async queryRows(searchTerm?: string): Promise<string> {
         let jsonCocktails: Dict<any>[];
-        try {
-            jsonCocktails = await this.search(searchTerm, this.latestDate);
-        }
-        catch (e) {
-            console.log(`Failed to get cocktails!, ${e}`)
-            return
-        }
-
-        jsonCocktails.forEach((jsonCocktail) => {
-            let htmlCocktail: string = (this.parseJson(jsonCocktail));
-            anchor.innerHTML += (htmlCocktail);
-        });
+        jsonCocktails = await this._search(searchTerm, this.latestDate);
 
         console.log("Cocktails received:");
         console.log(jsonCocktails);
+
+        let htmlCocktails = "";
+        jsonCocktails.forEach((jsonCocktail) => {
+            htmlCocktails += this._parseJson(jsonCocktail);
+        });
+
+        return htmlCocktails
     }
 
-    async replace(anchor: HTMLElement, searchTerm?: string): Promise<void> {
+    resetLatestDate() : void {
         this.latestDate = undefined;
-        anchor.innerHTML = "";
-
-        this.add(anchor, searchTerm);
     }
 }
 
 class TableActionListener {
-    tablePopulator: TablePopulator;
+    table: TableRowGetter;
     tableAnchor: HTMLElement;
     searchBar: HTMLInputElement;
     moreButton: HTMLElement;
     query?: string | undefined
 
-    constructor(tablePopulator: TablePopulator, tableAnchorId: string, searchBarId: string, moreButtonId: string) {
+    constructor(table: TableRowGetter, tableAnchorId: string, searchBarId: string, moreButtonId: string) {
         let tableAnchor = document.getElementById(tableAnchorId);
         let searchBar = (<HTMLInputElement>document.getElementById(searchBarId));
         let moreButton = document.getElementById(moreButtonId);
 
         if (searchBar && moreButton && tableAnchor) {
-            this.tablePopulator = tablePopulator
+            this.table = table;
             this.tableAnchor = tableAnchor;
             this.searchBar = searchBar;
             this.moreButton = moreButton;
@@ -130,32 +123,46 @@ class TableActionListener {
         }
     }
 
-    pageLoad() : void { 
+    async pageLoad() : Promise<void> { 
         console.log("Loading initial rows...");
-        this.tablePopulator.add(this.tableAnchor);
+
+        this.table.resetLatestDate();
+        let rows = await this.table.queryRows();
+
+        this.tableAnchor.innerHTML = rows;
     }
 
-    search() : void { 
+    async search() : Promise<void> { 
         console.log("Loading queried rows...");
+
+        this.table.resetLatestDate();
+
         if(this.searchBar.value.length > 2){
             this.query = this.searchBar.value;
-            this.tablePopulator.replace(this.tableAnchor, this.query);
+            let rows = await this.table.queryRows(this.query)
+
+            this.tableAnchor.innerHTML = rows;
         }
         else {
             this.query = undefined;
-            this.tablePopulator.replace(this.tableAnchor);
+            let rows = await this.table.queryRows()
+
+            this.tableAnchor.innerHTML = rows;
         }
     }
 
-    findMore() : void {
+    async findMore() : Promise<void> {
         console.log("Loading more...");
-        this.tablePopulator.add(this.tableAnchor, this.query);
+
+        let rows = await this.table.queryRows(this.query)
+
+        this.tableAnchor.innerHTML += rows;
     }
 
 }
 
-const cocktailTablePopulator: TablePopulator 
-            = new CocktailTablePopulator(BACKEND_ENDPOINT, BACKEND_PORT);
+const cocktailTablePopulator:TableRowGetter 
+            = new CocktailGetter(BACKEND_ENDPOINT, BACKEND_PORT);
 const cocktailTableListener: TableActionListener 
             = new TableActionListener(cocktailTablePopulator, COCKTAIL_TABLE_ANCHOR_ID, COCKTAIL_TABLE_SEARCH_ID, COCKTAIL_TABLE_MORE_ID);
 
