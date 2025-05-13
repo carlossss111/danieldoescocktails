@@ -2,10 +2,6 @@
 const BACKEND_ENDPOINT = "/cocktails"
 const BACKEND_PORT = ":5000"
 
-const COCKTAIL_TABLE_ANCHOR_ID = "cocktailAnchor"
-const COCKTAIL_TABLE_MORE_ID = "cocktailMoreButton"
-const COCKTAIL_TABLE_SEARCH_ID = "mainSearch"
-
 const ERROR_ROW = "<tr><td colspan='2'>Look's like part of my website is down, " + 
     "if the issue persists please get in touch.</td></tr>"
 
@@ -120,15 +116,17 @@ class TableActionListener {
     tableAnchor: HTMLElement;
     searchBar: HTMLInputElement;
     moreButton: HTMLElement;
+    unitsManager: UnitsManager;
     query?: string | undefined
 
-    constructor(table: TableRowGetter, tableAnchorId: string, searchBarId: string, moreButtonId: string) {
+    constructor(table: TableRowGetter, unitsManager: UnitsManager, tableAnchorId: string, searchBarId: string, moreButtonId: string) {
         let tableAnchor = document.getElementById(tableAnchorId);
         let searchBar = (<HTMLInputElement>document.getElementById(searchBarId));
         let moreButton = document.getElementById(moreButtonId);
 
         if (searchBar && moreButton && tableAnchor) {
             this.table = table;
+            this.unitsManager = unitsManager;
             this.tableAnchor = tableAnchor;
             this.searchBar = searchBar;
             this.moreButton = moreButton;
@@ -150,6 +148,9 @@ class TableActionListener {
         let rows = await this.table.queryRows();
 
         this.tableAnchor.innerHTML = rows;
+
+        this.unitsManager.updateStoredUnitsAndHeadings();
+        this.unitsManager.changeUnits();
     }
 
     async search() : Promise<void> { 
@@ -169,6 +170,9 @@ class TableActionListener {
 
             this.tableAnchor.innerHTML = rows;
         }
+
+        this.unitsManager.updateStoredUnitsAndHeadings();
+        this.unitsManager.changeUnits();
     }
 
     async findMore() : Promise<void> {
@@ -177,12 +181,10 @@ class TableActionListener {
         let rows = await this.table.queryRows(this.query)
 
         this.tableAnchor.innerHTML += rows;
+
+        this.unitsManager.updateStoredUnitsAndHeadings();
+        this.unitsManager.changeUnits();
     }
 
 }
-
-const cocktailTablePopulator:TableRowGetter 
-            = new CocktailGetter(BACKEND_ENDPOINT, BACKEND_PORT);
-const cocktailTableListener: TableActionListener 
-            = new TableActionListener(cocktailTablePopulator, COCKTAIL_TABLE_ANCHOR_ID, COCKTAIL_TABLE_SEARCH_ID, COCKTAIL_TABLE_MORE_ID);
 
