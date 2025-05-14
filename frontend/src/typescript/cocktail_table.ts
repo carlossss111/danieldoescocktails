@@ -148,6 +148,18 @@ class TableActionListener {
         }
     }
 
+    _updateUI() : void {
+        this.unitsManager.updateStoredUnitsAndHeadings();
+        this.unitsManager.changeUnits();
+
+        if (this.table.reachedEnd) {
+            this.moreButton.hidden = true;
+        }
+        else { 
+            this.moreButton.hidden = false;
+        }
+    }
+
     async pageLoad() : Promise<void> { 
         console.log("Loading initial rows...");
 
@@ -156,8 +168,7 @@ class TableActionListener {
 
         this.tableAnchor.innerHTML = rows;
 
-        this.unitsManager.updateStoredUnitsAndHeadings();
-        this.unitsManager.changeUnits();
+        this._updateUI()
     }
 
     async search() : Promise<void> { 
@@ -178,8 +189,7 @@ class TableActionListener {
             this.tableAnchor.innerHTML = rows;
         }
 
-        this.unitsManager.updateStoredUnitsAndHeadings();
-        this.unitsManager.changeUnits();
+        this._updateUI()
     }
 
     async findMore() : Promise<void> {
@@ -189,10 +199,7 @@ class TableActionListener {
 
         this.tableAnchor.innerHTML += rows;
 
-        this.unitsManager.updateStoredUnitsAndHeadings();
-        this.unitsManager.changeUnits();
-
-        console.log(this.table.reachedEnd);
+        this._updateUI()
     }
 
 }
