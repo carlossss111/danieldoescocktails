@@ -4,7 +4,6 @@ from typing import List
 from pydantic import BaseModel
 
 
-
 class CocktailDTO(BaseModel):
     id: int
     name: str
@@ -12,4 +11,9 @@ class CocktailDTO(BaseModel):
     ingredients: List[str]
     description: str
     date: datetime
+
+
+class CocktailResponse(BaseModel):
+     cocktails: list[CocktailDTO]
+     is_last: bool
 

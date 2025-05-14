@@ -1,8 +1,10 @@
+import logging
 from typing import Optional, List
 from datetime import datetime
 
 from cocktaildb import ReadOnly, get_db
 from cocktaildb.methods.cocktail import CocktailRepo
+from sqlalchemy import cast
 
 from models.cocktail_dto import CocktailDTO
 
@@ -11,6 +13,9 @@ MAX_QUERY_RESULTS = 10
 
 
 class CocktailService:
+    __logger = logging.getLogger(__module__)
+
+
     def __new__(cls):
         # Singleton
         if not hasattr(cls, 'instance'):
@@ -48,3 +53,17 @@ class CocktailService:
 
         return cocktail_dto_list
 
+
+    def is_last(self, cocktail: CocktailDTO, search_term: Optional[str] = None) -> bool:
+        earliest_cocktail = None
+        if search_term:
+            with ReadOnly(get_db) as db:
+                earliest_cocktail = CocktailRepo.fetch_one_by_earliest_with_words_like(db, search_term)
+        else:
+            with ReadOnly(get_db) as db:
+                earliest_cocktail = CocktailRepo.fetch_one_by_earliest(db)
+
+        if earliest_cocktail and str(earliest_cocktail.date) == cocktail.date.strftime("%Y-%m-%d"):
+            return True
+        return False
+    

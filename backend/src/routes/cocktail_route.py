@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException
-from models.cocktail_dto import CocktailDTO
+from models.cocktail_dto import CocktailDTO, CocktailResponse
 from services.cocktail_service import CocktailService
 
 
@@ -28,15 +28,19 @@ class CocktailRouter:
 
 
     def route_get_cocktails(self, latest_date: Optional[datetime] = None, 
-                            search_term: Optional[str] = None) -> List[CocktailDTO]:
+                            search_term: Optional[str] = None) -> CocktailResponse:
         self.__logger.info("Received params: %s, %s", str(latest_date), str(search_term))
         
         try:
             cocktails = self._cocktail_service.get(latest_date, search_term)
+            if cocktails:
+                is_last = self._cocktail_service.is_last(cocktails[-1], search_term)
+            else:
+                is_last = True
         except Exception as e:
             self.__logger.error("Error getting Cocktails from DB: (%s)", e)
             raise HTTPException(500, "Failed to fetch cocktails due to backend programming error.")
 
-        self.__logger.info("Returned response: %s", str(cocktails))
-        return cocktails 
+        self.__logger.info("Returned response: %s", str(cocktails)[0:50])
+        return CocktailResponse(cocktails=cocktails, is_last=is_last)
             

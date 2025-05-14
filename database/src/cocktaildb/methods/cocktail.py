@@ -23,6 +23,25 @@ class CocktailRepo:
 
 
     @staticmethod
+    def fetch_one_by_earliest(db: Session) -> Optional[Cocktail]:
+        return db.query(Cocktail).order_by(Cocktail.date.asc()).first()
+
+
+    @staticmethod
+    def fetch_one_by_latest_with_words_like(db: Session, match: str) -> Optional[Cocktail]:
+        match = f"%{match}%"
+        return db.query(Cocktail).filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match)))\
+            .order_by(Cocktail.date.desc()).first()
+
+
+    @staticmethod
+    def fetch_one_by_earliest_with_words_like(db: Session, match: str) -> Optional[Cocktail]:
+        match = f"%{match}%"
+        return db.query(Cocktail).filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match)))\
+            .order_by(Cocktail.date.asc()).first()
+
+
+    @staticmethod
     def fetch_many_by_id(db: Session, start_id: int, max_results: int) -> List[Cocktail]:
         return db.query(Cocktail).filter(Cocktail.id < start_id).order_by(Cocktail.id.desc()).limit(max_results).all()
 

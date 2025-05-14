@@ -13,6 +13,7 @@ interface TableRowGetter {
     endpoint: string;
     port: string;
     latestIdentifier?: string | undefined;
+    reachedEnd: boolean;
 
     _parseJson(item: Dict<string & string[]>) : string;
     _search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]>;
@@ -24,10 +25,12 @@ class CocktailGetter implements TableRowGetter {
     endpoint: string;
     port: string;
     latestDate?: string | undefined;
+    reachedEnd: boolean;
 
     constructor(endpoint: string, port: string) {
         this.endpoint = endpoint;
         this.port = port;
+        this.reachedEnd = false;
     }
 
     _convertToDisplayDate(isoDateStr: string) : string {
@@ -86,9 +89,13 @@ class CocktailGetter implements TableRowGetter {
     }
 
     async queryRows(searchTerm?: string): Promise<string> {
-        let jsonCocktails: Dict<any>[];
+        let jsonResponse: Dict<any>[]
+        let jsonCocktails: any[];
+
         try { 
-            jsonCocktails = await this._search(searchTerm, this.latestDate);
+            jsonResponse = await this._search(searchTerm, this.latestDate);
+            jsonCocktails = jsonResponse["cocktails"]
+            this.reachedEnd = jsonResponse["is_last"]
         }
         catch (e) {
             console.log("Failed to query backend for rows: " + e);
@@ -184,6 +191,8 @@ class TableActionListener {
 
         this.unitsManager.updateStoredUnitsAndHeadings();
         this.unitsManager.changeUnits();
+
+        console.log(this.table.reachedEnd);
     }
 
 }

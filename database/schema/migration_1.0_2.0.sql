@@ -19,6 +19,9 @@ ALTER TABLE cocktails RENAME COLUMN image TO image_path;
 -- Convert VARCHAR 'DD/MM/YY' to PostgreSQL timestamp
 ALTER TABLE cocktails ALTER COLUMN date TYPE DATE using to_date(date, 'DD/MM/YY');
 
+-- Indices
+CREATE INDEX idx_cocktails_date ON cocktails (date DESC);
+
 
 COMMIT;
 

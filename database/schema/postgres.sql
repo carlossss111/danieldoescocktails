@@ -27,6 +27,10 @@ CREATE TABLE travel (
   date TIMESTAMP NOT NULL
 );
 
+-- PERFORMANCE INDICES
+
+CREATE INDEX idx_cocktails_date ON cocktails (date DESC);
+
 -- DEFAULT VALUES
 
 INSERT INTO db_version (version, create_time, last_update_time) VALUES ('2.0', now()::timestamp, now()::timestamp);
