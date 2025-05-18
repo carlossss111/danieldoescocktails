@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Crimson+Pro|Lato:400,700|Merriweather:400,400i&display=swap" rel="stylesheet">
     <title>Home | danieldoescocktails</title>
 
+    <script src="scripts/nav.js" defer></script>
     <script src="scripts/tabs.js" defer></script>
     <script src="scripts/units.js" defer></script>
     <script src="scripts/cocktail_table.js" defer></script>
@@ -17,6 +18,24 @@
 
 </head>
 <body>
+
+    <nav>
+        <ul>
+            <li id='navlogoContainer'>
+                <img src='/images/logo/Dan_Does_Cocktails_Light_Shadow_Small.jpg' alt='danieldoescocktails' id='navlogo'>
+                <img src='/images/buttons/hamburgerButton.png' alt='button' id='hamburgerBtn' onclick='openNav()'/>
+            </li>
+            <li id='navfirst' class='slide'>
+                <a href='/'>Home</a>
+            </li>
+            <li class='slide'>
+                <a href='/about'>About</a>
+            </li>
+            <li id='navlast' class='slide'>
+                <a href='/recommendations'>Recommendations</a>
+            </li>
+        </ul>
+    </nav>
 
     <div id="heroImage">
         <div id="heroLogo"><img src="images/logo/Dan_Does_Cocktails_Heavy_Shadow.png" alt="danieldoescocktails"></div>
@@ -75,6 +94,7 @@
             </thead>
 
             <tbody>
+                <!-- Populated by cocktail_table.ts -->
             </tbody>
 
             <tfoot>
@@ -102,5 +122,6 @@
             <a href="https://twitter.com/GrimulkinDraws" target="_blank"><img src="./images/logo/Dan_Does_Cocktails_Martini.jpg" />Logo designed by Matthew Boyd</a>
         </span>
     </footer>
+
 </body>
 </html>
