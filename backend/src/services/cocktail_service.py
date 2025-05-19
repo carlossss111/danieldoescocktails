@@ -4,7 +4,6 @@ from datetime import datetime
 
 from cocktaildb import ReadOnly, get_db
 from cocktaildb.methods.cocktail import CocktailRepo
-from sqlalchemy import cast
 
 from models.cocktail_dto import CocktailDTO
 

@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 
 from routes.cocktail_route import CocktailRouter
+from routes.travel_route import TravelCocktailRouter
 from middleware.cors import add_cors_headers
 
 
@@ -12,7 +13,9 @@ app = FastAPI()
 add_cors_headers(app)
 
 cocktail_router = CocktailRouter()
+travel_router = TravelCocktailRouter()
 app.include_router(cocktail_router.router)
+app.include_router(travel_router.router)
 
 HOST=os.environ.get("HOST_IP", default="0.0.0.0")
 PORT=os.environ.get("HOST_PORT", default=5000)
