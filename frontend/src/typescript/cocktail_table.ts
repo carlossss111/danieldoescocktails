@@ -1,9 +1,15 @@
-
-const BACKEND_ENDPOINT = "/cocktails"
-const BACKEND_PORT = ":5000"
-
 const ERROR_ROW = "<tr><td colspan='2'>Look's like part of my website is down, " + 
     "if the issue persists please get in touch.</td></tr>"
+
+function convertToDisplayDate(isoDateStr: string): string {
+        let isoDate: Date = new Date(isoDateStr);
+
+        let day = isoDate.getDate();
+        let month = isoDate.getMonth() + 1; // zero-indexed
+        let year = isoDate.getFullYear() - 2000; // will break in 2100 haha
+
+        return `${day}/${month}/${year}`;
+}
 
 interface Dict<T> {
     [Key: string]: T;
@@ -16,7 +22,6 @@ interface TableRowGetter {
     reachedEnd: boolean;
 
     _parseJson(item: Dict<string & string[]>) : string;
-    _search(searchTerm?: string, latestDate?: string): Promise<Dict<any>[]>;
     queryRows(searchTerm?: string): Promise<string>;
     resetLatestDate() : void;
 }
@@ -33,23 +38,13 @@ class CocktailGetter implements TableRowGetter {
         this.reachedEnd = false;
     }
 
-    _convertToDisplayDate(isoDateStr: string) : string {
-        let isoDate: Date = new Date(isoDateStr);
-
-        let day = isoDate.getDate();
-        let month = isoDate.getMonth() + 1; // zero-indexed
-        let year = isoDate.getFullYear() - 2000; // will break in 2100 haha
-
-        return `${day}/${month}/${year}`
-    }
-
     _parseJson(item: Dict<string & string[]>) : string {
         const name: string          = item.name;
         const image: string         = item.image_path;
         const ingredients: string   = item.ingredients.map((x: string) => `<li>${x}</li>`).join("\n");
         const description: string   = item.description;
         const date: string          = item.date;
-        const displayDate: string   = this._convertToDisplayDate(date)
+        const displayDate: string   = convertToDisplayDate(date)
 
         this.latestDate = date;
 
@@ -94,6 +89,88 @@ class CocktailGetter implements TableRowGetter {
 
         try { 
             jsonResponse = await this._search(searchTerm, this.latestDate);
+            jsonCocktails = jsonResponse["cocktails"]
+            this.reachedEnd = jsonResponse["is_last"]
+        }
+        catch (e) {
+            console.log("Failed to query backend for rows: " + e);
+            return ERROR_ROW;
+        }
+
+        console.log("Cocktails received:");
+        console.log(jsonCocktails);
+
+        let htmlCocktails = "";
+        jsonCocktails.forEach((jsonCocktail) => {
+            htmlCocktails += this._parseJson(jsonCocktail);
+        });
+
+        return htmlCocktails
+    }
+
+    resetLatestDate() : void {
+        this.latestDate = undefined;
+    }
+}
+
+class TravelGetter implements TableRowGetter {
+    endpoint: string;
+    port: string;
+    latestDate?: string | undefined;
+    reachedEnd: boolean;
+
+    constructor(endpoint: string, port: string) {
+        this.endpoint = endpoint;
+        this.port = port;
+        this.reachedEnd = false;
+    }
+
+    _parseJson(item: Dict<string & string[]>) : string {
+        const name: string          = item.name;
+        const image: string         = item.image_path;
+        const location: string      = item.location;
+        const description: string   = item.description;
+        const date: string          = item.date;
+        const displayDate: string   = convertToDisplayDate(date)
+
+        this.latestDate = date;
+
+        return `<tr>
+                    <td>
+                        <img src="${image}">
+                    </td>
+                    <td class="itembox">
+                        <h2>${name} - ${location}</h2>
+                        <p class="description">
+                            ${description}
+                            <span class="date">${displayDate}</span>
+                        </p>
+                    </td>
+                </tr>`
+    }
+
+    async _search(latestDate?: string): Promise<Dict<any>[]> {
+        let params: URLSearchParams = new URLSearchParams();
+        if (latestDate)
+            params.append("latest_date", latestDate);
+    
+        const response = await fetch(
+            window.location.origin + this.port + this.endpoint + "?" + params.toString()
+        );
+        if (!response.ok) {
+            console.log(`Bad response from backend API: ${response.status}`);
+            throw new Error("Response was not ok.");
+        }
+
+        return await response.json();
+    }
+
+    async queryRows(searchTerm?: string): Promise<string> {
+        let jsonResponse: Dict<any>[]
+        let jsonCocktails: any[];
+
+        try { 
+            jsonResponse = await this._search(this.latestDate);
             jsonCocktails = jsonResponse["cocktails"]
             this.reachedEnd = jsonResponse["is_last"]
         }
