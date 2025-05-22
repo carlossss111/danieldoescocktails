@@ -7,6 +7,7 @@ const COCKTAIL_TABLE_SEARCH_ID = "mainSearch";
 const COCKTAIL_UNIT_TICKBOX_ID = "measurementTickbox";
 const TRAVEL_TABLE_ANCHOR_ID = "travelAnchor";
 const TRAVEL_TABLE_MORE_ID = "travelMoreButton";
+const NOT_FOUND_ID = "cocktailsNotFound";
 
 const TAB_CLASS = ".tab";
 const TAB_CONTENT_CLASS = ".tabcontent";
@@ -34,7 +35,7 @@ function main() {
         const unitsManager: UnitsManager 
                     = new UnitsManager(COCKTAIL_UNIT_TICKBOX_ID);
         const cocktailTableListener: TableActionListener 
-                    = new TableActionListener(cocktailTableManager, unitsManager, COCKTAIL_TABLE_ANCHOR_ID, COCKTAIL_TABLE_SEARCH_ID, COCKTAIL_TABLE_MORE_ID);
+                    = new TableActionListener(cocktailTableManager, unitsManager, COCKTAIL_TABLE_ANCHOR_ID, COCKTAIL_TABLE_SEARCH_ID, COCKTAIL_TABLE_MORE_ID, NOT_FOUND_ID);
         const travelTableListener: TableActionListener 
                     = new TableActionListener(travelTableManager, unitsManager, TRAVEL_TABLE_ANCHOR_ID, COCKTAIL_TABLE_SEARCH_ID, TRAVEL_TABLE_MORE_ID);
     }

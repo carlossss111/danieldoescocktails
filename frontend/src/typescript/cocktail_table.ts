@@ -200,13 +200,23 @@ class TableActionListener {
     tableAnchor: HTMLElement;
     searchBar: HTMLInputElement;
     moreButton: HTMLElement;
+    notFoundDiv: HTMLElement | null;
     unitsManager: UnitsManager;
     query?: string | undefined
 
-    constructor(table: TableRowGetter, unitsManager: UnitsManager, tableAnchorId: string, searchBarId: string, moreButtonId: string) {
+    constructor(table: TableRowGetter, unitsManager: UnitsManager, tableAnchorId: string, 
+                searchBarId: string, moreButtonId: string, notFoundDivId?: string) {
         let tableAnchor = document.getElementById(tableAnchorId);
         let searchBar = (<HTMLInputElement>document.getElementById(searchBarId));
         let moreButton = document.getElementById(moreButtonId);
+        
+        let notFoundDiv: HTMLElement | null = null;
+        if (notFoundDivId) {
+            notFoundDiv = document.getElementById(notFoundDivId);
+        }
+        if (notFoundDiv){
+            this.notFoundDiv = notFoundDiv;
+        }
 
         if (searchBar && moreButton && tableAnchor) {
             this.table = table;
@@ -225,7 +235,7 @@ class TableActionListener {
         }
     }
 
-    _updateUI() : void {
+    _updateUI(isEmptySearch?: boolean) : void {
         this.unitsManager.updateStoredUnitsAndHeadings();
         this.unitsManager.changeUnits();
 
@@ -235,17 +245,23 @@ class TableActionListener {
         else { 
             this.moreButton.hidden = false;
         }
+
+        if (this.notFoundDiv && isEmptySearch && this.table.reachedEnd) {
+            this.notFoundDiv.style.display = "inline";
+        }
+        else if (this.notFoundDiv) {
+            this.notFoundDiv.style.display = "none";
+        }
     }
 
     async pageLoad() : Promise<void> { 
         console.log("Loading initial rows...");
 
         this.table.resetLatestDate();
+
         let rows = await this.table.queryRows();
-
         this.tableAnchor.innerHTML = rows;
-
-        this._updateUI()
+        this._updateUI();
     }
 
     async search() : Promise<void> { 
@@ -253,30 +269,32 @@ class TableActionListener {
 
         this.table.resetLatestDate();
 
+        let rows: string = "";
         if(this.searchBar.value.length > 2){
             this.query = this.searchBar.value;
-            let rows = await this.table.queryRows(this.query)
-
+            rows = await this.table.queryRows(this.query)
             this.tableAnchor.innerHTML = rows;
         }
         else {
             this.query = undefined;
-            let rows = await this.table.queryRows()
-
+            rows = await this.table.queryRows()
             this.tableAnchor.innerHTML = rows;
         }
 
-        this._updateUI()
+        if (rows.length == 0) {
+            this._updateUI(true);
+        }
+        else {
+            this._updateUI(false);
+        }
     }
 
     async findMore() : Promise<void> {
         console.log("Loading more...");
 
         let rows = await this.table.queryRows(this.query)
-
         this.tableAnchor.innerHTML += rows;
-
-        this._updateUI()
+        this._updateUI();
     }
 
 }
