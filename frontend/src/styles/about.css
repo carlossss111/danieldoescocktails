@@ -20,5 +20,9 @@ h2{
     .maincontainer img{
         display: none;
     }
+
+    .first {
+        border-top: none;
+    }
 }
 

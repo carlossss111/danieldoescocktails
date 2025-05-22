@@ -176,6 +176,10 @@ td img{
         height:50px;/*Temp fix for some mobile browsers, issue not visible on emulators.*/
     }
 
+    .mobileHide {
+        display: none;
+    }
+
     /*Table*/
     /*td is in the main style css*/
 

@@ -2,6 +2,7 @@
 h1 {
     text-align: center;
     margin: 1em, 0;
+    border-bottom: 5px #c32222 solid;
 }
 
 section {
@@ -54,6 +55,13 @@ section a {
 
 /* Mobile */
 @media only screen and (max-width:600px){
+    h1 {
+        border-bottom: 0;
+        text-decoration: underline;
+        text-decoration-color: #c32222;
+        text-decoration-thickness: 5px;
+    }
+
     .right img, .left img {
         float: initial;
     }
