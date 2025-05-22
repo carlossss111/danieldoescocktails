@@ -1,0 +1,92 @@
+
+h1 {
+    text-align: center;
+    margin: 1em, 0;
+}
+
+section {
+    border-top: none;
+    height: 15em;
+    text-align: left;
+}
+
+section img {
+    width: 15em;
+    height: inherit;
+    object-fit: cover;
+    float: left;
+}
+
+section .desc {
+    height: inherit;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.right img {
+    float: right;
+}
+
+.right .desc {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 1em;
+}
+
+section a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.footnote {
+    margin-top: 2em;
+    text-align: right;
+}
+
+/* Tablet */
+@media only screen and (min-width:601px) and (max-width:840px) {
+    section {
+        margin: 3em 0;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width:600px){
+    .right img, .left img {
+        float: initial;
+    }
+
+    .sectionfirst {
+        border-top: none;
+    }
+
+    section {
+        padding: 10px 0;
+        height: initial;
+        text-align: center;
+        margin-bottom: 1em;
+        border-top: 5px #c32222 solid;
+    }
+
+    section img {
+        height: initial;
+        width: 100%;
+    }
+
+    section .desc, .right .desc {
+        padding: 0 10px;
+        text-align: justify;
+    }
+
+    section h2, section h3 {
+        padding: 0.25em 0;
+        text-align: center;
+    }
+
+    .footnote {
+        text-align: center;
+    }
+}
+

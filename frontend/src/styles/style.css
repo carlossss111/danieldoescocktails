@@ -38,11 +38,7 @@ section p{
 }
 
 /*Headings and Paragraphs*/
-h1{
-    font-family:'Lato','Trebuchet MS',sans-serif;
-}
-
-h2 {
+h1, h2{
     font-family: 'Merriweather', Georgia, serif;
 }
 
@@ -91,6 +87,7 @@ nav {
         border-right: 1px solid snow;
         border-left: 1px solid snow;
         flex-grow: 1;
+        width: 10em;
     }
 
 #navfirst{
@@ -248,6 +245,7 @@ footer {
 
         z-index:1;
         background-color:#c32222;
+        width: initial;
     }
 
     .slide{

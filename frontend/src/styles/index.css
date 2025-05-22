@@ -57,9 +57,9 @@ td img{
     overflow: auto;
 }
 
-    .itembox ul {
-        margin-bottom: auto;
-    }
+.itembox ul {
+    margin-bottom: auto;
+}
 
 .ingredients {
     padding-left: 2rem;
