@@ -3,12 +3,12 @@
 
 /*Hero Image*/
 #heroImage {
-    height: 40rem;
+    height: 15rem;
     width: 100%;
     background-image: url("../images/banner/heroImage.jpg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size:cover;
+    background-size: cover;
     overflow:hidden;
     text-align:center;
 }
@@ -148,16 +148,11 @@ td img{
     color:black;
     text-decoration:none;
 }
-@media only screen and (min-width:841px) and (max-width:1070px) {
-    #heroImage{
-        height:30rem;
-    }
-}
 
 /*Table breakpoint*/
 @media only screen and (min-width:601px) and (max-width:840px) {
     #heroImage{
-        height:25rem;
+        height:12.5rem;
     }
 
     td img{
@@ -174,7 +169,7 @@ td img{
 @media only screen and (max-width:600px) {
 
     #heroImage {
-        height: 15rem;
+        height: 10rem;
     }
 
     #heroLogo img{
