@@ -11,20 +11,22 @@
 html {
     font-family: 'Crimson pro', Georgia, serif;
     font-size: 1.25rem; /*Put into 20px from 16px by default*/
+    height: 100%;
 }
 
 body
 {
-    background-color:snow;
-    position:relative;
+    background-color: snow;
+    position: relative;
     margin-top: 1.5rem; /*under navbar*/
+    min-height: 100%;
 }
 
 .maincontainer {
     max-width: 840px;
     min-width: 60%;
     margin: 1rem auto 1rem auto;
-
+    padding-bottom: 4rem;
 }
 
 section {
@@ -194,6 +196,8 @@ footer {
     width: 100%;
     background-color:#c32222;
     text-align:center;
+    position: absolute;
+    bottom: 0;
 }
 
     footer a, footer p {
