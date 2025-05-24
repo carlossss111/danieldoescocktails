@@ -117,3 +117,11 @@ source .secrets/postgres-variables-manual.sh
 ## Finishing steps
 It's recommended to reboot at this point. If after rebooting the webserver is still up then we're all done.
 
+# Upgrading
+To upgrade the server, build the images and run the upgrade script on a _local_ machine. The script will upgrade the server via SSH.
+
+This script assumes the default user is a sudoer.
+```
+./utils/remote-upgrade.sh <ssh-address>
+```
+
