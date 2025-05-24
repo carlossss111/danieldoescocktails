@@ -25,6 +25,18 @@ source .secrets/postgres-variables-manual.sh
 ./utils/db-backup.sh <dir/to/backup/to>
 ```
 
+# Restore
+Restore postgres db from a file
+```
+source .secrets/postgres-variables-manual.sh
+./utils/restore-backup.sh --db <sql-file-to-restore-from>
+```
+
+Restore images (pictures) from a tar
+```
+./utils/restore-backup.sh --pics <tar-to-restore-from>
+```
+
 # Restart
 Restart the server with the 'cocktail-compose' systemd unit
 ```

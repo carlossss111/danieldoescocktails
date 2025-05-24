@@ -123,7 +123,7 @@ apt install cron
 Schedule the backup script to run periodically
 ```
 crontab -e
-> export DB_USER=<user>; /opt/danieldoescocktails/utils/db-backup.sh /opt/danieldoescocktails/backups
+> 0 3 * * 1 export DB_USER=<user>; /opt/danieldoescocktails/utils/db-backup.sh /opt/danieldoescocktails/backups
 ```
 
 ## Setup healthcheck

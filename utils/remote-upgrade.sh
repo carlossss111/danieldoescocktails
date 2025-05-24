@@ -12,12 +12,10 @@ else
     target="$2"
 fi
 
-echo 'Copying docker-compose, utils and schemas over...'
-scp docker-compose.yaml "$ssh_addr:/tmp"
+echo 'Copying utils and schemas over...'
 scp database/schema/*.sql "$ssh_addr:/tmp"
 scp utils/*.sh "$ssh_addr:/tmp"
 ssh -t "$ssh_addr" "sudo su -c \"\
-    mv /tmp/docker-compose.yaml $target/ && \
     mv /tmp/*.sql $target/database/schema && \
     mv /tmp/*.sh $target/utils\""
 
