@@ -1,0 +1,7 @@
+#!/bin/bash
+# Run before a DB migration or debugging with PSQL
+export DB_USER=<psql-user>
+export DB_PASSWORD=<psql-password>
+export DB_HOST=localhost
+export DB_NAME=<psql-db>
+

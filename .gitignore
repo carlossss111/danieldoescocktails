@@ -6,6 +6,7 @@ __pycache__
 # Building
 */dist
 *.egg*
+*.image
 
 # Typescript compilation
 frontend/src/javascript/
@@ -15,4 +16,5 @@ frontend/src/images/*.jpg
 
 # Credentials
 .secrets/**
+!.secrets/*.template
 
