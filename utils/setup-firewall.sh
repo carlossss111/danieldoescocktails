@@ -5,6 +5,16 @@ if [ "$EUID" -ne 0 ]; then
     echo 'Please run as root.'; exit 1
 fi
 
+systemctl list-units --full -all | grep -Fq 'sshguard.service'
+if [ "$?" -ne 0 ]; then
+    echo 'Please install SSH guard before running.'; exit 1
+fi
+
+systemctl list-units --full -all | grep -Fq 'netfilter-persistent.service'
+if [ "$?" -ne 0 ]; then
+    echo 'Please install iptables-persistent before running.'; exit
+fi
+
 ### SETUP ### 
 # Flush all user-defined rules
 iptables -F 
@@ -49,17 +59,21 @@ iptables -A TCP -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 
 
 # Use SSH guard
 iptables -N sshguard 
-iptables -A TCP -p tcp --destination-ports 22 -j sshguard
+iptables -A TCP -p tcp --dport 22 -j sshguard
 
 # Whitelist SSH connections
 iptables -A TCP -p tcp --dport 22 -j ACCEPT
 
 # Finish IP Tables rules
-iptables-save -f /etc/iptables/iptables.rules
+iptables-save -f /etc/iptables/rules.v4
 
 # Enable SSH guard
 systemctl enable sshguard.service
 systemctl start sshguard.service
 
-echo 'Finished! Please check /etc/iptables/iptables.rules'
+# Enable persistent IP tables
+systemctl enable netfilter-persistent.service
+systemctl start netfilter-persistent.service
+
+echo 'Finished! Please check /etc/iptables/rules.v4'
 
