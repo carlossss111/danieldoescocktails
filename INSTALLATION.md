@@ -126,6 +126,13 @@ crontab -e
 > export DB_USER=<user>; /opt/danieldoescocktails/utils/db-backup.sh /opt/danieldoescocktails/backups
 ```
 
+## Setup healthcheck
+Setup a healthcheck crontab that restarts the systemd service on a failure automatically
+```
+crontab -e
+> * * * * * docker ps | grep -q unhealthy && systemctl restart cocktail-compose
+```
+
 ## Finishing steps
 Setup logging by installing syslog.
 ```

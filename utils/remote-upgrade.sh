@@ -7,29 +7,41 @@ fi
 ssh_addr="$1"
 
 if [ -z "$2" ]; then
-    target="/opt/danieldoescocktails/images"
+    target="/opt/danieldoescocktails"
 else
     target="$2"
 fi
 
-echo 'Saving images to files...'
+echo 'Copying docker-compose, utils and schemas over...'
+scp docker-compose.yaml "$ssh_addr:/tmp"
+scp database/schema/*.sql "$ssh_addr:/tmp"
+scp utils/*.sh "$ssh_addr:/tmp"
+ssh -t "$ssh_addr" "sudo su -c \"\
+    mv /tmp/docker-compose.yaml $target/ && \
+    mv /tmp/*.sql $target/database/schema && \
+    mv /tmp/*.sh $target/utils\""
+
+echo 'Files copied...'
+
+echo 'Saving docker images to files...'
 docker image save danieldoescocktails-backend:latest -o /tmp/backend-$(date -I).image
 docker image save danieldoescocktails-frontend:latest -o /tmp/frontend-$(date -I).image
 
-echo 'Copying over to target...'
+echo 'Copying over images to target...'
 scp /tmp/*.image "$ssh_addr:/tmp"
 rm /tmp/*.image
 
 echo 'Unpacking images and restarting server...'
 ssh -t "$ssh_addr" "sudo su -c \"\
-    mv /tmp/*.image $target && \
-    docker image load -i $target/backend-$(date -I).image && \
-    docker image load -i $target/frontend-$(date -I).image && \
+    mv /tmp/*.image $target/images && \
+    docker image load -i $target/images/backend-$(date -I).image && \
+    docker image load -i $target/images/frontend-$(date -I).image && \
     systemctl restart cocktail-compose && \
     docker image prune && \
-    echo 'Restarted, checking server status...' \
+    echo 'Restarted, checking server status...' && \
     sleep 5 && \
-    systemctl status cocktail-compose | cat \""
+    systemctl status cocktail-compose | cat && \
+    docker ps \""
 
 echo 'Server updated to new image.'
 
