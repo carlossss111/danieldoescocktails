@@ -26,6 +26,7 @@ ssh -t "$ssh_addr" "sudo su -c \"\
     docker image load -i $target/backend-$(date -I).image && \
     docker image load -i $target/frontend-$(date -I).image && \
     systemctl restart cocktail-compose && \
+    docker image prune && \
     echo 'Restarted, checking server status...' \
     sleep 5 && \
     systemctl status cocktail-compose | cat \""

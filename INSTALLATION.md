@@ -114,7 +114,24 @@ source .secrets/postgres-variables-manual.sh
 ./utils/db-migration.sh database/schema/migration_x_y.sql
 ```
 
+## Schedule backups
+First install the cron scheduler
+```
+apt install cron
+```
+
+Schedule the backup script to run periodically
+```
+crontab -e
+> export DB_USER=<user>; /opt/danieldoescocktails/utils/db-backup.sh /opt/danieldoescocktails/backups
+```
+
 ## Finishing steps
+Setup logging by installing syslog.
+```
+apt install rsyslog
+```
+
 It's recommended to reboot at this point. If after rebooting the webserver is still up then we're all done.
 
 # Upgrading
