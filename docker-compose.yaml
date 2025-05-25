@@ -25,8 +25,15 @@ services:
       - db
     container_name: backend
     image: "danieldoescocktails-backend:latest"
+    volumes:
+      - ./.letsencrypt:/certs
     environment:
-      - CORS-ALLOW-ORIGINS=["http://localhost","http://danieldoescocktails.com","http://www.danieldoescocktails.com"]
+      - CORS-ALLOW-ORIGINS=[
+          "https://localhost","https://localhost:5000",
+          "https://danieldoescocktails.com","https://danieldoescocktails.com:5000",
+          "https://www.danieldoescocktails.com","https://www.danieldoescocktails.com:5000"
+        ]
+      - CERTDIR=/certs/live/danieldoescocktails.com/
     env_file: ".secrets/postgres-variables.env"
     ports:
       - "5000:5000"
@@ -39,6 +46,9 @@ services:
       - backend
     container_name: frontend
     image: "danieldoescocktails-frontend:latest"
+    volumes:
+      - ./.well-known:/usr/share/nginx/static/.well-known
+      - ./.letsencrypt:/certs
     ports:
       - "80:80"
       - "443:443"

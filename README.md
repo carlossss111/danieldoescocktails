@@ -34,6 +34,23 @@ vi .secrets/postgres-variables-manual.sh.template
 mv .secrets/postgres-variables-manual.sh.template .secrets/postgres-variables-manual.sh
 ```
 
+## Prepare HTTPS environment
+This step is required because the docker-compose, which can be copied to a live server, mounts certain directories. These steps are purely for testing, production keys can be generated following [INSTALLATION.md](/INSTALLATION.md).
+
+Create self-signed certs
+```
+cd .letsencrypt/live/danieldoescocktails.com
+openssl req -newkey rsa:4096 -x509 -sha512 -days 365 -nodes -out fullchain.pem -keyout privkey.pem
+```
+
+Create ssl params
+```
+cd .letsencrypt
+openssl dhparam -out ssl-dhparams.pem 4096
+```
+
+These will be picked up in a mounted docker volume.
+
 ## Docker
 First activate a python environment
 ```

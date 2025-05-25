@@ -114,6 +114,32 @@ source .secrets/postgres-variables-manual.sh
 ./utils/db-migration.sh database/schema/migration_x_y.sql
 ```
 
+## Enable HTTPS
+Install certbot which will do challenges with ACME to get a certificate
+```
+apt install certbot
+```
+
+The challenge works by making a GET request to /.well-known/acme-challenge/. The docker-compose for the frontend should be mounting that 
+directory, so create it locally.
+```
+mkdir -p .well-known/acme-challenge
+```
+
+Request a certificate and verify that it can be renewed 
+```
+certbot certonly --webroot -w /opt/danieldoescocktails -d danieldoescocktails.com -d www.danieldoescocktails.com
+certbot renew --dry-run
+```
+
+Certificates are mounted by docker-compose at .letencrypt, so sym link that.
+```
+ln -s /etc/letsencrypt/ /opt/danieldoescocktails/.letsencrypt
+```
+
+Bare in mind the nginx.conf and the docker-compose might need some tweaking during this process.
+Self signed certificates might need to be used for the initial challenge if this doesn't work [see README.md](/README.md).
+
 ## Schedule backups
 First install the cron scheduler
 ```
