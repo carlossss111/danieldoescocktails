@@ -7,6 +7,7 @@
 ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝   
 ==================================================
 [x] HTTPS
+[x] CI
 [ ] Admin login page
 [ ] Admin CRUD page
 [ ] Templated share page
