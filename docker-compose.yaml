@@ -2,7 +2,7 @@
 services:
   db:
     container_name: database
-    image: "postgres:17.5-alpine3.21"
+    image: "postgres:17.6-alpine3.22"
     environment:
       - POSTGRES_DB=danieldoescocktails
       - POSTGRES_USER=daniel
@@ -10,8 +10,6 @@ services:
     volumes:
       - db_data:/var/lib/postresql/data
       - ./database/schema/postgres.sql:/docker-entrypoint-initdb.d/schema.sql
-    ports:
-      - "5432:5432"
     secrets:
       - db-password
     healthcheck:
@@ -34,6 +32,9 @@ services:
           "https://www.danieldoescocktails.com","https://www.danieldoescocktails.com:5000"
         ]
       - CERTDIR=/certs/live/danieldoescocktails.com/
+      - DB_HOST=database
+      - DB_NAME=danieldoescocktails
+      - DB_USER=daniel
     env_file: ".secrets/postgres-variables.env"
     ports:
       - "5000:5000"
