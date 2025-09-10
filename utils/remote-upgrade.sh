@@ -12,12 +12,16 @@ else
     target="$2"
 fi
 
-echo 'Copying utils and schemas over...'
+echo 'Copying configuration files over...'
 scp database/schema/*.sql "$ssh_addr:/tmp"
 scp utils/*.sh "$ssh_addr:/tmp"
+scp docker-compose.yaml "$ssh_addr:/tmp"
+scp nginx.conf "$ssh_addr:/tmp"
 ssh -t "$ssh_addr" "sudo su -c \"\
     mv /tmp/*.sql $target/database/schema && \
-    mv /tmp/*.sh $target/utils\""
+    mv /tmp/*.sh $target/utils && \
+    mv /tmp/docker-compose.yaml $target/ && \
+    mv /tmp/nginx.conf $target/ \""
 
 echo 'Files copied...'
 

@@ -1,7 +1,7 @@
 import requests
 
 
-URL = "https://localhost:5000/ping"
+URL = "http://localhost:5000/ping"
 TIMEOUT = 10 # seconds
 
 

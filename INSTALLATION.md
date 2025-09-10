@@ -172,6 +172,8 @@ It's recommended to reboot at this point. If after rebooting the webserver is st
 # Upgrading
 To upgrade the server, build the images and run the upgrade script on a _local_ machine. The script will upgrade the server via SSH.
 
+(!) Note that if the postgres image has changed in the docker-compose.yaml file, the database volume might be lost. This might require restoring from a backup.
+
 This script assumes the default user is a sudoer.
 ```
 ./utils/remote-upgrade.sh <ssh-address>
