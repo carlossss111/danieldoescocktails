@@ -20,11 +20,6 @@ app.include_router(cocktail_router.router)
 app.include_router(travel_router.router)
 app.include_router(version_router.router)
 
-CERT_DIR = os.environ.get("CERTDIR")
-public_key = f"{CERT_DIR}/fullchain.pem"
-private_key = f"{CERT_DIR}/privkey.pem"
-
-
 HOST=os.environ.get("HOST_IP", default="0.0.0.0")
 PORT=os.environ.get("HOST_PORT", default=5000)
 
@@ -40,6 +35,5 @@ def ping_endpoint():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info", 
-                ssl_keyfile=private_key, ssl_certfile=public_key)
+    uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
 

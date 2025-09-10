@@ -23,21 +23,12 @@ services:
       - db
     container_name: backend
     image: "danieldoescocktails-backend:latest"
-    volumes:
-      - ./.letsencrypt:/certs
     environment:
-      - CORS-ALLOW-ORIGINS=[
-          "https://localhost","https://localhost:5000",
-          "https://danieldoescocktails.com","https://danieldoescocktails.com:5000",
-          "https://www.danieldoescocktails.com","https://www.danieldoescocktails.com:5000"
-        ]
-      - CERTDIR=/certs/live/danieldoescocktails.com/
+      - CORS-ALLOW-ORIGINS=["https://localhost", "https://danieldoescocktails.com", "https://www.danieldoescocktails.com"]
       - DB_HOST=database
       - DB_NAME=danieldoescocktails
       - DB_USER=daniel
     env_file: ".secrets/postgres-variables.env"
-    ports:
-      - "5000:5000"
     healthcheck:
       test: ["CMD", "python", "/opt/danieldoescocktails/backend/healthcheck.py"]
       interval: 60s
@@ -48,11 +39,13 @@ services:
     container_name: frontend
     image: "danieldoescocktails-frontend:latest"
     volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - ./.well-known:/usr/share/nginx/static/.well-known
       - ./.letsencrypt:/certs
     ports:
       - "80:80"
       - "443:443"
+      - "5000:5000"
     healthcheck:
       test: ["CMD-SHELL", "wget -O /dev/null http://0.0.0.0 || exit 1"]
       interval: 10m 

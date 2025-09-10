@@ -42,6 +42,7 @@ The structure should look like this:
 │       ├── migration_1.0_2.0.sql
 │       └── postgres.sql
 ├── docker-compose.yaml
+├── nginx.conf
 ├── images
 │   ├── backend.image
 │   └── frontend.image
