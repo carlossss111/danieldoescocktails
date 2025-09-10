@@ -24,6 +24,7 @@ su
 mkdir -p /opt/danieldoescocktails
 mkdir -p /opt/danieldoescocktails/images
 mkdir -p /opt/danieldoescocktails/schema/database
+mkdir -p /opt/danieldoescocktails/.well-known/acme-challenge
 mv *.sql /opt/danieldoescocktails/schema/database/
 mv docker-compose.yaml /opt/danieldoescocktails/
 mv utils /opt/danieldoescocktails/
