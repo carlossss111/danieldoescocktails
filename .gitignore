@@ -20,5 +20,4 @@ frontend/src/images/*.jpg
 
 # Credentials
 .secrets/**
-!.secrets/*.template
 

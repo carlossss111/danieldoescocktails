@@ -1,6 +1,6 @@
 [project]
 name = "cocktaildb"
-version = "2.0.1"
+version = "2.0.2"
 dependencies = [
     "sqlalchemy",
     "pg8000"
