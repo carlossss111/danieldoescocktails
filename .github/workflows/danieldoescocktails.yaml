@@ -24,7 +24,8 @@ jobs:
           cd .letsencrypt/live/danieldoescocktails.com 
           openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -batch -out fullchain.pem -keyout privkey.pem && pwd && ls -al
           cd -
-          cd .letsencrypt 
+          cd .letsencrypt
+          openssl req -newkey rsa:4096 -x509 -keyout admin-access-ca.key -out admin-access-ca.crt -days 365 -nodes -subj "/CN=daniel-certificate-authority"
           cp ../.github/workflows/.secrets/ssl-dhparams.pem.ci ./ssl-dhparams.pem 
           echo "# placeholder for CI" > options-ssl-nginx.conf && pwd && ls -al
           cd - 
