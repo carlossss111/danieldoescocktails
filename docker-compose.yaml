@@ -54,6 +54,11 @@ services:
       test: ["CMD-SHELL", "wget -O /dev/null http://0.0.0.0 || exit 1"]
       interval: 10m 
 
+  frontend-protected:
+    depends_on:
+      - frontend
+    container_name: flask
+    image: "danieldoescocktails-flask:latest"
 
 
 volumes:
