@@ -3,6 +3,7 @@ import os
 import uvicorn
 from fastapi import FastAPI
 
+from routes.image_route import ImageRouter
 from routes.version_route import VersionRouter
 from routes.cocktail_route import CocktailRouter
 from routes.travel_route import TravelCocktailRouter
@@ -16,9 +17,11 @@ add_cors_headers(app)
 version_router = VersionRouter()
 cocktail_router = CocktailRouter()
 travel_router = TravelCocktailRouter()
+image_router = ImageRouter()
 app.include_router(cocktail_router.router)
 app.include_router(travel_router.router)
 app.include_router(version_router.router)
+app.include_router(image_router.router)
 
 HOST=os.environ.get("HOST_IP", default="0.0.0.0")
 PORT=os.environ.get("HOST_PORT", default=5000)
