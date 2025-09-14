@@ -3,7 +3,6 @@ import os
 
 from fastapi import APIRouter, HTTPException, UploadFile
 
-from services import image_service
 from services.image_service import ImageService
 
 
@@ -26,6 +25,9 @@ class ImageRouter:
 
         image_dir = os.environ.get("IMAGE_DIRECTORY", "/opt/images")
         self._image_service = ImageService(image_dir)
+
+        multipart_logger = logging.getLogger("python_multipart")
+        multipart_logger.setLevel(logging.INFO) # disables spammy debug logs
 
 
     @property
