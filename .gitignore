@@ -5,6 +5,7 @@ __pycache__
 
 # Dev testing certs
 *.pem
+*.crt
 options-ssl-nginx.conf
 
 # Building

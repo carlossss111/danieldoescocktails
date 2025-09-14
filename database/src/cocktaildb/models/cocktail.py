@@ -7,7 +7,7 @@ class Cocktail(Base):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     name = db.Column(db.String(256), nullable=False)
     image_path = db.Column(db.String(256), nullable=False)
-    ingredients = db.Column(db.String(1024), nullable=False)
+    ingredients = db.Column(db.ARRAY(db.String), nullable=False)
     description = db.Column(db.String(1024), nullable=False)
     date = db.Column(db.DateTime(timezone=False), nullable=False)
 

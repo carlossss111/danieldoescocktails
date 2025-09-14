@@ -44,7 +44,7 @@ class CocktailService:
                     id = cocktail_orm.id,
                     name = cocktail_orm.name,
                     image_path = cocktail_orm.image_path,
-                    ingredients = [word for word in cocktail_orm.ingredients.split('/')],
+                    ingredients = cocktail_orm.ingredients,
                     description = cocktail_orm.description,
                     date = cocktail_orm.date
             )
