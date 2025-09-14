@@ -5,12 +5,12 @@ from pydantic import BaseModel
 
 
 class CocktailDTO(BaseModel):
-    id: int
+    id: int = -1
     name: str
     image_path: str
     ingredients: List[str]
     description: str
-    date: datetime
+    date: datetime = datetime.now()
 
 
 class CocktailResponse(BaseModel):

@@ -2,8 +2,9 @@ import logging
 from typing import Optional, List
 from datetime import datetime
 
-from cocktaildb import ReadOnly, get_db
+from cocktaildb import ReadOnly, Transaction, get_db
 from cocktaildb.methods.cocktail import CocktailRepo
+from cocktaildb.models.cocktail import Cocktail
 
 from models.cocktail_dto import CocktailDTO
 
@@ -20,6 +21,19 @@ class CocktailService:
         if not hasattr(cls, 'instance'):
             cls.instance = super(CocktailService, cls).__new__(cls)
         return cls.instance
+
+
+    def add(self, cocktail: CocktailDTO) -> None:
+        cocktail_orm = Cocktail(
+                name=cocktail.name,
+                image_path=cocktail.image_path,
+                ingredients=cocktail.ingredients,
+                description=cocktail.description,
+                date=cocktail.date
+            )
+
+        with Transaction(get_db) as db:
+            CocktailRepo.create_one(db, cocktail_orm)
 
 
     def get(self, start_date: Optional[datetime] = None, search_term: Optional[str] = None) -> List[CocktailDTO]:

@@ -7,6 +7,16 @@ from cocktaildb.models.cocktail import Cocktail
 
 
 class CocktailRepo:
+
+    ## CREATE
+
+    @staticmethod
+    def create_one(db: Session, cocktail: Cocktail):
+        db.add(cocktail)
+
+
+    ## READ
+
     @staticmethod
     def fetch_one_by_id(db: Session, search_id: int) -> Optional[Cocktail]:
         return db.query(Cocktail).get(search_id)
