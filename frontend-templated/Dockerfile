@@ -10,5 +10,6 @@ COPY ["./requirements.txt", "./"]
 
 RUN ["pip", "install", "-r", "requirements.txt"]
 
-ENTRYPOINT ["gunicorn", "frontend.main:app", "-b", ":80"]
+WORKDIR "/opt/danieldoescocktails/frontend"
+ENTRYPOINT ["gunicorn", "main:app", "-b", ":80"]
 

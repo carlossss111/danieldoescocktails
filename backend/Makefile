@@ -8,5 +8,5 @@ docker-build:
 	rm cocktaildb-*-py3-none-any.whl
 
 docker-run: docker-build
-	docker run --rm $(IMAGENAME) --name $(CONTAINERNAME)
+	docker run -e IMAGE_DIRECTORY="/tmp" -e CORS-ALLOW-ORIGINS=["https://localhost"] -p 5000:5000 --rm $(IMAGENAME) --name $(CONTAINERNAME)
 

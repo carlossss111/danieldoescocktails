@@ -1,10 +1,9 @@
-from flask import Flask
+from __init__ import app
 
-
-app = Flask(__name__)
+from routes import forms 
 
 
 @app.route("/")
-def hello():
-    return "Hello World"
+def index():
+    return "Root page"
 

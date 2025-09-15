@@ -1,3 +1,6 @@
 flask==3.1.2
 gunicorn==23.0.0
+wtforms==3.2.1
+pydantic==2.11.7
+requests==2.32.5
 

@@ -1,0 +1,13 @@
+<html>
+    <body>
+        This is a test page, work in progress.
+        <form method="POST" action="add_cocktail" enctype="multipart/form-data">
+            <div>{{ form.name.label }}: {{ form.name() }}</div>
+            <div>{{ form.image.label }}: {{ form.image() }}</div>
+            <div>{{ form.ingredients.label }}: {{ form.ingredients() }}</div>
+            <div>{{ form.description.label }}: {{ form.description() }}</div>
+            <div>{{ form.date.label }}: {{ form.date() }}</div>
+            <input type="submit"/>
+        </form>
+    </body>
+</html>

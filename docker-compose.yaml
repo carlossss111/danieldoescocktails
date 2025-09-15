@@ -39,6 +39,7 @@ services:
   frontend:
     depends_on:
       - backend
+      - frontend-protected
     container_name: frontend
     image: "danieldoescocktails-frontend:latest"
     volumes:
@@ -56,9 +57,11 @@ services:
 
   frontend-protected:
     depends_on:
-      - frontend
+      - backend
     container_name: flask
     image: "danieldoescocktails-flask:latest"
+    environment:
+      - PYTHONUNBUFFERED=TRUE
 
 
 volumes:

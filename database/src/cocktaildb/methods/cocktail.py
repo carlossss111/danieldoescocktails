@@ -79,3 +79,10 @@ class CocktailRepo:
         return db.query(Cocktail) \
             .filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
 
+
+    ## DELETE
+
+    @staticmethod
+    def delete_by_name(db: Session, match: str) -> None:
+        db.query(Cocktail).filter_by(name=match).delete()
+
