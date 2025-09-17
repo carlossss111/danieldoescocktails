@@ -44,7 +44,7 @@
 
 /*Table (index specific)*/
 
-td img{
+.tableimage {
     width:350px;
     height:350px;
 }

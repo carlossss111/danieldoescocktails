@@ -21,3 +21,85 @@
     margin: 20px;
 }
 
+/* General Crud properties */
+
+.crudHeading {
+    text-align: center;
+    margin: 150px auto 100px auto;
+}
+
+.crudSubmit {
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    margin: 50px auto;
+}
+
+.crudSubmit a {
+    color: grey;
+    text-decoration: none;
+}
+
+.crudSubmit input {
+  border: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Add Page */
+
+.tableimage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: repeating-linear-gradient(
+      45deg,
+      #fff0f5,
+      #fff0f5 10px,
+      #d3d3d3 10px,
+      #d3d3d3 20px
+    );
+}
+
+.ingredients, .description {
+}
+
+.description {
+    position: relative; /* to offset date input box weirdness */
+    bottom: -1em;
+}
+
+.addform input[type="text"], textarea {
+    font-family: inherit;
+    font-size: inherit;
+    background: inherit;
+    padding: inherit;
+    border: inherit;
+    margin: inherit;
+    resize: none;
+}
+
+/* Text Area wizardry */
+.grow-wrap {
+  display: grid;
+}
+
+.grow-wrap::after {
+  content: attr(data-replicated-value) " ";
+  white-space: pre-wrap;
+  visibility: hidden;
+}
+
+.grow-wrap > textarea {
+  resize: none;
+  overflow: hidden;
+}
+
+.grow-wrap > textarea, .grow-wrap::after {
+  grid-area: 1 / 1 / 2 / 2;
+}
+

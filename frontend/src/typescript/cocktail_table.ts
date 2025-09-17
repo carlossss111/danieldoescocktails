@@ -50,7 +50,7 @@ class CocktailGetter implements TableRowGetter {
 
         return `<tr> 
                     <td>
-                        <img src="${image}">
+                        <img class="tableimage" src="${image}">
                     </td> 
                     <td class="itembox">
                         <h2>${name}</h2>
@@ -137,7 +137,7 @@ class TravelGetter implements TableRowGetter {
 
         return `<tr>
                     <td>
-                        <img src="${image}">
+                        <img class="tableimage" src="${image}">
                     </td>
                     <td class="itembox">
                         <h2>${name} - ${location}</h2>

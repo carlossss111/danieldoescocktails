@@ -1,13 +1,46 @@
-<html>
-    <body>
-        This is a test page, work in progress.
-        <form method="POST" action="add_cocktail" enctype="multipart/form-data">
-            <div>{{ form.name.label }}: {{ form.name() }}</div>
-            <div>{{ form.image.label }}: {{ form.image() }}</div>
-            <div>{{ form.ingredients.label }}: {{ form.ingredients() }}</div>
-            <div>{{ form.description.label }}: {{ form.description() }}</div>
-            <div>{{ form.date.label }}: {{ form.date() }}</div>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/jpg" href="/images/logo/favicon.png"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="/css/index.css" type="text/css" rel="stylesheet" />
+    <link href="/css/admin.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Pro|Lato:400,700|Merriweather:400,400i&display=swap" rel="stylesheet">
+    <title>ADMIN | danieldoescocktails</title>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li id='navlogoContainer'>
+                <img src='/images/logo/Dan_Does_Cocktails_Light_Shadow_Small.jpg' alt='danieldoescocktails' id='navlogo'>
+            </li>
+        </ul>
+    </nav>
+    
+    <h1 class="crudHeading">Create</h1>
+
+    <form method="POST" action="create" enctype="multipart/form-data" class="maincontainer addform">
+        <table id="firstTable">
+            <tr>
+                <td style="width: 350px;">
+                    <div class="tableimage">{{ form.image() }}<div>
+                </td>
+                <td class="itembox">
+                    <h2>{{ form.name(placeholder_="Title here") }}</h2>
+                    <ul><div class="grow-wrap">{{ form.ingredients(class_="ingredients", onInput_="this.parentNode.dataset.replicatedValue = this.value", placeholder_="Ingredients here...") }}</div></ul>
+                    <div>
+                    <div class="grow-wrap">{{ form.description(class_="description", onInput_="this.parentNode.dataset.replicatedValue = this.value", placeholder_="Description here...") }}</div>
+                    <div>{{ form.date(class_="date") }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="crudSubmit">
+            <a href=".">Back</a>
             <input type="submit"/>
-        </form>
-    </body>
+        </div>
+    </form>
+</body>
 </html>
