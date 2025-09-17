@@ -16,10 +16,10 @@ SUMMARY_PAGE = "summary.html"
 logger = logging.getLogger(__name__)
 
 
-@app.route("/add_cocktail", methods=["GET","POST"])
+@app.route("/create", methods=["GET","POST"])
 def add_cocktail():
     form = AddCocktailForm(request.form)
-    logger.info("Visited /add_cocktail page")
+    logger.info("Visited /create page")
 
     if request.method == "GET":
         return render_template(ADD_PAGE, form=form)

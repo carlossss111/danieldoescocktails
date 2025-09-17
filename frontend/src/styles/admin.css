@@ -1,0 +1,23 @@
+
+/* Index Page */
+.indexHeading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 250px auto 100px auto;
+}
+
+.indexHeading img {
+    width: 100px;
+    height: 100px;
+}
+
+.indexChoices {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.indexChoices a {
+    margin: 20px;
+}
+
