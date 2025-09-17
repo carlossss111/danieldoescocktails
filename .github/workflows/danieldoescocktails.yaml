@@ -12,6 +12,10 @@ jobs:
           pip install -r database/requirements.txt
           pip install -r backend/requirements.txt
           cd backend && make docker-build && cd -
+     - name: Build flask
+       run: |
+          pip install -r frontend-templated/requirements.txt
+          cd frontend-templated && make docker-build && cd -
      - name: Build frontend
        run: |
           npm install -g typescript
