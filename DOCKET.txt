@@ -21,6 +21,6 @@ NEW BUGS
 ============
 [x] searchbar broken after latest DB migration 
 [x] load more button borked
-[ ] recommendations page is missing savoy text
-[ ] recommendations page overflows on mobile
+[x] recommendations page is missing savoy text
+[x] recommendations page overflows on mobile
 
