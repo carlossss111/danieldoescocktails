@@ -1,7 +1,7 @@
 FROM python:3.13.7-alpine3.22
 
 LABEL "author"="Daniel R"
-LABEL "version"="2.0.2"
+LABEL "version"="2.1.0"
 
 WORKDIR "/opt/danieldoescocktails"
 
