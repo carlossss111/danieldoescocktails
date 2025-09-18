@@ -103,3 +103,16 @@
   grid-area: 1 / 1 / 2 / 2;
 }
 
+/* Summaries */
+.action_success {
+    color: SeaGreen;
+    font-weight: bold;
+    max-width: 600px;
+}
+
+.action_fail {
+    color: DarkRed;
+    font-weight: bold;
+    max-width: 600px;
+}
+
