@@ -76,7 +76,7 @@ class CocktailService:
             with ReadOnly(get_db) as db:
                 earliest_cocktail = CocktailRepo.fetch_one_by_earliest(db)
 
-        if earliest_cocktail and str(earliest_cocktail.date) == cocktail.date.strftime("%Y-%m-%d"):
+        if earliest_cocktail and datetime.fromisoformat(str(earliest_cocktail.date)) == cocktail.date:
             return True
         return False
     

@@ -8,10 +8,19 @@
 ==================================================
 [x] HTTPS
 [x] CI
-[ ] Admin login page
-[ ] Admin CRUD page
+[x] Admin login page
+[x] Admin CRUD page
 [ ] Templated share page
 [ ] Fix up mobile CSS on recommendations page
 [ ] Top 5 favourite drinks page
 [ ] @danieldoescocktails.com SMTP server
+
+
+============
+NEW BUGS
+============
+[x] searchbar broken after latest DB migration 
+[x] load more button borked
+[ ] recommendations page is missing savoy text
+[ ] recommendations page overflows on mobile
 

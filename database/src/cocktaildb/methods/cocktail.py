@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional, List
-from sqlalchemy import or_
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from cocktaildb.models.cocktail import Cocktail
@@ -40,15 +40,19 @@ class CocktailRepo:
     @staticmethod
     def fetch_one_by_latest_with_words_like(db: Session, match: str) -> Optional[Cocktail]:
         match = f"%{match}%"
-        return db.query(Cocktail).filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match)))\
-            .order_by(Cocktail.date.desc()).first()
+        return db.query(Cocktail).filter(or_(
+                    Cocktail.name.ilike(match), 
+                    func.array_to_string(Cocktail.ingredients, ", ", "*").ilike(match)
+                )).order_by(Cocktail.date.desc()).first()
 
 
     @staticmethod
     def fetch_one_by_earliest_with_words_like(db: Session, match: str) -> Optional[Cocktail]:
         match = f"%{match}%"
-        return db.query(Cocktail).filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match)))\
-            .order_by(Cocktail.date.asc()).first()
+        return db.query(Cocktail).filter(or_(
+                    Cocktail.name.ilike(match), 
+                    func.array_to_string(Cocktail.ingredients, ", ", "*").ilike(match)
+                )).order_by(Cocktail.date.asc()).first()
 
 
     @staticmethod
@@ -70,14 +74,20 @@ class CocktailRepo:
     def fetch_many_by_date_with_words_like(db: Session, start_time: datetime, match: str, max_results: int) -> List[Cocktail]:
         match = f"%{match}%"
         return db.query(Cocktail).filter(Cocktail.date < start_time) \
-            .filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
+            .filter(or_(
+                Cocktail.name.ilike(match), 
+                func.array_to_string(Cocktail.ingredients, ", ", "*").ilike(match)
+            )).order_by(Cocktail.date.desc()).limit(max_results).all()
 
 
     @staticmethod
     def fetch_many_by_latest_with_words_like(db: Session, match: str, max_results: int) -> List[Cocktail]:
         match = f"%{match}%"
         return db.query(Cocktail) \
-            .filter(or_(Cocktail.name.ilike(match), Cocktail.ingredients.ilike(match))).order_by(Cocktail.date.desc()).limit(max_results).all()
+            .filter(or_(
+                Cocktail.name.ilike(match), 
+                func.array_to_string(Cocktail.ingredients, ", ", "*").ilike(match)
+            )).order_by(Cocktail.date.desc()).limit(max_results).all()
 
 
     ## DELETE
