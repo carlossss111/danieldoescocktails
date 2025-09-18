@@ -28,6 +28,7 @@ echo 'Files copied...'
 echo 'Saving docker images to files...'
 docker image save danieldoescocktails-backend:latest -o /tmp/backend-$(date -I).image
 docker image save danieldoescocktails-frontend:latest -o /tmp/frontend-$(date -I).image
+docker image save danieldoescocktails-flask:latest -o /tmp/flask-$(date -I).image
 
 echo 'Copying over images to target...'
 scp /tmp/*.image "$ssh_addr:/tmp"
@@ -38,6 +39,7 @@ ssh -t "$ssh_addr" "sudo su -c \"\
     mv /tmp/*.image $target/images && \
     docker image load -i $target/images/backend-$(date -I).image && \
     docker image load -i $target/images/frontend-$(date -I).image && \
+    docker image load -i $target/images/flask-$(date -I).image && \
     systemctl restart cocktail-compose && \
     docker image prune && \
     echo 'Restarted, checking server status...' && \
