@@ -1,7 +1,7 @@
-FROM nginx:1.29.1-alpine3.22
+FROM nginx:1.29.4-alpine3.23
 
 LABEL "author"="Daniel R"
-LABEL "version"="2.1.1"
+LABEL "version"="2.1.2"
 
 COPY ["./src/html", "/usr/share/nginx/static"]
 COPY ["./src/styles", "/usr/share/nginx/static/css"]
