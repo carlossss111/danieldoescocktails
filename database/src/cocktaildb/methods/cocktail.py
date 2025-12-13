@@ -56,6 +56,11 @@ class CocktailRepo:
 
 
     @staticmethod
+    def fetch_one_by_last_id(db: Session) -> Optional[Cocktail]:
+        return db.query(Cocktail).order_by(Cocktail.id.desc()).first()
+
+
+    @staticmethod
     def fetch_many_by_id(db: Session, start_id: int, max_results: int) -> List[Cocktail]:
         return db.query(Cocktail).filter(Cocktail.id < start_id).order_by(Cocktail.id.desc()).limit(max_results).all()
 

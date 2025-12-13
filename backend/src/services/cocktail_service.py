@@ -24,7 +24,15 @@ class CocktailService:
 
 
     def add(self, cocktail: CocktailDTO) -> None:
-        cocktail_orm = Cocktail(
+        with Transaction(get_db) as db:
+            latest_cocktail: Optional[Cocktail] = CocktailRepo.fetch_one_by_last_id(db)
+            if not latest_cocktail:
+                next_id = 1
+            else:
+                next_id = latest_cocktail.id + 1
+
+            cocktail_orm = Cocktail(
+                id=next_id,
                 name=cocktail.name,
                 image_path=cocktail.image_path,
                 ingredients=cocktail.ingredients,
@@ -32,7 +40,6 @@ class CocktailService:
                 date=cocktail.date
             )
 
-        with Transaction(get_db) as db:
             CocktailRepo.create_one(db, cocktail_orm)
 
 
