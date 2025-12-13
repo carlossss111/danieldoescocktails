@@ -11,7 +11,7 @@
 [x] Admin login page
 [x] Admin CRUD page
 [ ] Templated share page
-[ ] Fix up mobile CSS on recommendations page
+[x] Fix up mobile CSS on recommendations page
 [ ] Top 5 favourite drinks page
 [ ] @danieldoescocktails.com SMTP server
 
@@ -23,6 +23,6 @@ NEW BUGS
 [x] load more button borked
 [x] recommendations page is missing savoy text
 [x] recommendations page overflows on mobile
-[ ] Mobile css is now broken somehow
+[x] Mobile css is now broken somehow
 [ ] going to create page doesnt work if u are on /protected, but does if on /protected/ (prod)
 

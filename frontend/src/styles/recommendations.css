@@ -71,6 +71,10 @@ section a {
         border-top: none;
     }
 
+    .maincontainer {
+        padding-bottom: 6rem;
+    }
+
     section {
         padding: 10px 0;
         height: initial;
@@ -96,6 +100,7 @@ section a {
 
     .footnote {
         text-align: center;
+        margin-top: 0;
     }
 }
 
